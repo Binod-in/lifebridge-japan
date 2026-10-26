@@ -1,1 +1,123 @@
-IiIiTGlmZUJyaWRnZSBKYXBhbjogQUkgbm90aWNlIGV4cGxhaW5lciBiYWNrZW5kLgoKUnVuOgogICAgcGlwIGluc3RhbGwgZmxhc2sKICAgIHNldCBNRVRBX0FQSV9LRVk9eW91ci1rZXktaGVyZSAgIChXaW5kb3dzIGNtZCwgc2FtZSBzaGVsbCkKICAgIHB5dGhvbiBzZXJ2ZXIucHkKClRoZW4gb3BlbiBodHRwOi8vMTI3LjAuMC4xOjUwMDAvZXhwbGFpbi5odG1sIGFuZCBzdWJtaXQgYSBwaG90by4KClRoZSBBUEkga2V5IGlzIHJlYWQgb25seSBmcm9tIHRoZSBNRVRBX0FQSV9LRVkgZW52aXJvbm1lbnQgdmFyaWFibGUuCkl0IG5ldmVyIGJlbG9uZ3MgaW4gZnJvbnRlbmQgY29kZS4KIiIiCgppbXBvcnQgYmFzZTY0CmltcG9ydCBvcwppbXBvcnQgdXJsbGliLmVycm9yCmltcG9ydCB1cmxsaWIucmVxdWVzdAppbXBvcnQganNvbgoKZnJvbSBmbGFzayBpbXBvcnQgRmxhc2ssIGpzb25pZnksIHJlcXVlc3QsIHNlbmRfZnJvbV9kaXJlY3RvcnkKCkJBU0VfRElSID0gb3MucGF0aC5kaXJuYW1lKG9zLnBhdGguYWJzcGF0aChfX2ZpbGVfXykpCmFwcCA9IEZsYXNrKF9fbmFtZV9fLCBzdGF0aWNfZm9sZGVyPU5vbmUpCgpBUElfS0VZID0gb3MuZW52aXJvbi5nZXQoIk1FVEFfQVBJX0tFWSIsICIiKQpNT0RFTCA9IG9zLmVudmlyb24uZ2V0KCJNRVRBX01PREVMIiwgIm11c2Utc3BhcmsiKQpCQVNFX1VSTCA9IG9zLmVudmlyb24uZ2V0KCJNRVRBX0JBU0VfVVJMIiwgImh0dHBzOi8vYXBpLm1ldGEuYWkvdjEiKQpQT1JUID0gaW50KG9zLmVudmlyb24uZ2V0KCJQT1JUIiwgIjUwMDAiKSkKCkhFQURFUlMgPSBbCiAgICAiV2hhdCBpcyB0aGlzPyIsCiAgICAiV2h5IGRpZCB5b3UgZ2V0IGl0PyIsCiAgICAiSG93IGltcG9ydGFudCBpcyBpdD8iLAogICAgIldoYXQgdG8gZG8gbmV4dCIsCiAgICAiRGVhZGxpbmUiLAogICAgIlRoaW5ncyB0byBjaGVjayIsCl0KCkxBTkdfTkFNRVMgPSB7Im5lIjogIk5lcGFsaSIsICJlbiI6ICJFbmdsaXNoIiwgImphIjogIkphcGFuZXNlIn0KCgpAYXBwLmdldCgiLyIpCmRlZiBob21lKCk6CiAgICByZXR1cm4gc2VuZF9mcm9tX2RpcmVjdG9yeShCQVNFX0RJUiwgImluZGV4Lmh0bWwiKQoKCkBhcHAuZ2V0KCIvPHBhdGg6cGF0aD4iKQpkZWYgc3RhdGljX2ZpbGVzKHBhdGgpOgogICAgcmV0dXJuIHNlbmRfZnJvbV9kaXJlY3RvcnkoQkFTRV9ESVIsIHBhdGgpCgoKQGFwcC5wb3N0KCIvZXhwbGFpbiIpCmRlZiBleHBsYWluKCk6CiAgICBpZiBub3QgQVBJX0tFWToKICAgICAgICByZXR1cm4ganNvbmlmeSh7ImVycm9yIjogIlNlcnZlciBpcyBtaXNzaW5nIE1FVEFfQVBJX0tFWSJ9KSwgNTAwCgogICAgcGhvdG8gPSByZXF1ZXN0LmZpbGVzLmdldCgicGhvdG8iKQogICAgaWYgcGhvdG8gaXMgTm9uZSBvciBwaG90by5maWxlbmFtZSA9PSAiIjoKICAgICAgICByZXR1cm4ganNvbmlmeSh7ImVycm9yIjogIk5vIHBob3RvIHJlY2VpdmVkIn0pLCA0MDAKCiAgICBsYW5nID0gcmVxdWVzdC5mb3JtLmdldCgibGFuZ3VhZ2UiLCAiZW4iKQogICAgbGFuZ19uYW1lID0gTEFOR19OQU1FUy5nZXQobGFuZywgIkVuZ2xpc2giKQoKICAgIGltZ19iNjQgPSBiYXNlNjQuYjY0ZW5jb2RlKHBob3RvLnJlYWQoKSkuZGVjb2RlKCJhc2NpaSIpCiAgICBtaW1lID0gcGhvdG8ubWltZXR5cGUgb3IgImltYWdlL2pwZWciCiAgICBkYXRhX3VyaSA9IGYiZGF0YTp7bWltZX07YmFzZTY0LHtpbWdfYjY0fSIKCiAgICBoZWFkZXJfbGlzdCA9ICJcbiIuam9pbihmIntofSIgZm9yIGggaW4gSEVBREVSUykKICAgIHByb21wdCA9ICgKICAgICAgICAiWW91IGFyZSBoZWxwaW5nIGEgbmV3Y29tZXIgaW4gSmFwYW4gdW5kZXJzdGFuZCBhbiBvZmZpY2lhbCBKYXBhbmVzZSBub3RpY2UgIgogICAgICAgICJzaG93biBpbiB0aGUgcGhvdG8uIEV4cGxhaW4gaXQgaW4gc2ltcGxlLCBmcmllbmRseSB3b3Jkcy5cblxuIgogICAgICAgIGYiV3JpdGUgdGhlIGNvbnRlbnQgaW4ge2xhbmdfbmFtZX0uXG4iCiAgICAgICAgIlVzZSBFWEFDVExZIHRoZXNlIHNlY3Rpb24gaGVhZGVycyBpbiBFbmdsaXNoLCBpbiB0aGlzIG9yZGVyLCBlYWNoIG9uIGl0cyBvd24gbGluZTpcbiIKICAgICAgICBmIntoZWFkZXJfbGlzdH1cblxuIgogICAgICAgICJSdWxlczpcbiIKICAgICAgICAiLSBVbmRlciAnV2hhdCB0byBkbyBuZXh0JywgZ2l2ZSBjbGVhciBzdGVwcyBpbiBvcmRlci5cbiIKICAgICAgICAiLSBVbmRlciAnRGVhZGxpbmUnLCB3cml0ZSB0aGUgZXhhY3QgZGF0ZS9hbW91bnQgZnJvbSB0aGUgbm90aWNlIGlmIHNob3duLlxuIgogICAgICAgICItIElmIGFueSBkZXRhaWwgaW4gdGhlIHBob3RvIGlzIHVuY2xlYXIgb3IgdW5yZWFkYWJsZSwgc2F5IHNvIHVuZGVyICIKICAgICAgICAiJ1RoaW5ncyB0byBjaGVjaycgaW5zdGVhZCBvZiBndWVzc2luZy4gTmV2ZXIgaW52ZW50IGFtb3VudHMsIGRhdGVzLCBvciBuYW1lcy5cbiIKICAgICAgICAiLSBLZWVwIGVhY2ggc2VjdGlvbiBzaG9ydC4gTm8gdGV4dCBiZWZvcmUgdGhlIGZpcnN0IGhlYWRlci4iCiAgICApCgogICAgcGF5bG9hZCA9IHsKICAgICAgICAibW9kZWwiOiBNT0RFTCwKICAgICAgICAibWVzc2FnZXMiOiBbCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICJyb2xlIjogInVzZXIiLAogICAgICAgICAgICAgICAgImNvbnRlbnQiOiBbCiAgICAgICAgICAgICAgICAgICAgeyJ0eXBlIjogInRleHQiLCAidGV4dCI6IHByb21wdH0sCiAgICAgICAgICAgICAgICAgICAgeyJ0eXBlIjogImltYWdlX3VybCIsICJpbWFnZV91cmwiOiB7InVybCI6IGRhdGFfdXJpfX0sCiAgICAgICAgICAgICAgICBdLAogICAgICAgICAgICB9CiAgICAgICAgXSwKICAgIH0KCiAgICByZXEgPSB1cmxsaWIucmVxdWVzdC5SZXF1ZXN0KAogICAgICAgIGYie0JBU0VfVVJMfS9jaGF0L2NvbXBsZXRpb25zIiwKICAgICAgICBkYXRhPWpzb24uZHVtcHMocGF5bG9hZCkuZW5jb2RlKCJ1dGYtOCIpLAogICAgICAgIGhlYWRlcnM9ewogICAgICAgICAgICAiQXV0aG9yaXphdGlvbiI6IGYiQmVhcmVyIHtBUElfS0VZfSIsCiAgICAgICAgICAgICJDb250ZW50LVR5cGUiOiAiYXBwbGljYXRpb24vanNvbiIsCiAgICAgICAgfSwKICAgICAgICBtZXRob2Q9IlBPU1QiLAogICAgKQogICAgdHJ5OgogICAgICAgIHdpdGggdXJsbGliLnJlcXVlc3QudXJsb3BlbihyZXEsIHRpbWVvdXQ9MTIwKSBhcyByZXNwOgogICAgICAgICAgICBkYXRhID0ganNvbi5sb2FkcyhyZXNwLnJlYWQoKS5kZWNvZGUoInV0Zi04IikpCiAgICBleGNlcHQgdXJsbGliLmVycm9yLkhUVFBFcnJvciBhcyBlOgogICAgICAgIGRldGFpbCA9IGUucmVhZCgpLmRlY29kZSgidXRmLTgiLCAicmVwbGFjZSIpWzo1MDBdCiAgICAgICAgcmV0dXJuIGpzb25pZnkoeyJlcnJvciI6IGYiTWV0YSBBUEkgZXJyb3Ige2UuY29kZX06IHtkZXRhaWx9In0pLCA1MDIKICAgIGV4Y2VwdCBFeGNlcHRpb24gYXMgZTogICMgbmV0d29yaywgdGltZW91dCwgZXRjLgogICAgICAgIHJldHVybiBqc29uaWZ5KHsiZXJyb3IiOiBmIkNvdWxkIG5vdCByZWFjaCBNZXRhIEFQSToge2V9In0pLCA1MDIKCiAgICB0cnk6CiAgICAgICAgdGV4dCA9IGRhdGFbImNob2ljZXMiXVswXVsibWVzc2FnZSJdWyJjb250ZW50Il0KICAgIGV4Y2VwdCAoS2V5RXJyb3IsIEluZGV4RXJyb3IsIFR5cGVFcnJvcik6CiAgICAgICAgcmV0dXJuIGpzb25pZnkoeyJlcnJvciI6ICJVbmV4cGVjdGVkIHJlcGx5IGZyb20gTWV0YSBBUEkifSksIDUwMgoKICAgIHJldHVybiBqc29uaWZ5KHsidGV4dCI6IHRleHR9KQoKCmlmIF9fbmFtZV9fID09ICJfX21haW5fXyI6CiAgICBhcHAucnVuKGhvc3Q9IjAuMC4wLjAiLCBwb3J0PVBPUlQpCg==
+"""LifeBridge Japan: AI notice explainer backend.
+
+Run:
+    pip install flask
+    set META_API_KEY=your-key-here   (Windows cmd, same shell)
+    python server.py
+
+Then open http://127.0.0.1:5000/explain.html and submit a photo.
+
+The API key is read only from the META_API_KEY environment variable.
+It never belongs in frontend code.
+"""
+
+import base64
+import os
+import urllib.error
+import urllib.request
+import json
+
+from flask import Flask, jsonify, request, send_from_directory
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+app = Flask(__name__, static_folder=None)
+
+API_KEY = os.environ.get("META_API_KEY", "")
+MODEL = os.environ.get("META_MODEL", "muse-spark")
+BASE_URL = os.environ.get("META_BASE_URL", "https://api.meta.ai/v1")
+PORT = int(os.environ.get("PORT", "5000"))
+
+HEADERS = [
+    "What is this?",
+    "Why did you get it?",
+    "How important is it?",
+    "What to do next",
+    "Deadline",
+    "Things to check",
+]
+
+LANG_NAMES = {"ne": "Nepali", "en": "English", "ja": "Japanese"}
+
+
+@app.get("/")
+def home():
+    return send_from_directory(BASE_DIR, "index.html")
+
+
+@app.get("/<path:path>")
+def static_files(path):
+    return send_from_directory(BASE_DIR, path)
+
+
+@app.post("/explain")
+def explain():
+    if not API_KEY:
+        return jsonify({"error": "Server is missing META_API_KEY"}), 500
+
+    photo = request.files.get("photo")
+    if photo is None or photo.filename == "":
+        return jsonify({"error": "No photo received"}), 400
+
+    lang = request.form.get("language", "en")
+    lang_name = LANG_NAMES.get(lang, "English")
+
+    img_b64 = base64.b64encode(photo.read()).decode("ascii")
+    mime = photo.mimetype or "image/jpeg"
+    data_uri = f"data:{mime};base64,{img_b64}"
+
+    header_list = "\n".join(f"{h}" for h in HEADERS)
+    prompt = (
+        "You are helping a newcomer in Japan understand an official Japanese notice "
+        "shown in the photo. Explain it in simple, friendly words.\n\n"
+        f"Write the content in {lang_name}.\n"
+        "Use EXACTLY these section headers in English, in this order, each on its own line:\n"
+        f"{header_list}\n\n"
+        "Rules:\n"
+        "- Under 'What to do next', give clear steps in order.\n"
+        "- Under 'Deadline', write the exact date/amount from the notice if shown.\n"
+        "- If any detail in the photo is unclear or unreadable, say so under "
+        "'Things to check' instead of guessing. Never invent amounts, dates, or names.\n"
+        "- Keep each section short. No text before the first header."
+    )
+
+    payload = {
+        "model": MODEL,
+        "messages": [
+            {
+                "role": "user",
+                "content": [
+                    {"type": "text", "text": prompt},
+                    {"type": "image_url", "image_url": {"url": data_uri}},
+                ],
+            }
+        ],
+    }
+
+    req = urllib.request.Request(
+        f"{BASE_URL}/chat/completions",
+        data=json.dumps(payload).encode("utf-8"),
+        headers={
+            "Authorization": f"Bearer {API_KEY}",
+            "Content-Type": "application/json",
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=120) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+    except urllib.error.HTTPError as e:
+        detail = e.read().decode("utf-8", "replace")[:500]
+        return jsonify({"error": f"Meta API error {e.code}: {detail}"}), 502
+    except Exception as e:  # network, timeout, etc.
+        return jsonify({"error": f"Could not reach Meta API: {e}"}), 502
+
+    try:
+        text = data["choices"][0]["message"]["content"]
+    except (KeyError, IndexError, TypeError):
+        return jsonify({"error": "Unexpected reply from Meta API"}), 502
+
+    return jsonify({"text": text})
+
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=PORT)
