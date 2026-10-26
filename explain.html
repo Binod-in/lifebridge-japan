@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Explain a notice | LIFEGO JAPAN</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body id="top"><a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+        <div class="header-cnt">
+            <!-- Logo -->
+            <div class="logo">
+                <img alt="" src="logo/logo.png" />
+                <div class="logo-text">
+                    <span class="logo-name">LIFEGO JAPAN</span>
+                    <span class="logo-tag">Your everyday guide to living in Japan.</span>
+                </div>
+            </div>
+            <!-- Main menu -->
+            <nav aria-label="Main navigation" class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="start.html">Start Here</a>
+                <a href="guide.html">Guides</a>
+                <a href="jobs.html">Jobs</a>
+                <a href="japanese.html">Japanese help</a>
+                <a href="emergency.html">Emergency</a>
+                <a href="questions.html">Q&amp;A</a>
+            </nav>
+            <!-- Right side of header -->
+            <div class="header-act">
+                <a class="btn" href="login.html">Demo Profile</a>
+            </div>
+        </div>
+    </header>
+    <main id="main-content" class="content-page"><a class="saved-back" href="index.html">← Home</a>
+        <h1>Explain a notice</h1>
+        <p class="page-lead">Take a photo of a Japanese notice. We explain what it means and what to do next.</p>
+        <article class="detail-card">
+            <h2>Your notice photo</h2>
+            <form id="explain-form" class="stacked-form">
+                <label for="photo-input">Photo of the notice (image only)</label>
+                <input id="photo-input" name="image" type="file" accept="image/*" capture="environment" required />
+                <img id="photo-preview" alt="Preview of your notice photo" hidden
+                    style="max-width: 100%; border-radius: 8px;" />
+                <label for="lang-select">Explanation language</label>
+                <select id="lang-select" name="language">
+                    <option value="ne">Nepali (नेपाली)</option>
+                    <option value="en" selected>English</option>
+                    <option value="ja">Japanese (日本語)</option>
+                </select>
+                <button id="explain-btn" class="btn btn-prim" type="submit">Explain</button>
+            </form>
+            <p id="explain-status" role="status"></p>
+        </article>
+        <article id="explain-result" class="detail-card" hidden>
+            <h2>Result</h2>
+            <h3>What is this?</h3>
+            <p id="result-what"></p>
+            <h3>Why did you get it?</h3>
+            <p id="result-why"></p>
+            <h3>How important is it?</h3>
+            <p id="result-importance"></p>
+            <h3>What to do next</h3>
+            <p id="result-next"></p>
+            <h3>Deadline</h3>
+            <p id="result-deadline"></p>
+            <h3>Things to check</h3>
+            <p id="result-check"></p>
+        </article>
+        <p class="page-note">Tip: if a date, amount, or detail in the photo is unclear, it will be listed under
+            Things to check instead of guessed.</p>
+    </main>
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <img alt="" src="logo/logo.png" />
+                    <span>LIFEGO JAPAN</span>
+                </div>
+                <p>Your everyday guide to living in Japan.</p>
+            </div>
+            <nav aria-label="Explore" class="footer-links">
+                <h3>Explore</h3>
+                <a href="index.html">Home</a>
+                <a href="start.html">Start Here</a>
+                <a href="guide.html">Guides</a>
+                <a href="japanese.html">Japanese help</a>
+            </nav>
+            <nav aria-label="Support" class="footer-links">
+                <h3>Support</h3>
+                <a href="emergency.html">Emergency</a>
+                <a href="questions.html">Q&amp;A</a>
+            </nav>
+            <div class="footer-project">
+                <h3>About this project</h3>
+                <p>A school website project to help newcomers find their next steps in Japan.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <small>© 2026 LIFEGO JAPAN · School Project</small>
+            <a href="#top">Back to top ↑</a>
+        </div>
+    </footer>
+    <script>
+        (function () {
+            var form = document.getElementById("explain-form");
+            var photoInput = document.getElementById("photo-input");
+            var photoPreview = document.getElementById("photo-preview");
+            var langSelect = document.getElementById("lang-select");
+            var explainBtn = document.getElementById("explain-btn");
+            var statusText = document.getElementById("explain-status");
+            var resultCard = document.getElementById("explain-result");
+
+            var sectionIds = [
+                "result-what",
+                "result-why",
+                "result-importance",
+                "result-next",
+                "result-deadline",
+                "result-check"
+            ];
+
+            var sectionKeys = [
+                "what is this",
+                "why did you get it",
+                "how important is it",
+                "what to do next",
+                "deadline",
+                "things to check"
+            ];
+
+            function setSection(id, text) {
+                var el = document.getElementById(id);
+                if (el) el.textContent = text;
+            }
+
+            // Split the model answer back into the six page sections.
+            function fillSections(answerText) {
+                var fallback = (answerText || "").trim();
+                var buckets = ["", "", "", "", "", ""];
+                var current = 0;
+                var foundAny = false;
+
+                fallback.split(/\r?\n/).forEach(function (line) {
+                    var clean = line.replace(/^#{1,4}\s*/, "").replace(/^\d+[.)]\s*/, "").trim().toLowerCase();
+                    var hit = -1;
+                    sectionKeys.forEach(function (key, i) {
+                        if (clean === key || clean === key + "?" || clean.indexOf(key + "?") === 0) hit = i;
+                    });
+                    if (hit >= 0) {
+                        current = hit;
+                        foundAny = true;
+                        return;
+                    }
+                    buckets[current] += (buckets[current] ? "\n" : "") + line;
+                });
+
+                if (!foundAny) {
+                    setSection("result-what", fallback);
+                    ["result-why", "result-importance", "result-next", "result-deadline", "result-check"]
+                        .forEach(function (id) { setSection(id, "—"); });
+                    return;
+                }
+                sectionIds.forEach(function (id, i) {
+                    setSection(id, (buckets[i] || "").trim() || "—");
+                });
+            }
+
+            photoInput.addEventListener("change", function () {
+                var file = photoInput.files && photoInput.files[0];
+                if (!file) {
+                    photoPreview.hidden = true;
+                    photoPreview.removeAttribute("src");
+                    return;
+                }
+                photoPreview.src = URL.createObjectURL(file);
+                photoPreview.hidden = false;
+            });
+
+            form.addEventListener("submit", function (event) {
+                event.preventDefault();
+                var file = photoInput.files && photoInput.files[0];
+                if (!file) {
+                    statusText.textContent = "Please choose a photo first.";
+                    return;
+                }
+
+                explainBtn.disabled = true;
+                statusText.textContent = "Reading your notice…";
+                resultCard.hidden = true;
+
+                var data = new FormData();
+                data.append("image", file);
+                data.append("language", langSelect.value);
+
+                fetch("/explain", { method: "POST", body: data })
+                    .then(function (response) {
+                        return response.json().then(function (body) {
+                            if (!response.ok) throw new Error(body.error || "Request failed.");
+                            return body;
+                        });
+                    })
+                    .then(function (body) {
+                        fillSections(body.explanation || "");
+                        resultCard.hidden = false;
+                        statusText.textContent = "";
+                        resultCard.scrollIntoView();
+                    })
+                    .catch(function (error) {
+                        statusText.textContent = "Could not explain this photo: " + error.message;
+                    })
+                    .finally(function () {
+                        explainBtn.disabled = false;
+                    });
+            });
+        })();
+    </script>
+</body>
+
+</html>

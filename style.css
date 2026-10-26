@@ -1,0 +1,1836 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: #13234b;
+    background-color: #f5f9ff;
+    line-height: 1.5;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.site-header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5ecf5;
+}
+
+.header-cnt {
+    width: 100%;
+    max-width: 1600px;
+    margin: auto;
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.header-act {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.logo img {
+    width: 56px;
+    height: 56px;
+    border-radius: 50px;
+    object-fit: contain;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.logo-name {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.logo-tag {
+    font-size: 11px;
+    color: #56647d;
+    max-width: 230px;
+}
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: nowrap;
+}
+
+.main-nav a {
+    padding: 10px 0;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+    color: #1261ff;
+    border-bottom-color: #1261ff;
+
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 16px;
+    border: 1px solid #1261ff;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    color: #1261ff;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #edf4ff;
+}
+
+.btn-prim {
+    color: #ffffff;
+    background-color: #1261ff;
+
+}
+
+.btn-prim:hover {
+    background-color: #084bd6;
+    color: white;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* this is hero of section */
+.hero {
+    min-height: 490px;
+    padding: 70px 24px;
+    /* फोटो दायाँ मात्र (फोटोको बायाँ किनारा आफैं सेतोमा मिसिन्छ) */
+    background-color: #ffffff;
+    background-image: url("logo/hero.jpg");
+    background-size: auto 100%;
+    background-position: right center;
+    background-repeat: no-repeat;
+    padding-left: max(24px, calc((100vw - 1470px)/2));
+}
+
+/* header and content machting */
+.hero-cnt {
+    max-width: none;
+    margin: 0;
+}
+
+/* heading mathi ko sano lable */
+.hero-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 18px;
+    background-color: #f3f8ff;
+    border: 1px solid #d5e5ff;
+    border-radius: 6px;
+
+    font-size: 13px;
+    color: #13234b;
+}
+
+/* main heading */
+.hero h1 {
+    font-size: clamp(32px, 3.8vw, 56px);
+    line-height: 1.15;
+    margin-bottom: 18px;
+    color: #13234b;
+}
+
+/* pragraph */
+.hero-desc {
+    max-width: 510px;
+    font-size: 17px;
+    line-height: 1.6;
+    color: #425473;
+    margin-bottom: 24px;
+}
+
+.hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* two buttons */
+.hero-actions .btn {
+    padding: 14px 26px;
+    font-size: 15px;
+}
+
+/* Language note under hero */
+.hero-lang {
+    margin-top: 18px;
+    font-size: 15px;
+    color: #56647d;
+}
+
+/* search box */
+.search-section {
+    max-width: 900px;
+    margin: -35px auto 40px;
+    padding: 24px;
+    position: relative;
+    background-color: #ffffff;
+    border: 1px solid #e5ecf5;
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(19, 35, 75, 0.1);
+    width: calc(100% - 40px);
+}
+
+/*  search box of heading*/
+.search-section h2 {
+    margin-bottom: 14px;
+    font-size: 20px;
+}
+
+/* input and button in one line */
+.search-form {
+    display: flex;
+    gap: 12px;
+}
+
+/* write and search box */
+.search-form input {
+    flex: 1;
+    min-width: 0;
+    padding: 12px 16px;
+    border: 1px solid #d5e5ff;
+    border-radius: 7px;
+    font-family: inherit;
+    font-size: 14px;
+    color: #13234b;
+}
+
+/* when you click on input focus */
+.search-form input:focus {
+    outline: 2px solid #1261ff;
+    outline-offset: 2px;
+}
+
+/* search button  */
+.search-form button {
+    padding: 12px 36px;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+/* popular search  */
+.search-popular {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 14px;
+    font-size: 13px;
+    flex-wrap: wrap;
+}
+
+.search-popular a {
+    color: #1261ff;
+}
+
+.search-popular a:hover {
+    text-decoration: underline;
+}
+
+.topics {
+    padding: 0 65px 50px;
+}
+
+.topics h2 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.topics-desc {
+    color: #56647d;
+    font-size: 16px;
+    margin-bottom: 24px;
+}
+
+/* everything gose one gride */
+.topics-grid {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    gap: 16px;
+}
+
+/* oneby one grid */
+.topic-card {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 12px;
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 12px;
+    transition: box-shadow 0.2s;
+    border: 1px solid #e5ecf5;
+}
+
+/* hover */
+.topic-card:hover {
+    box-shadow: 0 8px 20px rgba(19, 35, 75, 0.1);
+}
+
+.topic-icon {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 14px;
+}
+
+.topic-card h3 {
+    font-size: 15px;
+    margin-bottom: 10px;
+
+}
+
+.topic-card p {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #56647d;
+    margin-bottom: 18px;
+}
+
+/* sabai card ko link lai tala rakhne */
+.topic-card a {
+    margin-top: auto;
+    color: #1261ff;
+    font-size: 13px;
+}
+
+.topic-card a:hover {
+    text-decoration: underline;
+}
+
+/* this is check list */
+.journey {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 50px;
+    padding: 50px 65px;
+    background-color: #eaf4ff;
+}
+
+/* this is side bar and check list */
+.journey-dashbord {
+    display: grid;
+    grid-template-columns: 170px minmax(0, 1fr);
+    min-width: 0;
+    padding: 12px;
+    gap: 12px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(19, 35, 75, 0.08);
+    align-items: start;
+}
+
+.journey-sidebar {
+    min-width: 0;
+    padding: 12px 8px;
+    background-color: #f5f9ff;
+    border-radius: 10px;
+}
+
+.journey-brand {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-bottom: 16px;
+    font-size: 12px;
+    font-weight: bold;
+
+}
+
+.journey-brand img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+.journey-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.journey-menu a {
+    padding: 10px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.journey-menu a:hover,
+.journey-menu a.selected {
+    background-color: #e0edff;
+    color: #1261ff;
+}
+
+/* this is checklist */
+.journey-dashbord .journey-card {
+    min-width: 0;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #dce7f5;
+    border-radius: 12px;
+
+}
+
+.journey-card h3 {
+    font-size: 20px;
+    margin-bottom: 6px;
+}
+
+.journey-note {
+    font-size: 13px;
+    color: #56647d;
+    margin-bottom: 20px;
+}
+
+/* this is check list of lisst */
+.journey-list {
+    list-style: none;
+    display: grid;
+    gap: 14px;
+}
+
+.journey-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.journey-list label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.journey-list input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    flex-shrink: 0;
+    accent-color: #20a650;
+}
+
+.journey-list input:checked+span {
+    text-decoration: line-through;
+    color: #778397;
+}
+
+/* this is right side of content */
+.journey-info {
+    min-width: 0;
+    padding: 30px;
+    border-radius: 16px;
+    background-color: #eaf4ff;
+}
+
+.journey-info h2 {
+    font-size: 30px;
+    line-height: 1.2;
+    margin-bottom: 16px;
+}
+
+.journey-info>p {
+    color: #56647d;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+/* lable,dropdown and bottn up and down */
+.journey-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 340px;
+}
+
+.journey-form label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.journey-form select {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #cbd9eb;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #13234b;
+    font: inherit;
+}
+
+.journey-form button {
+    padding: 14px 20px;
+    font-family: inherit;
+    white-space: normal;
+    cursor: pointer;
+}
+
+/* this is full section */
+.journey-stages {
+    padding: 35px 65px 45px;
+}
+
+.journey-stages h2 {
+    font-size: 26px;
+    margin-bottom: 33px;
+}
+
+/* in desktop has four cards */
+.stages-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+/* this is icons gose left and right */
+.stage-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    min-width: 0;
+    padding: 22px 18px;
+    background-color: #ffffff;
+    border: 1px solid #e5ecf5;
+    border-radius: 12px;
+    transition: box-shadow 0.2s;
+}
+
+.stage-card:hover {
+    box-shadow: 0 8px 20px rgba(19, 35, 75, 0.08);
+}
+
+/* chossens form keybord */
+.stage-card:focus-visible {
+    outline: 2px solid #1261ff;
+    outline-offset: 3px;
+}
+
+/* round icon */
+.stage-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    flex-shrink: 0;
+    border-radius: 50%;
+}
+
+.stage-icon img {
+    width: 28px;
+    height: 28px;
+}
+
+.stage-pink {
+    background-color: #fff0f5;
+}
+
+.stage-blue {
+    background-color: #edf4ff;
+}
+
+.stage-green {
+    background-color: #edf9f0;
+}
+
+.stage-orange {
+    background-color: #fff3e9;
+}
+
+.stage-text {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.stage-text h3 {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.stage-text p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #56647d;
+    margin-bottom: 12px;
+
+}
+
+.stage-link {
+    color: #1261ff;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.stage-link:hover {
+    text-decoration: underline;
+}
+
+/* japanese helper full body */
+.japanese-helper {
+    padding: 40px 65px;
+    background-color: #eaf4ff;
+}
+
+.japanese-helper h2 {
+    font-size: 26px;
+    margin-bottom: 10px;
+
+}
+
+.helper-desc {
+    color: #56647d;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+/* you can choose   links*/
+
+/* this is example of phrase card */
+.phrase-card {
+    max-width: 600px;
+    padding: 24px;
+    background-color: #ffffff;
+    border: 1px solid #e5ecf5;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(19, 35, 75, 0.06);
+}
+
+.phrase-category {
+    display: inline-block;
+    padding: 5px 10px;
+    margin-bottom: 16px;
+    border-radius: 6px;
+    background-color: #fff0f3;
+    color: #a52343;
+    font-size: 12px;
+}
+
+.phrase-card h3 {
+    font-size: 26px;
+    margin-bottom: 10px;
+}
+
+.phrase-reading {
+    font-size: 14px;
+    color: #56647d;
+    margin-bottom: 10px;
+}
+
+.phrase-meaning {
+    margin-bottom: 6px;
+}
+
+.phrase-nepali {
+    color: #56647d;
+    line-height: 1.6;
+}
+
+.phrase-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 22px;
+}
+
+.phrase-actions button {
+    font-family: inherit;
+}
+
+/* funcitionality najode samma button le kam gardain */
+.phrase-actions button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: #f3f6fb;
+}
+
+/* help sections and emergency section in together */
+.help-sections {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* this is front japanese helper padding */
+.help-sections .japanese-helper {
+    min-width: 0;
+    padding: 35px;
+}
+
+.help-sections .phrase-card {
+    max-width: none;
+}
+
+/* emergency ko halka gulvi color */
+.emergency-help {
+    min-width: 0;
+    padding: 35px;
+    background-color: #fff0f2;
+}
+
+.emergency-help h2 {
+    font-size: 26px;
+    color: #b51f2b;
+    margin-bottom: 10px;
+}
+
+.emergency-desc {
+    color: #56647d;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+/* 3colms and 2 row */
+.emergency-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.emergency-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-width: 0;
+    padding: 18px 10px;
+    text-align: center;
+    overflow-wrap: anywhere;
+    background-color: #ffffff;
+    border: 1px solid #f0dce0;
+    border-radius: 10px;
+}
+
+.emergency-card img {
+    width: 32px;
+    height: 32px;
+}
+
+.emergency-card h3 {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.emergency-card:hover {
+    background-color: #fff8f9;
+    border-color: #cf2938;
+}
+
+/* fulll chaudai ko rato link */
+.emergency-button {
+    display: block;
+    margin-top: 16px;
+    padding: 14px 20px;
+    background-color: #cf2938;
+    color: #ffffff;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.emergency-button:hover {
+    background-color: #ad1e2b;
+}
+
+.emergency-card:focus-visible,
+.emergency-button:focus-visible {
+    outline: 2px solid #b51f2b;
+    outline-offset: 3px;
+}
+
+/* Q&A को पूरा भाग */
+.faq-section {
+    padding: 40px 65px;
+    background-color: #f5f9ff;
+}
+
+/* Heading बायाँ, सबै प्रश्नको link दायाँ */
+.faq-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.faq-heading h2 {
+    font-size: 26px;
+    margin-bottom: 8px;
+}
+
+.faq-heading p {
+    color: #56647d;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.faq-all {
+    color: #1261ff;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+/* तीन बराबर columns */
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+/* पूरै card click गर्न मिल्ने */
+.faq-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 22px;
+
+    background-color: #ffffff;
+    border: 1px solid #e5ecf5;
+    border-radius: 12px;
+
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.faq-card h3 {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 18px;
+}
+
+/* Category र arrow तल मिलाउने */
+.faq-card-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: auto;
+}
+
+.faq-tag {
+    padding: 5px 10px;
+    border-radius: 7px;
+    font-size: 12px;
+}
+
+.tag-money {
+    background-color: #fff0db;
+    color: #8a4500;
+}
+
+.tag-housing {
+    background-color: #ffeadc;
+    color: #854122;
+}
+
+.tag-jobs {
+    background-color: #ddf5e5;
+    color: #17653c;
+}
+
+.faq-arrow {
+    font-size: 22px;
+    color: #1261ff;
+}
+
+.faq-card:hover {
+    border-color: #1261ff;
+    box-shadow: 0 6px 18px rgba(19, 35, 75, 0.08);
+}
+
+.faq-all:hover {
+    text-decoration: underline;
+}
+
+.faq-card:focus-visible,
+.faq-all:focus-visible {
+    outline: 2px solid #1261ff;
+    outline-offset: 3px;
+}
+
+/* Tablet र mobile */
+@media (max-width: 800px) {
+    .faq-section {
+        padding: 30px 20px;
+    }
+
+    .faq-heading {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .faq-heading h2 {
+        font-size: 23px;
+    }
+
+    .faq-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* नीलो banner */
+.start-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+
+    padding: 35px 65px;
+    background: linear-gradient(120deg, #1261ff, #0846bb);
+    color: #ffffff;
+}
+
+.start-banner h2 {
+    font-size: 26px;
+    margin-bottom: 10px;
+}
+
+.start-banner p {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.banner-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.banner-primary,
+.banner-secondary {
+    display: inline-block;
+    padding: 13px 20px;
+    border: 1px solid #ffffff;
+    border-radius: 7px;
+
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.banner-primary {
+    background-color: #ffffff;
+    color: #0846bb;
+}
+
+.banner-primary:hover {
+    background-color: #eaf2ff;
+}
+
+.banner-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Footer */
+.site-footer {
+    padding: 40px 65px 20px;
+    background-color: #ffffff;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 30px;
+}
+
+.footer-grid>* {
+    min-width: 0;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.footer-logo img {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.footer-brand p,
+.footer-project p {
+    font-size: 13px;
+    line-height: 1.7;
+    color: #56647d;
+}
+
+.footer-grid h3 {
+    font-size: 15px;
+    margin-bottom: 12px;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.footer-links h3 {
+    margin-bottom: 2px;
+}
+
+.footer-links a {
+    font-size: 13px;
+    color: #56647d;
+}
+
+.site-footer a:hover {
+    color: #1261ff;
+    text-decoration: underline;
+}
+
+/* Copyright र माथि जाने link */
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #e5ecf5;
+
+    font-size: 12px;
+    color: #56647d;
+}
+
+.start-banner a:focus-visible,
+.site-footer a:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
+}
+
+/* Tablet */
+@media (max-width: 1000px) {
+    .start-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 30px;
+    }
+
+    .site-footer {
+        padding: 35px 30px 20px;
+    }
+
+    .footer-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .start-banner {
+        padding: 30px 20px;
+    }
+
+    .start-banner h2 {
+        font-size: 23px;
+    }
+
+    .banner-actions {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .site-footer {
+        padding: 30px 20px 20px;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+}
+
+.phrase-actions button:not(:disabled) {
+    cursor: pointer;
+}
+
+#phrase-status {
+    min-height: 24px;
+    margin-top: 12px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #425473;
+}
+
+/* Save भएको button को रङ */
+#save-phrase-btn[aria-pressed="true"] {
+    background-color: #fff4d6;
+    border-color: #b77900;
+    color: #805300;
+}
+
+@media (max-width: 1400px) {
+    .header-cnt {
+        flex-wrap: wrap;
+        padding: 20px 30px;
+        gap: 20px;
+    }
+
+    .logo {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .logo img {
+        flex-shrink: 0;
+    }
+
+    .header-act {
+        margin-left: auto;
+        flex-wrap: wrap;
+    }
+
+    .main-nav {
+        order: 3;
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 10px 20px;
+    }
+
+    .search-popular {
+        flex-wrap: wrap;
+    }
+}
+
+@media(max-width:600px) {
+    .header-cnt {
+        width: 100%;
+        padding: 16px 20px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+    }
+
+    .logo {
+        width: 100%;
+        flex-shrink: 0;
+    }
+
+    .logo img {
+        width: 48px;
+        height: 48px;
+        flex-shrink: 0;
+    }
+
+    .logo-text {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .logo-name {
+        font-size: 20px;
+    }
+
+    .main-nav {
+        width: 100%;
+        order: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 8px 16px;
+    }
+
+    .main-nav a {
+        font-size: 15px;
+    }
+
+    .topics {
+        padding: 0 20px 30px;
+    }
+
+    .topics h2 {
+        font-size: 24px;
+    }
+
+    .header-act {
+        width: 100%;
+        margin-left: 0;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .hero {
+        padding: 40px 20px 65px;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .hero-desc {
+        max-width: 100%;
+        overflow-wrap: anywhere;
+    }
+
+    .hero-actions,
+    .search-form {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .hero-actions .btn {
+        text-align: center;
+        white-space: normal;
+    }
+
+    .search-section {
+        width: calc(100% - 40px);
+        padding: 20px;
+    }
+
+    .search-form input {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .search-popular {
+        font-size: 15px;
+        justify-content: flex-start;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+}
+
+@media(max-width:1000px) {
+    .journey {
+        grid-template-columns: 1fr;
+        padding: 35px 20px;
+        gap: 30px;
+    }
+
+    .journey-info h2 {
+        font-size: 26px;
+    }
+
+    .journey-form {
+        max-width: none;
+    }
+}
+
+@media (max-width:600px) {
+    .journey-dashbord {
+        grid-template-columns: 1fr;
+    }
+
+    .journey-menu {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .journey-info {
+        padding: 24px 20px;
+        background-size: cover;
+    }
+
+}
+
+@media (max-width:1600px) {
+    .topics-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+}
+
+@media (max-width:900px) {
+    .topics-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+@media (max-width:380px) {
+    .topics-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width:1100px) {
+    .stages-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+@media (max-width:600px) {
+    .journey-stages {
+        padding: 30px 20px;
+    }
+
+    .journey-stages h2 {
+        font-size: 23px;
+    }
+
+    .stages-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width:300px) {
+    .japanese-helper {
+        padding: 30px 20px;
+    }
+
+    .japanese-helper h2 {
+        font-size: 23px;
+    }
+
+    .phrase-card {
+        padding: 20px;
+    }
+
+    .phrase-actions .btn {
+        flex: 1;
+    }
+
+}
+
+@media (max-width:900px) {
+    .help-sections {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width:600px) {
+
+    .help-sections .japanese-helper,
+    .emergency-help {
+        padding: 30px 20px;
+    }
+
+    .emergency-help h2 {
+        font-size: 23px;
+    }
+
+}
+
+@media (max-width:400px) {
+    .emergency-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+/* Saved Phrases page */
+.saved-page {
+    width: calc(100% - 40px);
+    max-width: 800px;
+    margin: 40px auto;
+}
+
+.saved-back {
+    display: inline-block;
+    margin-bottom: 24px;
+    color: #1261ff;
+}
+
+.saved-page h1 {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.saved-phrase-list {
+    list-style: none;
+    display: grid;
+    gap: 16px;
+}
+
+.saved-phrase-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding: 22px;
+    background-color: #ffffff;
+    border: 1px solid #e5ecf5;
+    border-radius: 12px;
+}
+
+.saved-phrase-item p {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    font-size: 22px;
+}
+
+.saved-phrase-item button {
+    flex-shrink: 0;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+#saved-empty {
+    padding: 24px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    line-height: 1.6;
+}
+
+#saved-page-status {
+    margin-top: 16px;
+    color: #56647d;
+}
+
+@media (max-width: 600px) {
+    .saved-phrase-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+.journey-progress {
+    margin-bottom: 22px;
+}
+
+.journey-progress label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+#journey-progress-bar {
+    display: block;
+    width: 100%;
+    height: 12px;
+
+    appearance: none;
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: #e3e9f0;
+}
+
+/* Chrome र Edge मा खाली भाग */
+#journey-progress-bar::-webkit-progress-bar {
+    background-color: #e3e9f0;
+    border-radius: 20px;
+}
+
+/* Chrome र Edge मा पूरा भएको भाग */
+#journey-progress-bar::-webkit-progress-value {
+    background-color: #20a650;
+    border-radius: 20px;
+}
+
+/* Firefox मा पूरा भएको भाग */
+#journey-progress-bar::-moz-progress-bar {
+    background-color: #20a650;
+    border-radius: 20px;
+}
+
+#journey-progress-text {
+    margin-top: 8px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #56647d;
+}
+
+.phrase-categories button {
+    padding: 8px 0;
+    border: none;
+    border-bottom: 2px solid transparent;
+    background-color: transparent;
+    color: #13234b;
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.phrase-categories button:hover,
+.phrase-categories button[aria-pressed="true"] {
+    color: #1261ff;
+    border-bottom-color: #1261ff;
+}
+
+.phrase-categories button:focus-visible {
+    outline: 2px solid #1261ff;
+    outline-offset: 3px;
+}
+
+/* Shared page layout and final responsive rules */
+html {
+    scroll-behavior: smooth;
+}
+
+img {
+    max-width: 100%;
+}
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+summary:focus-visible {
+    outline: 3px solid #1261ff;
+    outline-offset: 4px;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+.skip-link {
+    position: fixed;
+    top: -100px;
+    left: 16px;
+    z-index: 10;
+    background: white;
+    padding: 12px;
+}
+
+.skip-link:focus {
+    top: 12px;
+}
+
+.topics,
+.journey-stages,
+.faq-section {
+    max-width: 1600px;
+    margin: auto;
+}
+
+.phrase-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+    margin-bottom: 18px;
+}
+
+.journey-card {
+    min-width: 0;
+}
+
+.content-page {
+    width: min(1120px, calc(100% - 40px));
+    margin: 42px auto 72px;
+    min-height: 55vh;
+}
+
+.content-page>h1 {
+    font-size: clamp(28px, 4vw, 40px);
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+}
+
+.page-lead {
+    color: #56647d;
+    max-width: 750px;
+    margin-bottom: 28px;
+}
+
+.content-page a:not(.btn):not(.saved-back) {
+    color: #1258d5;
+}
+
+.guide-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    margin: 24px 0;
+}
+
+.detail-card,
+details {
+    background: white;
+    border: 1px solid #e0e8f3;
+    padding: 26px;
+    border-radius: 14px;
+    margin: 20px 0;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.guide-grid .detail-card {
+    margin: 0;
+}
+
+.detail-card h2 {
+    font-size: 21px;
+    margin-bottom: 12px;
+}
+
+.detail-card p {
+    margin: 12px 0;
+    color: #425473;
+}
+
+.detail-card ol {
+    padding-left: 24px;
+    margin: 20px 0;
+}
+
+.detail-card li {
+    padding: 7px 0;
+}
+
+.page-note {
+    color: #56647d;
+    font-size: 14px;
+    margin: 24px 0;
+}
+
+.content-page .journey-card {
+    padding: 28px;
+    background: white;
+    border-radius: 14px;
+}
+
+.content-page .journey-form {
+    max-width: 520px;
+}
+
+.content-page .japanese-helper {
+    border-radius: 16px;
+    margin: 20px 0;
+    padding: 28px;
+}
+
+.content-page .phrase-card {
+    max-width: none;
+}
+
+#search-summary {
+    margin: 20px 0;
+    overflow-wrap: anywhere;
+}
+
+.stacked-form {
+    display: grid;
+    gap: 12px;
+    max-width: 600px;
+}
+
+.stacked-form input {
+    min-width: 0;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #bdcce0;
+    border-radius: 7px;
+}
+
+#app-status {
+    margin: 20px 0;
+}
+
+summary {
+    cursor: pointer;
+    font-weight: 600;
+}
+
+details p {
+    margin: 15px 0;
+}
+
+@media (max-width: 1400px) {
+    .main-nav {
+        order: 3;
+        width: 100%;
+    }
+}
+
+@media (min-width: 1401px) {
+    .header-cnt {
+        flex-wrap: nowrap;
+    }
+}
+
+@media (max-width: 800px) {
+    .guide-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .header-cnt {
+        padding: 16px 20px;
+        gap: 14px;
+    }
+
+    .main-nav {
+        order: 0;
+        gap: 6px 18px;
+    }
+
+    .main-nav a {
+        font-size: 14px;
+    }
+
+    .logo {
+        flex: auto;
+    }
+
+    .hero {
+        padding: 38px 20px 65px;
+    }
+
+    .journey,
+    .journey-stages,
+    .faq-section {
+        padding: 30px 20px;
+    }
+
+    .journey-dashbord .journey-card {
+        padding: 15px;
+    }
+
+    .help-sections .japanese-helper,
+    .emergency-help {
+        padding: 28px 20px;
+    }
+
+    .phrase-card {
+        padding: 20px;
+    }
+
+    .phrase-card h3 {
+        font-size: 23px;
+        overflow-wrap: anywhere;
+    }
+
+    .guide-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .content-page {
+        margin-top: 28px;
+    }
+
+    .content-page .japanese-helper {
+        padding: 20px;
+    }
+
+    .btn {
+        white-space: normal;
+    }
+
+    .header-act .btn {
+        white-space: nowrap;
+    }
+
+    .journey-info h2 {
+        font-size: 25px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    * {
+        transition: none !important;
+    }
+}
+
+/* ---------- Icons (emoji को सट्टा SVG) ---------- */
+.icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.journey-menu a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Saved Phrases: जापानी ठूलो, अर्थ सानो */
+.saved-phrase-item .saved-japanese {
+    font-size: 22px;
+}
+
+.saved-phrase-item .saved-meaning {
+    font-size: 15px;
+    color: #56647d;
+    margin-top: 4px;
+}
+
+/* सानो screen मा फोटोमाथि text पढ्न गाह्रो हुन्छ, त्यसैले फोटो लुकाउने */
+@media (max-width: 760px) {
+    .hero {
+        background-image: none;
+    }
+}
