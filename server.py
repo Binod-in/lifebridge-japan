@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 app = Flask(__name__, static_folder=None)
 
 API_KEY = os.environ.get("META_API_KEY", "")
-MODEL = os.environ.get("META_MODEL", "muse-spark")
+MODEL = os.environ.get("META_MODEL", "muse-spark-1.3")
 BASE_URL = os.environ.get("META_BASE_URL", "https://api.meta.ai/v1")
 PORT = int(os.environ.get("PORT", "5000"))
 
