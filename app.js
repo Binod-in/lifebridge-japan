@@ -428,12 +428,12 @@ if (dateForm) {
 
 
 // ------------------------------------------------------------
-// ७. Settings: LIFEGO को data मात्र मेटाउने
+// ७. Settings: LifeBridge को data मात्र मेटाउने
 // ------------------------------------------------------------
 const resetButton = document.querySelector("#reset-data");
 if (resetButton) {
     resetButton.addEventListener("click", function () {
-        const sure = confirm("Remove all LIFEGO saved tasks, phrases, guides, dates and demo profile from this browser?");
+        const sure = confirm("Remove all LifeBridge saved tasks, phrases, guides, dates and demo profile from this browser?");
         if (!sure) return;
 
         try {
@@ -443,7 +443,7 @@ if (resetButton) {
                     localStorage.removeItem(key);
                 }
             }
-            showAppStatus("LIFEGO data reset.");
+            showAppStatus("LifeBridge data reset.");
             if (profileSummary) {
                 profileSummary.textContent = "No display name saved yet.";
             }
