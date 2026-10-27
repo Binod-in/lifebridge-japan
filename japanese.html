@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Japanese phrase helper | LifeBridge Japan</title>
+    <title data-i18n="jap.title">Japanese phrase helper | LifeBridge Japan</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body id="top"><a class="skip-link" href="#main-content">Skip to content</a>
+<body id="top"><a class="skip-link" href="#main-content" data-i18n="doc.skip">Skip to content</a>
     <header class="site-header">
         <div class="header-cnt">
             <!-- Logo -->
@@ -20,7 +20,7 @@
                 </div>
             </div>
             <!-- Main menu -->
-            <nav aria-label="Main navigation" class="main-nav">
+            <nav aria-label="Main navigation" class="main-nav" data-i18n-aria-label="doc.mainNavAria">
                 <a href="index.html" data-i18n="nav.home">Home</a>
                 <a href="start.html" data-i18n="nav.start">Start Here</a>
                 <a href="guide.html" data-i18n="nav.guides">Guides</a>
@@ -31,7 +31,7 @@
             </nav>
             <!-- Right side of header -->
             <div class="header-act">
-                <select id="lang-select" class="lang-select" aria-label="Language">
+                <select id="lang-select" class="lang-select" aria-label="Language" data-i18n-aria-label="doc.langAria">
                     <option value="en">English</option>
                     <option value="ne">नेपाली</option>
                     <option value="vi">Tiếng Việt</option>
@@ -41,25 +41,25 @@
             </div>
         </div>
     </header>
-    <main id="main-content" class="content-page"><a class="saved-back" href="index.html">← Home</a>
-        <h1>Japanese phrase helper</h1>
-        <p class="page-lead">Read, listen, copy and save a phrase for your next conversation.</p>
-        <section class="japanese-helper" id="japanese-help" aria-label="Phrase helper">
+    <main id="main-content" class="content-page"><a class="saved-back" href="index.html" data-i18n="doc.back">← Home</a>
+        <h1 data-i18n="jap.heading">Japanese phrase helper</h1>
+        <p class="page-lead" data-i18n="jap.lead">Read, listen, copy and save a phrase for your next conversation.</p>
+        <section class="japanese-helper" id="japanese-help" aria-label="Phrase helper" data-i18n-aria-label="jap.helperAria">
             <!-- Phrase categories -->
-            <div aria-label="Japanese phrase categories" class="phrase-categories">
-                <button aria-pressed="true" data-category="hospital" type="button">
+            <div aria-label="Japanese phrase categories" class="phrase-categories" data-i18n-aria-label="jap.categoriesAria">
+                <button aria-pressed="true" data-category="hospital" type="button" data-i18n="phrases.tab.hospital">
                     Hospital
                 </button>
-                <button aria-pressed="false" data-category="city-hall" type="button">
+                <button aria-pressed="false" data-category="city-hall" type="button" data-i18n="phrases.tab.cityhall">
                     City Hall
                 </button>
-                <button aria-pressed="false" data-category="work" type="button">
+                <button aria-pressed="false" data-category="work" type="button" data-i18n="phrases.tab.work">
                     Work
                 </button>
-                <button aria-pressed="false" data-category="train" type="button">
+                <button aria-pressed="false" data-category="train" type="button" data-i18n="phrases.tab.train">
                     Train
                 </button>
-                <button aria-pressed="false" data-category="shopping" type="button">
+                <button aria-pressed="false" data-category="shopping" type="button" data-i18n="phrases.tab.shopping">
                     Shopping
                 </button>
             </div>
@@ -71,18 +71,18 @@
                 <p class="phrase-meaning"></p>
                 <p class="phrase-nepali" lang="ne"></p>
                 <div class="phrase-actions">
-                    <button class="btn btn-icon" id="listen-btn" type="button"><img alt="" class="icon"
+                    <button class="btn btn-icon" id="listen-btn" type="button" data-i18n-html="jap.listen"><img alt="" class="icon"
                             src="icons/speaker.svg" /> Listen</button>
-                    <button class="btn btn-icon" id="copy-btn" type="button"><img alt="" class="icon"
+                    <button class="btn btn-icon" id="copy-btn" type="button" data-i18n-html="jap.copy"><img alt="" class="icon"
                             src="icons/copy.svg" /> Copy</button>
-                    <button aria-pressed="false" class="btn" id="save-phrase-btn" type="button">
+                    <button aria-pressed="false" class="btn" id="save-phrase-btn" type="button" data-i18n="main.saveOff">
                         ☆ Save
                     </button>
                 </div>
                 <p id="phrase-status" role="status"></p>
             </article>
         </section>
-        <p><a class="btn" href="saved-phrases.html">View Saved Phrases →</a></p>
+        <p><a class="btn" href="saved-phrases.html" data-i18n="jap.savedLink">View Saved Phrases →</a></p>
     </main>
     <footer class="site-footer">
         <div class="footer-grid">
@@ -93,26 +93,26 @@
                 </div>
                 <p data-i18n="footer.tagline">Your everyday guide to living in Japan.</p>
             </div>
-            <nav aria-label="Explore" class="footer-links">
-                <h3>Explore</h3>
+            <nav aria-label="Explore" class="footer-links" data-i18n-aria-label="doc.explore">
+                <h3 data-i18n="doc.explore">Explore</h3>
                 <a href="index.html" data-i18n="nav.home">Home</a>
                 <a href="start.html" data-i18n="nav.start">Start Here</a>
                 <a href="guide.html" data-i18n="nav.guides">Guides</a>
                 <a href="japanese.html" data-i18n="nav.japanese">Japanese help</a>
             </nav>
-            <nav aria-label="Support" class="footer-links">
-                <h3>Support</h3>
+            <nav aria-label="Support" class="footer-links" data-i18n-aria-label="doc.support">
+                <h3 data-i18n="doc.support">Support</h3>
                 <a href="emergency.html" data-i18n="nav.emergency">Emergency</a>
                 <a href="questions.html" data-i18n="nav.qa">Q&amp;A</a>
             </nav>
             <div class="footer-project">
-                <h3>About this project</h3>
-                <p>LifeBridge Japan helps newcomers in Japan understand daily life — guides, money tools, and AI explanations of official notices.</p>
+                <h3 data-i18n="doc.about">About this project</h3>
+                <p data-i18n="doc.aboutText">LifeBridge Japan helps newcomers in Japan understand daily life — guides, money tools, and AI explanations of official notices.</p>
             </div>
         </div>
         <div class="footer-bottom">
-            <small>© 2026 LifeBridge Japan · Built for newcomers in Japan</small>
-            <a href="#top">Back to top ↑</a>
+            <small data-i18n="doc.copyright">© 2026 LifeBridge Japan · Built for newcomers in Japan</small>
+            <a href="#top" data-i18n="doc.backTop">Back to top ↑</a>
         </div>
     </footer>
     <script src="phrases-data.js" defer></script>

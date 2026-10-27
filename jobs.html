@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Jobs | LifeBridge Japan</title>
+    <title data-i18n="jobs.title">Jobs | LifeBridge Japan</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body id="top"><a class="skip-link" href="#main-content">Skip to content</a>
+<body id="top"><a class="skip-link" href="#main-content" data-i18n="doc.skip">Skip to content</a>
     <header class="site-header">
         <div class="header-cnt">
             <!-- Logo -->
@@ -20,7 +20,7 @@
                 </div>
             </div>
             <!-- Main menu -->
-            <nav aria-label="Main navigation" class="main-nav">
+            <nav aria-label="Main navigation" data-i18n-aria-label="doc.mainNavAria" class="main-nav">
                 <a href="index.html" data-i18n="nav.home">Home</a>
                 <a href="start.html" data-i18n="nav.start">Start Here</a>
                 <a href="guide.html" data-i18n="nav.guides">Guides</a>
@@ -31,7 +31,7 @@
             </nav>
             <!-- Right side of header -->
             <div class="header-act">
-                <select id="lang-select" class="lang-select" aria-label="Language">
+                <select id="lang-select" class="lang-select" aria-label="Language" data-i18n-aria-label="doc.langAria">
                     <option value="en">English</option>
                     <option value="ne">नेपाली</option>
                     <option value="vi">Tiếng Việt</option>
@@ -41,22 +41,22 @@
             </div>
         </div>
     </header>
-    <main id="main-content" class="content-page"><a class="saved-back" href="index.html">← Home</a>
-        <h1>Jobs</h1>
-        <p class="page-lead">Prepare for a part-time job search</p>
+    <main id="main-content" class="content-page"><a class="saved-back" href="index.html" data-i18n="doc.back">← Home</a>
+        <h1 data-i18n="topic.jobs.title">Jobs</h1>
+        <p class="page-lead" data-i18n="gd.jobs.desc">Prepare for a part-time job search</p>
         <article class="detail-card">
-            <h2>Your preparation checklist</h2>
+            <h2 data-i18n="doc.checklist">Your preparation checklist</h2>
             <ol>
-                <li>Students need work permission (資格外活動許可) before starting. During school terms the limit is 28 hours a
+                <li data-i18n="jobs.item1">Students need work permission (資格外活動許可) before starting. During school terms the limit is 28 hours a
                     week. Check with your school or immigration office.</li>
-                <li>Prepare your résumé and weekly availability.</li>
-                <li>Ask the employer about duties, hours, pay and travel costs.</li>
-                <li>Read and keep the written employment conditions.</li>
-            </ol><button class="btn" data-save-guide="jobs" aria-pressed="false">☆ Save guide</button>
+                <li data-i18n="jobs.item2">Prepare your résumé and weekly availability.</li>
+                <li data-i18n="jobs.item3">Ask the employer about duties, hours, pay and travel costs.</li>
+                <li data-i18n="jobs.item4">Read and keep the written employment conditions.</li>
+            </ol><button class="btn" data-save-guide="jobs" aria-pressed="false" data-i18n="app.save">☆ Save guide</button>
             <p role="status" class="save-status"></p>
         </article>
-        <p class="page-note">These are preparation prompts. Confirm documents, eligibility, costs and
-            deadlines with the office or provider involved.</p><a class="btn btn-prim" href="start.html">Start My
+        <p class="page-note" data-i18n="doc.note">These are preparation prompts. Confirm documents, eligibility, costs and
+            deadlines with the office or provider involved.</p><a class="btn btn-prim" href="start.html" data-i18n="hero.start">Start My
             Journey →</a>
     </main>
     <footer class="site-footer">
@@ -68,26 +68,26 @@
                 </div>
                 <p data-i18n="footer.tagline">Your everyday guide to living in Japan.</p>
             </div>
-            <nav aria-label="Explore" class="footer-links">
-                <h3>Explore</h3>
+            <nav aria-label="Explore" data-i18n-aria-label="doc.explore" class="footer-links">
+                <h3 data-i18n="doc.explore">Explore</h3>
                 <a href="index.html" data-i18n="nav.home">Home</a>
                 <a href="start.html" data-i18n="nav.start">Start Here</a>
                 <a href="guide.html" data-i18n="nav.guides">Guides</a>
                 <a href="japanese.html" data-i18n="nav.japanese">Japanese help</a>
             </nav>
-            <nav aria-label="Support" class="footer-links">
-                <h3>Support</h3>
+            <nav aria-label="Support" data-i18n-aria-label="doc.support" class="footer-links">
+                <h3 data-i18n="doc.support">Support</h3>
                 <a href="emergency.html" data-i18n="nav.emergency">Emergency</a>
                 <a href="questions.html" data-i18n="nav.qa">Q&amp;A</a>
             </nav>
             <div class="footer-project">
-                <h3>About this project</h3>
-                <p>LifeBridge Japan helps newcomers in Japan understand daily life — guides, money tools, and AI explanations of official notices.</p>
+                <h3 data-i18n="doc.about">About this project</h3>
+                <p data-i18n="doc.aboutText">LifeBridge Japan helps newcomers in Japan understand daily life — guides, money tools, and AI explanations of official notices.</p>
             </div>
         </div>
         <div class="footer-bottom">
-            <small>© 2026 LifeBridge Japan · Built for newcomers in Japan</small>
-            <a href="#top">Back to top ↑</a>
+            <small data-i18n="doc.copyright">© 2026 LifeBridge Japan · Built for newcomers in Japan</small>
+            <a href="#top" data-i18n="doc.backTop">Back to top ↑</a>
         </div>
     </footer>
     <script src="i18n.js" defer></script>

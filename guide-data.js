@@ -12,55 +12,98 @@ const guideData = [
         title: "Housing",
         icon: "icons/home.svg",
         description: "Apartments, moving and utilities",
-        keywords: "house home apartment move moving rent room utilities घर कोठा भाडा 住居 引越し"
+        keywords: "house home apartment move moving rent room utilities घर कोठा भाडा 住居 引越し",
+        i18n: { titleKey: "topic.housing.title", descKey: "topic.housing.sub" }
     },
     {
         id: "jobs",
         title: "Jobs",
         icon: "icons/briefcase.svg",
         description: "Prepare for a part-time job search",
-        keywords: "job jobs work part-time arubaito baito काम जागिर 仕事 アルバイト"
+        keywords: "job jobs work part-time arubaito baito काम जागिर 仕事 アルバイト",
+        i18n: { titleKey: "topic.jobs.title", descKey: "gd.jobs.desc" }
     },
     {
         id: "documents",
         title: "Documents",
         icon: "icons/document.svg",
         description: "Organize your residence and address paperwork",
-        keywords: "residence card address register document documents कागजात ठेगाना 在留カード 住所"
+        keywords: "residence card address register document documents कागजात ठेगाना 在留カード 住所",
+        i18n: { titleKey: "topic.documents.title", descKey: "gd.documents.desc" }
     },
     {
         id: "money",
         title: "Money",
         icon: "icons/yen.svg",
         description: "Prepare for banking and everyday expenses",
-        keywords: "bank account money salary banking budget पैसा बैंक 銀行 口座"
+        keywords: "bank account money salary banking budget पैसा बैंक 銀行 口座",
+        i18n: { titleKey: "topic.money.title", descKey: "gd.money.desc" }
     },
     {
         id: "transport",
         title: "Transportation",
         icon: "icons/train.svg",
         description: "Plan your route and learn to use local transport",
-        keywords: "train bus ic card suica pasmo travel transport रेल यातायात 電車 交通"
+        keywords: "train bus ic card suica pasmo travel transport रेल यातायात 電車 交通",
+        i18n: { titleKey: "topic.transport.title", descKey: "gd.transport.desc" }
     },
     {
         id: "health",
         title: "Health",
         icon: "icons/heart.svg",
         description: "Prepare for appointments and insurance questions",
-        keywords: "hospital health insurance doctor clinic स्वास्थ्य अस्पताल बीमा 病院 保険"
+        keywords: "hospital health insurance doctor clinic स्वास्थ्य अस्पताल बीमा 病院 保険",
+        i18n: { titleKey: "topic.health.title", descKey: "gd.health.desc" }
     },
     {
         id: "japanese",
         title: "Japanese",
         icon: "icons/chat.svg",
         description: "Useful phrases with English and Nepali meanings",
-        keywords: "japanese language phrase phrases nihongo जापानी भाषा 日本語"
+        keywords: "japanese language phrase phrases nihongo जापानी भाषा 日本語",
+        i18n: { titleKey: "topic.japanese.title", descKey: "gd.japanese.desc" }
     },
     {
         id: "emergency",
         title: "Emergency",
         icon: "icons/alert.svg",
         description: "Important contacts and lost-item next steps",
-        keywords: "emergency police fire ambulance lost help आपतकाल प्रहरी 緊急 警察"
+        keywords: "emergency police fire ambulance lost help आपतकाल प्रहरी 緊急 警察",
+        i18n: { titleKey: "topic.emergency.title", descKey: "gd.emergency.desc" }
     }
 ];
+
+// ------------------------------------------------------------
+// अनुवाद हेल्पर: card मा देखिने title/description हालको भाषामा दिने।
+// i18n तयार नहुँदासम्म अङ्ग्रेजी title/description फर्काउँछ।
+// keywords सधैं अङ्ग्रेजी नै रहन्छ (खोजी मिलाउन)।
+// ------------------------------------------------------------
+function guideTitle(guide) {
+    try {
+        if (guide && guide.i18n && guide.i18n.titleKey &&
+            window.LBT && typeof window.LBT.t === "function") {
+            const value = window.LBT.t(guide.i18n.titleKey);
+            if (typeof value === "string" && value !== "" && value !== guide.i18n.titleKey) {
+                return value;
+            }
+        }
+    } catch (error) {
+        // तल अङ्ग्रेजी fallback
+    }
+    return guide ? guide.title : "";
+}
+
+function guideDesc(guide) {
+    try {
+        if (guide && guide.i18n && guide.i18n.descKey &&
+            window.LBT && typeof window.LBT.t === "function") {
+            const value = window.LBT.t(guide.i18n.descKey);
+            if (typeof value === "string" && value !== "" && value !== guide.i18n.descKey) {
+                return value;
+            }
+        }
+    } catch (error) {
+        // तल अङ्ग्रेजी fallback
+    }
+    return guide ? guide.description : "";
+}

@@ -12,7 +12,7 @@
 // ============================================================
 
 const currentPage = location.pathname.split("/").pop() || "index.html";
-const appStatus = document.querySelector("#app-status");
+const appStatus = document.querySelector("#app-status"); function appT(key, fallback) { try { if (window.LBT && typeof window.LBT.t === "function") { var av = window.LBT.t(key); if (typeof av === "string" && av !== "" && av !== key) return av; } } catch (e) {} return fallback; }
 
 // Page मा सन्देश देखाउने (सन्देशको ठाउँ भएमा मात्र)
 function showAppStatus(message) {
@@ -42,7 +42,7 @@ function saveData(key, value) {
         localStorage.setItem(key, JSON.stringify(value));
         return true;
     } catch (error) {
-        showAppStatus("Could not save. Check your browser storage settings.");
+        showAppStatus(appT("app.storageSaveFail", "Could not save. Check your browser storage settings."));
         return false;
     }
 }
@@ -71,7 +71,7 @@ function updateBookmarkButtons() {
 
     for (const button of buttons) {
         const isSaved = saved.includes(button.dataset.saveGuide);
-        button.textContent = isSaved ? "★ Saved (tap to remove)" : "☆ Save guide";
+        button.textContent = isSaved ? appT("app.unsave", "★ Saved (tap to remove)") : appT("app.save", "☆ Save guide");
         button.setAttribute("aria-pressed", String(isSaved));
     }
 }
@@ -100,7 +100,7 @@ document.addEventListener("click", function (event) {
 
     const message = button.parentElement.querySelector(".save-status");
     if (message) {
-        message.textContent = wasSaved ? "Guide removed." : "Guide saved.";
+        message.textContent = wasSaved ? appT("app.guideRemoved", "Guide removed.") : appT("app.guideSaved", "Guide saved.");
     }
 
     // Saved Guides page मा हटाएको card पनि हटाउने
@@ -140,11 +140,11 @@ function makeGuideCard(guide) {
     const title = document.createElement("h2");
     const link = document.createElement("a");
     link.href = guide.id + ".html";
-    link.textContent = guide.title + " →";
+    link.textContent = ((typeof guideTitle === "function") ? guideTitle(guide) : guide.title) + " →";
     title.append(link);
 
     const description = document.createElement("p");
-    description.textContent = guide.description;
+    description.textContent = (typeof guideDesc === "function") ? guideDesc(guide) : guide.description;
 
     card.append(icon, title, description);
 
@@ -206,16 +206,16 @@ if (guideResults && typeof guideData !== "undefined") {
     const summary = document.querySelector("#search-summary");
     if (summary) {
         if (shownGuides.length === 0) {
-            summary.textContent = "No guides found for “" + query + "”. Try a topic such as bank, job or hospital.";
+            summary.textContent = appT("app.searchNone", "No guides found for “{q}”. Try a topic such as bank, job or hospital.").replace("{q}", query);
         } else if (query === "") {
-            summary.textContent = "Showing all " + shownGuides.length + " guides.";
+            summary.textContent = appT("app.searchAll", "Showing all {n} guides.").replace("{n}", String(shownGuides.length));
         } else {
-            const word = shownGuides.length === 1 ? "guide" : "guides";
-            summary.textContent = shownGuides.length + " " + word + " found for “" + query + "”.";
+            const word = shownGuides.length === 1 ? "guide" : "guides"; // i18n: एकवचन/बहुवचन तलका key बाट
+            summary.textContent = appT(shownGuides.length === 1 ? "app.searchFoundOne" : "app.searchFoundMany", shownGuides.length === 1 ? "{n} guide found for “{q}”." : "{n} guides found for “{q}”.").replace("{n}", String(shownGuides.length)).replace("{q}", query);
         }
     }
 
-    const emptyMessage = document.querySelector("#saved-guide-empty");
+    window.__lbSearch = { q: query, n: shownGuides.length }; const emptyMessage = document.querySelector("#saved-guide-empty");
     if (emptyMessage) {
         emptyMessage.hidden = shownGuides.length > 0;
     }
@@ -236,7 +236,7 @@ if (profile && typeof profile.name === "string") {
 // Header को profile link: नाम सेभ छ भने "My Profile"
 const headerProfileLinks = document.querySelectorAll('.header-act a[href="login.html"]');
 for (const link of headerProfileLinks) {
-    link.textContent = displayName ? "My Profile" : "Demo Profile";
+    link.textContent = displayName ? appT("app.myProfile", "My Profile") : appT("nav.profile", "Demo Profile");
 }
 
 const profileForm = document.querySelector("#profile-form");
@@ -249,16 +249,16 @@ if (profileForm) {
 
         const name = nameInput.value.trim();
         if (name === "") {
-            nameInput.setCustomValidity("Please enter a display name.");
+            nameInput.setCustomValidity(appT("app.enterName", "Please enter a display name."));
             nameInput.reportValidity();
             return;
         }
         nameInput.setCustomValidity("");
 
         if (saveData("lifego-profile", { name: name })) {
-            showAppStatus("Welcome, " + name + "! Your demo profile is saved on this browser.");
+            showAppStatus(appT("app.welcome", "Welcome, {name}! Your demo profile is saved on this browser.").replace("{name}", name));
             for (const link of headerProfileLinks) {
-                link.textContent = "My Profile";
+                link.textContent = appT("app.myProfile", "My Profile");
             }
         }
     });
@@ -270,7 +270,7 @@ if (profileForm) {
 
 const profileSummary = document.querySelector("#profile-summary");
 if (profileSummary) {
-    profileSummary.textContent = displayName ? "Display name: " + displayName : "No display name saved yet.";
+    profileSummary.textContent = displayName ? appT("app.profileName", "Display name: {name}").replace("{name}", displayName) : appT("app.noProfile", "No display name saved yet.");
 }
 
 
@@ -280,33 +280,33 @@ if (profileSummary) {
 // ------------------------------------------------------------
 const plans = {
     "new-arrival": {
-        title: "Just arrived",
-        description: "Start by checking address procedures, health coverage and essential services.",
+        title: "Just arrived", titleKey: "app.plan.new-arrival.title",
+        description: "Start by checking address procedures, health coverage and essential services.", descKey: "app.plan.new-arrival.desc",
         guides: ["documents", "health", "money", "transport"]
     },
     student: {
-        title: "Studying in Japan",
-        description: "Ask your school about orientation, documents and any conditions for part-time work.",
+        title: "Studying in Japan", titleKey: "journey.opt.student",
+        description: "Ask your school about orientation, documents and any conditions for part-time work.", descKey: "app.plan.student.desc",
         guides: ["documents", "jobs", "japanese", "money"]
     },
     worker: {
-        title: "Starting work",
-        description: "Prepare questions about employment conditions, travel and your daily budget.",
+        title: "Starting work", titleKey: "app.plan.worker.title",
+        description: "Prepare questions about employment conditions, travel and your daily budget.", descKey: "app.plan.worker.desc",
         guides: ["jobs", "transport", "money"]
     },
     "moving-home": {
-        title: "Moving home",
-        description: "Plan your move, utilities and address updates.",
+        title: "Moving home", titleKey: "app.plan.moving-home.title",
+        description: "Plan your move, utilities and address updates.", descKey: "app.plan.moving-home.desc",
         guides: ["housing", "documents", "money"]
     },
     "senmon-school": {
-        title: "Finding a vocational school",
-        description: "Compare courses, entry requirements, tuition and application dates directly with each school.",
+        title: "Finding a vocational school", titleKey: "app.plan.senmon-school.title",
+        description: "Compare courses, entry requirements, tuition and application dates directly with each school.", descKey: "app.plan.senmon-school.desc",
         guides: ["japanese", "documents", "money"]
     },
     university: {
-        title: "Finding a university",
-        description: "List your preferred programs and confirm admission requirements and deadlines with each university.",
+        title: "Finding a university", titleKey: "app.plan.university.title",
+        description: "List your preferred programs and confirm admission requirements and deadlines with each university.", descKey: "app.plan.university.desc",
         guides: ["japanese", "documents", "money"]
     }
 };
@@ -318,9 +318,9 @@ if (planTitle) {
         situation = "new-arrival"; // गलत मान आए सुरुकै plan
     }
 
-    const plan = plans[situation];
-    planTitle.textContent = displayName ? displayName + ", " + plan.title.toLowerCase() : plan.title;
-    document.querySelector("#plan-description").textContent = plan.description;
+    const plan = plans[situation]; window.__lbPlan = situation;
+    planTitle.textContent = displayName ? displayName + ", " + appT(plan.titleKey, plan.title).toLowerCase() : appT(plan.titleKey, plan.title);
+    document.querySelector("#plan-description").textContent = appT(plan.descKey, plan.description);
     document.querySelector("#journey-status").value = situation;
 
     const linkBox = document.querySelector("#plan-links");
@@ -331,7 +331,7 @@ if (planTitle) {
         const link = document.createElement("a");
         link.className = "btn";
         link.href = guideId + ".html";
-        link.textContent = guide.title + " →";
+        link.textContent = ((typeof guideTitle === "function") ? guideTitle(guide) : guide.title) + " →";
         linkBox.append(link);
     }
 }
@@ -340,8 +340,8 @@ if (planTitle) {
 // ------------------------------------------------------------
 // ६. Important Dates
 // ------------------------------------------------------------
-const dateForm = document.querySelector("#date-form");
-const datesKey = "lifego-dates";
+const dateForm = document.querySelector("#date-form"); /* i18n: भाषा फेरिँदा bookmark + guide card + search summary */ document.addEventListener("lb:lang", function () { updateBookmarkButtons(); if (typeof guideData !== "undefined") { var cards = document.querySelectorAll("#guide-results article"); for (var ci = 0; ci < cards.length; ci++) { var ca = cards[ci].querySelector("h2 a"); if (!ca) continue; var gid = String(ca.getAttribute("href") || "").replace(".html", ""); var gg = null; for (var gj = 0; gj < guideData.length; gj++) { if (guideData[gj].id === gid) gg = guideData[gj]; } if (!gg) continue; ca.textContent = ((typeof guideTitle === "function") ? guideTitle(gg) : gg.title) + " →"; var cdp = cards[ci].querySelector("p"); if (cdp) cdp.textContent = (typeof guideDesc === "function") ? guideDesc(gg) : gg.description; } } if (window.__lbSearch) { var sq = window.__lbSearch.q, sn = window.__lbSearch.n; var sse = document.querySelector("#search-summary"); if (sse) { if (sn === 0) { sse.textContent = appT("app.searchNone", "No guides found for “{q}”. Try a topic such as bank, job or hospital.").replace("{q}", sq); } else if (sq === "") { sse.textContent = appT("app.searchAll", "Showing all {n} guides.").replace("{n}", String(sn)); } else { sse.textContent = appT(sn === 1 ? "app.searchFoundOne" : "app.searchFoundMany", sn === 1 ? "{n} guide found for “{q}”." : "{n} guides found for “{q}”.").replace("{n}", String(sn)).replace("{q}", sq); } } } });
+const datesKey = "lifego-dates"; /* i18n: भाषा फेरिँदा profile + plan + dates */ document.addEventListener("lb:lang", function () { var hls = document.querySelectorAll('.header-act a[href="login.html"]'); for (var hi = 0; hi < hls.length; hi++) { hls[hi].textContent = displayName ? appT("app.myProfile", "My Profile") : appT("nav.profile", "Demo Profile"); } var ps2 = document.querySelector("#profile-summary"); if (ps2) { ps2.textContent = displayName ? appT("app.profileName", "Display name: {name}").replace("{name}", displayName) : appT("app.noProfile", "No display name saved yet."); } if (window.__lbPlan && plans[window.__lbPlan]) { var pl = plans[window.__lbPlan]; var pt = document.querySelector("#plan-title"); if (pt) pt.textContent = displayName ? displayName + ", " + appT(pl.titleKey, pl.title).toLowerCase() : appT(pl.titleKey, pl.title); var pd = document.querySelector("#plan-description"); if (pd) pd.textContent = appT(pl.descKey, pl.description); var lb = document.querySelector("#plan-links"); if (lb && typeof guideData !== "undefined") { lb.replaceChildren(); for (var pi = 0; pi < pl.guides.length; pi++) { var pg = null; for (var pj = 0; pj < guideData.length; pj++) { if (guideData[pj].id === pl.guides[pi]) pg = guideData[pj]; } if (!pg) continue; var pa = document.createElement("a"); pa.className = "btn"; pa.href = pl.guides[pi] + ".html"; pa.textContent = ((typeof guideTitle === "function") ? guideTitle(pg) : pg.title) + " →"; lb.append(pa); } } } if (document.querySelector("#date-form")) { showDates(); } });
 
 // सेभ भएका मितिहरू पढ्ने (गलत ढाँचाका हटाउने)
 function readDates() {
@@ -368,7 +368,7 @@ function showDates() {
 
     if (items.length === 0) {
         const empty = document.createElement("li");
-        empty.textContent = "No dates added yet.";
+        empty.textContent = appT("app.noDates", "No dates added yet.");
         list.append(empty);
         return;
     }
@@ -383,15 +383,15 @@ function showDates() {
         const removeButton = document.createElement("button");
         removeButton.type = "button";
         removeButton.className = "btn";
-        removeButton.textContent = "Remove";
-        removeButton.setAttribute("aria-label", "Remove " + item.title);
+        removeButton.textContent = appT("app.remove", "Remove");
+        removeButton.setAttribute("aria-label", appT("app.removeDate", "Remove {t}").replace("{t}", item.title));
         removeButton.addEventListener("click", function () {
             const remaining = readDates().filter(function (d) {
                 return d.id !== item.id;
             });
             if (saveData(datesKey, remaining)) {
                 showDates();
-                showAppStatus("Date removed.");
+                showAppStatus(appT("app.dateRemoved", "Date removed."));
                 document.querySelector("#date-title").focus();
             }
         });
@@ -419,7 +419,7 @@ if (dateForm) {
         if (saveData(datesKey, readDates().concat([newItem]))) {
             dateForm.reset();
             showDates();
-            showAppStatus("Date saved.");
+            showAppStatus(appT("app.dateSaved", "Date saved."));
         }
     });
 
@@ -433,7 +433,7 @@ if (dateForm) {
 const resetButton = document.querySelector("#reset-data");
 if (resetButton) {
     resetButton.addEventListener("click", function () {
-        const sure = confirm("Remove all LifeBridge saved tasks, phrases, guides, dates and demo profile from this browser?");
+        const sure = confirm(appT("app.resetConfirm", "Remove all LifeBridge saved tasks, phrases, guides, dates and demo profile from this browser?"));
         if (!sure) return;
 
         try {
@@ -443,12 +443,12 @@ if (resetButton) {
                     localStorage.removeItem(key);
                 }
             }
-            showAppStatus("LifeBridge data reset.");
+            showAppStatus(appT("app.dataReset", "LifeBridge data reset."));
             if (profileSummary) {
-                profileSummary.textContent = "No display name saved yet.";
+                profileSummary.textContent = appT("app.noProfile", "No display name saved yet.");
             }
         } catch (error) {
-            showAppStatus("Could not reset browser storage.");
+            showAppStatus(appT("app.storageResetFail", "Could not reset browser storage."));
         }
     });
 }

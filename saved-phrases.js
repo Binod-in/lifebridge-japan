@@ -4,6 +4,21 @@
 // अर्थ phrases-data.js बाट आउँछ।
 // ============================================================
 
+// i18n तयार नहुँदासम्म अङ्ग्रेजी fallback दिने सुरक्षित lookup
+function sphT(key, fallback) {
+    try {
+        if (window.LBT && typeof window.LBT.t === "function") {
+            const value = window.LBT.t(key);
+            if (typeof value === "string" && value !== "" && value !== key) {
+                return value;
+            }
+        }
+    } catch (error) {
+        // तल fallback
+    }
+    return fallback;
+}
+
 const savedList = document.querySelector("#saved-phrase-list");
 const emptyMessage = document.querySelector("#saved-empty");
 const pageStatus = document.querySelector("#saved-page-status");
@@ -20,7 +35,7 @@ try {
         });
     }
 } catch (error) {
-    pageStatus.textContent = "Could not read your saved phrases.";
+    pageStatus.textContent = sphT("sph.readFail", "Could not read your saved phrases.");
 }
 
 // एउटा वाक्य हटाउने
@@ -32,13 +47,13 @@ function removePhrase(index) {
     try {
         localStorage.setItem(phrasesKey, JSON.stringify(remaining));
     } catch (error) {
-        pageStatus.textContent = "Could not remove the phrase.";
+        pageStatus.textContent = sphT("sph.removeFail", "Could not remove the phrase.");
         return;
     }
 
     phrases = remaining;
     showSavedPhrases();
-    pageStatus.textContent = "Phrase removed.";
+    pageStatus.textContent = sphT("sph.removed", "Phrase removed.");
 
     // Keyboard प्रयोगकर्ताका लागि focus अर्को Remove बटनमा राख्ने
     const buttons = savedList.querySelectorAll("button");
@@ -84,8 +99,8 @@ function showSavedPhrases() {
         const removeButton = document.createElement("button");
         removeButton.type = "button";
         removeButton.className = "btn";
-        removeButton.textContent = "Remove";
-        removeButton.setAttribute("aria-label", "Remove: " + text);
+        removeButton.textContent = sphT("sph.remove", "Remove");
+        removeButton.setAttribute("aria-label", sphT("sph.removeAria", "Remove: {t}").replace("{t}", text));
         removeButton.addEventListener("click", function () {
             removePhrase(index);
         });
@@ -96,3 +111,10 @@ function showSavedPhrases() {
 }
 
 showSavedPhrases();
+
+// भाषा फेरिँदा list फेरि देखाउने (जापानी/reading/अर्थ उस्तै रहन्छ)
+if (savedList) {
+    document.addEventListener("lb:lang", function () {
+        showSavedPhrases();
+    });
+}

@@ -7,6 +7,22 @@
 // ============================================================
 
 
+// i18n तयार नहुँदासम्म अङ्ग्रेजी fallback दिने सुरक्षित lookup
+function mainT(key, fallback) {
+    try {
+        if (window.LBT && typeof window.LBT.t === "function") {
+            const value = window.LBT.t(key);
+            if (typeof value === "string" && value !== "" && value !== key) {
+                return value;
+            }
+        }
+    } catch (error) {
+        // तल fallback
+    }
+    return fallback;
+}
+
+
 // ------------------------------------------------------------
 // १. Journey checklist
 // Checklist का कामहरू यहाँ एकै ठाउँमा छन्।
@@ -55,7 +71,10 @@ function updateJourneyProgress() {
     progressBar.value = percentage;
     progressBar.textContent = percentage + "%";
     progressText.textContent =
-        completed + " of " + total + " tasks completed · " + percentage + "%";
+        mainT("main.progress", "{c} of {t} tasks completed · {p}%")
+            .replace("{c}", String(completed))
+            .replace("{t}", String(total))
+            .replace("{p}", String(percentage));
 }
 
 // Checklist भएको page मा मात्र चलाउने
@@ -77,7 +96,7 @@ if (journeyList && progressBar && progressText) {
             try {
                 localStorage.setItem(taskStorageKey(task.id), String(checkbox.checked));
             } catch (error) {
-                progressText.textContent = "Could not save your tick. Check your browser storage settings.";
+                progressText.textContent = mainT("main.tickFail", "Could not save your tick. Check your browser storage settings.");
                 return;
             }
             updateJourneyProgress();
@@ -89,6 +108,9 @@ if (journeyList && progressBar && progressText) {
     }
 
     updateJourneyProgress();
+
+    // भाषा फेरिँदा progress पाठ फेरि देखाउने (task नाम data-i18n बाट फेरिन्छ)
+    document.addEventListener("lb:lang", updateJourneyProgress);
 }
 
 
@@ -133,7 +155,7 @@ if (phraseCard && categoryButtons.length > 0) {
     // Save बटनको text: सेभ छ भने "Saved", नत्र "Save"
     function updateSaveButton() {
         const isSaved = readSavedPhrases().includes(phraseExamples[currentCategory].japanese);
-        saveButton.textContent = isSaved ? "★ Saved" : "☆ Save";
+        saveButton.textContent = isSaved ? mainT("main.saveOn", "★ Saved") : mainT("main.saveOff", "☆ Save");
         saveButton.setAttribute("aria-pressed", String(isSaved));
     }
 
@@ -144,7 +166,9 @@ if (phraseCard && categoryButtons.length > 0) {
 
         currentCategory = category;
 
-        categoryLabel.textContent = example.category;
+        // Category नाम पहिल्यै भएको phrases.tab.* key बाट (अङ्ग्रेजी मिल्छ)
+        const tabKey = category === "city-hall" ? "cityhall" : category;
+        categoryLabel.textContent = mainT("phrases.tab." + tabKey, example.category);
         japaneseText.textContent = example.japanese;
         readingText.textContent = example.reading;
         englishText.textContent = example.english;
@@ -172,7 +196,7 @@ if (phraseCard && categoryButtons.length > 0) {
     // Listen: जापानी वाक्य पढेर सुनाउने
     listenButton.addEventListener("click", function () {
         if (!("speechSynthesis" in window)) {
-            statusText.textContent = "This browser cannot read text aloud.";
+            statusText.textContent = mainT("main.noTTS", "This browser cannot read text aloud.");
             return;
         }
 
@@ -181,14 +205,14 @@ if (phraseCard && categoryButtons.length > 0) {
         speech.rate = 0.85;
 
         speech.onstart = function () {
-            statusText.textContent = "Playing…";
+            statusText.textContent = mainT("main.playing", "Playing…");
         };
         speech.onend = function () {
             statusText.textContent = "";
         };
         speech.onerror = function (event) {
             if (event.error !== "canceled" && event.error !== "interrupted") {
-                statusText.textContent = "Could not play audio. Check that your device has a Japanese voice.";
+                statusText.textContent = mainT("main.audioFail", "Could not play audio. Check that your device has a Japanese voice.");
             }
         };
 
@@ -199,16 +223,16 @@ if (phraseCard && categoryButtons.length > 0) {
     // Copy: जापानी वाक्य कपी गर्ने
     copyButton.addEventListener("click", function () {
         if (!navigator.clipboard) {
-            statusText.textContent = "Copy is not available here. Select the phrase and copy it yourself.";
+            statusText.textContent = mainT("main.copyUnavailable", "Copy is not available here. Select the phrase and copy it yourself.");
             return;
         }
 
         navigator.clipboard.writeText(phraseExamples[currentCategory].japanese)
             .then(function () {
-                statusText.textContent = "Phrase copied.";
+                statusText.textContent = mainT("main.copied", "Phrase copied.");
             })
             .catch(function () {
-                statusText.textContent = "Copy did not work. Select the phrase and copy it yourself.";
+                statusText.textContent = mainT("main.copyFail", "Copy did not work. Select the phrase and copy it yourself.");
             });
     });
 
@@ -229,14 +253,19 @@ if (phraseCard && categoryButtons.length > 0) {
         try {
             localStorage.setItem(savedPhrasesKey, JSON.stringify(saved));
         } catch (error) {
-            statusText.textContent = "Could not save the phrase. Check your browser storage settings.";
+            statusText.textContent = mainT("main.phraseSaveFail", "Could not save the phrase. Check your browser storage settings.");
             return;
         }
 
         updateSaveButton();
-        statusText.textContent = wasSaved ? "Removed from Saved Phrases." : "Phrase saved.";
+        statusText.textContent = wasSaved ? mainT("main.phraseRemoved", "Removed from Saved Phrases.") : mainT("main.phraseKept", "Phrase saved.");
     });
 
     // Page खुल्दा पहिलो वाक्य देखाउने
     showPhrase(currentCategory);
+
+    // भाषा फेरिँदा card फेरि देखाउने (जापानी/reading/अर्थ उस्तै रहन्छ)
+    document.addEventListener("lb:lang", function () {
+        showPhrase(currentCategory);
+    });
 }

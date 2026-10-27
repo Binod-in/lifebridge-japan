@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Explain a notice | LifeBridge Japan</title>
+    <title data-i18n="explain.title">Explain a notice | LifeBridge Japan</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body id="top">
-    <a class="skip-link" href="#main-content">Skip to content</a>
+    <a class="skip-link" href="#main-content" data-i18n="doc.skip">Skip to content</a>
     <header class="site-header">
         <div class="header-cnt">
             <div class="logo">
@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="header-act">
-                <select id="lang-select" class="lang-select" aria-label="Language">
+                <select id="lang-select" class="lang-select" aria-label="Language" data-i18n-aria-label="doc.langAria">
                     <option value="en">English</option>
                     <option value="ne">नेपाली</option>
                     <option value="vi">Tiếng Việt</option>
@@ -32,47 +32,47 @@
 
     <main id="main-content">
         <section class="page-hero">
-            <p class="eyebrow">AI notice explainer</p>
-            <h1>Explain a notice</h1>
-            <p>Take a photo of a Japanese letter or notice. LifeBridge explains what it is,
+            <p class="eyebrow" data-i18n="explain.eyebrow">AI notice explainer</p>
+            <h1 data-i18n="hero.explain">Explain a notice</h1>
+            <p data-i18n="explain.lead">Take a photo of a Japanese letter or notice. LifeBridge explains what it is,
                why you got it, and what to do next — in simple words.</p>
         </section>
 
         <section class="card">
             <form id="explain-form">
-                <label for="photo"><strong>1. Choose a photo of the notice</strong></label>
+                <label for="photo" data-i18n-html="explain.step1"><strong>1. Choose a photo of the notice</strong></label>
                 <input type="file" id="photo" name="photo" accept="image/*" capture="environment" required>
                 <img id="preview" alt="" style="display:none;max-width:100%;margin-top:12px;border-radius:8px;">
 
-                <label for="language" style="display:block;margin-top:16px;"><strong>2. Choose your language</strong></label>
+                <label for="language" style="display:block;margin-top:16px;" data-i18n-html="explain.step2"><strong>2. Choose your language</strong></label>
                 <select id="language" name="language">
-                    <option value="ne" selected>Nepali</option>
+                    <option value="ne" selected data-i18n="explain.optNepali">Nepali</option>
                     <option value="en">English</option>
-                    <option value="ja">Japanese</option>
+                    <option value="ja" data-i18n="topic.japanese.title">Japanese</option>
                     <option value="vi">Tiếng Việt</option>
                     <option value="my">မြန်မာ</option>
                 </select>
 
                 <div style="margin-top:20px;">
-                    <button type="submit" class="btn" id="explain-btn">Explain</button>
+                    <button type="submit" class="btn" id="explain-btn" data-i18n="explain.submit">Explain</button>
                 </div>
                 <p id="status" role="status"></p>
             </form>
         </section>
 
         <section class="card" id="result-card" style="display:none;">
-            <h2>Your explanation</h2>
-            <h3>What is this?</h3>
+            <h2 data-i18n="explain.resultTitle">Your explanation</h2>
+            <h3 data-i18n="explain.hWhat">What is this?</h3>
             <p id="result-what"></p>
-            <h3>Why did you get it?</h3>
+            <h3 data-i18n="explain.hWhy">Why did you get it?</h3>
             <p id="result-why"></p>
-            <h3>How important is it?</h3>
+            <h3 data-i18n="explain.hImportance">How important is it?</h3>
             <p id="result-importance"></p>
-            <h3>What to do next</h3>
+            <h3 data-i18n="explain.hNext">What to do next</h3>
             <p id="result-next"></p>
-            <h3>Deadline</h3>
+            <h3 data-i18n="explain.hDeadline">Deadline</h3>
             <p id="result-deadline"></p>
-            <h3>Things to check</h3>
+            <h3 data-i18n="explain.hCheck">Things to check</h3>
             <p id="result-check"></p>
         </section>
     </main>
@@ -88,11 +88,11 @@
             ["Things to check", "result-check"]
         ];
 
-        const form = document.getElementById("explain-form");
+        const form = document.getElementById("explain-form"); if (window.LBT && typeof window.LBT.onChange === "function") { window.LBT.onChange(function () { if (lastStatusKey) setStatus(lastStatusKey, lastStatusFb, lastStatusMsg); }); } else { document.addEventListener("lb:lang", function () { if (lastStatusKey) setStatus(lastStatusKey, lastStatusFb, lastStatusMsg); }); }
         const photoInput = document.getElementById("photo");
         const preview = document.getElementById("preview");
         const status = document.getElementById("status");
-        const btn = document.getElementById("explain-btn");
+        const btn = document.getElementById("explain-btn"); function t(key, fallback) { try { if (window.LBT && typeof window.LBT.t === "function") { var v = window.LBT.t(key); if (typeof v === "string" && v !== "" && v !== key) return v; } } catch (e) {} return fallback; } var lastStatusKey = null, lastStatusFb = "", lastStatusMsg = ""; function setStatus(key, fb, msg) { lastStatusKey = key; lastStatusFb = fb; lastStatusMsg = msg || ""; status.textContent = t(key, fb).replace("{msg}", lastStatusMsg); }
 
         photoInput.addEventListener("change", () => {
             const file = photoInput.files[0];
@@ -122,11 +122,11 @@
         form.addEventListener("submit", async (e) => {
             e.preventDefault();
             if (!photoInput.files[0]) {
-                status.textContent = "Please choose a photo first.";
+                setStatus("explain.needPhoto", "Please choose a photo first.");
                 return;
             }
             btn.disabled = true;
-            status.textContent = "Reading your notice... this can take a few seconds.";
+            setStatus("explain.reading", "Reading your notice... this can take a few seconds.");
             const data = new FormData();
             data.append("photo", photoInput.files[0]);
             data.append("language", document.getElementById("language").value);
@@ -139,9 +139,9 @@
                     document.getElementById(id).textContent = sections[id] || "—";
                 }
                 document.getElementById("result-card").style.display = "block";
-                status.textContent = "";
+                lastStatusKey = null; status.textContent = "";
             } catch (err) {
-                status.textContent = "Sorry, it did not work: " + err.message;
+                setStatus("explain.failed", "Sorry, it did not work: {msg}", err.message);
             } finally {
                 btn.disabled = false;
             }
