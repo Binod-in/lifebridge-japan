@@ -15,6 +15,7 @@
 
         .hero {
             position: relative;
+            background-image: url("images/hero.webp");
         }
 
         /* Extra badge above the headline (accent = badges/highlights only). */
@@ -163,6 +164,21 @@
             line-height: 1.5;
             color: #56647d;
         }
+        /* Journey: single clean checklist panel beside the picker. */
+        .journey > .journey-card {
+            min-width: 0;
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #dce7f5;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(19, 35, 75, 0.08);
+        }
+
+        @media (max-width: 600px) {
+            .journey > .journey-card {
+                padding: 15px;
+            }
+        }
     </style>
 </head>
 
@@ -195,7 +211,6 @@
                     <option value="vi">Tiếng Việt</option>
                     <option value="my">မြန်မာ</option>
                 </select>
-                <a class="btn" href="login.html" data-i18n="nav.profile">Demo Profile</a>
             </div>
         </div>
     </header>
@@ -246,49 +261,49 @@
             <p class="topics-desc" data-i18n="topics.subtitle">Choose a topic and follow simple step-by-step instructions.</p>
             <div class="topics-grid">
                 <article class="topic-card">
-                    <img alt="" class="topic-icon" src="icons/home.svg" />
+                    <img alt="" class="guide-card-image" src="images/housing.webp" />
                     <h3 data-i18n="topic.housing.title">Housing</h3>
                     <p data-i18n="topic.housing.sub">Apartments, moving and utilities</p>
                     <a href="housing.html" data-i18n="idx.learnMore">Learn more</a>
                 </article>
                 <article class="topic-card">
-                    <img alt="" class="topic-icon" src="icons/briefcase.svg" />
+                    <img alt="" class="guide-card-image" src="images/jobs.webp" />
                     <h3 data-i18n="topic.jobs.title">Jobs</h3>
                     <p data-i18n="topic.jobs.sub">Part-time jobs and work basics</p>
                     <a href="jobs.html" data-i18n="idx.learnMore">Learn more</a>
                 </article>
                 <article class="topic-card">
-                    <img alt="" class="topic-icon" src="icons/document.svg" />
+                    <img alt="" class="guide-card-image" src="images/documents.webp" />
                     <h3 data-i18n="topic.documents.title">Documents</h3>
                     <p data-i18n="topic.documents.sub">Residence card and procedures</p>
                     <a href="documents.html" data-i18n="idx.learnMore">Learn more</a>
                 </article>
                 <article class="topic-card">
-                    <img alt="" class="topic-icon" src="icons/yen.svg" />
+                    <img alt="" class="guide-card-image" src="images/money.webp" />
                     <h3 data-i18n="topic.money.title">Money</h3>
                     <p data-i18n="topic.money.sub">Banking, salary and daily expenses</p>
                     <a href="money.html" data-i18n="idx.learnMore">Learn more</a>
                 </article>
                 <article class="topic-card">
-                    <img alt="" class="topic-icon" src="icons/train.svg" />
+                    <img alt="" class="guide-card-image" src="images/transport.webp" />
                     <h3 data-i18n="topic.transport.title">Transportation</h3>
                     <p data-i18n="topic.transport.sub">Trains, buses and IC cards</p>
                     <a href="transport.html" data-i18n="idx.learnMore">Learn more</a>
                 </article>
                 <article class="topic-card">
-                    <img alt="" class="topic-icon" src="icons/heart.svg" />
+                    <img alt="" class="guide-card-image" src="images/health.webp" />
                     <h3 data-i18n="topic.health.title">Health</h3>
                     <p data-i18n="topic.health.sub">Hospitals and health insurance</p>
                     <a href="health.html" data-i18n="idx.learnMore">Learn more</a>
                 </article>
                 <article class="topic-card">
-                    <img alt="" class="topic-icon" src="icons/chat.svg" />
+                    <img alt="" class="guide-card-image" src="images/japanese.webp" />
                     <h3 data-i18n="topic.japanese.title">Japanese</h3>
                     <p data-i18n="topic.japanese.sub">Useful Japanese phrases for daily life</p>
                     <a href="japanese.html" data-i18n="idx.learnMore">Learn more</a>
                 </article>
                 <article class="topic-card">
-                    <img alt="" class="topic-icon" src="icons/alert.svg" />
+                    <img alt="" class="guide-card-image" src="images/emergency.webp" />
                     <h3 data-i18n="topic.emergency.title">Emergency</h3>
                     <p data-i18n="topic.emergency.sub">What to do when something goes wrong</p>
                     <a href="emergency.html" data-i18n="idx.learnMore">Learn more</a>
@@ -297,26 +312,6 @@
         </section>
         <!-- My Journey -->
         <section class="journey">
-            <!-- Sidebar + checklist -->
-            <div class="journey-dashbord">
-                <!-- Sidebar -->
-                <aside class="journey-sidebar">
-                    <div class="journey-brand">
-                        <img alt="" src="logo/logo.png" />
-                        <span>LifeBridge Japan</span>
-                    </div>
-                    <nav aria-label="Journey navigation" class="journey-menu" data-i18n-aria-label="idx.journeyNav">
-                        <a class="selected" href="#journey-checklist"><img alt="" class="icon"
-                                src="icons/checklist.svg" /> <span data-i18n="journey.nav.mine">My Journey</span></a>
-                        <a href="saved-guides.html"><img alt="" class="icon" src="icons/bookmark.svg" /> <span data-i18n="journey.nav.saved">Saved
-                            Guides</span></a>
-                        <a href="saved-phrases.html"><img alt="" class="icon" src="icons/chat.svg" /> <span data-i18n="journey.nav.phrases">Saved Phrases</span></a>
-                        <a href="important-dates.html"><img alt="" class="icon" src="icons/calendar.svg" /> <span data-i18n="journey.nav.dates">Important
-                            Dates</span></a>
-                        <a href="settings.html"><img alt="" class="icon" src="icons/settings.svg" /> <span data-i18n="journey.nav.settings">Settings</span></a>
-                    </nav>
-                </aside>
-                <!-- Checklist -->
                 <div class="journey-card" id="journey-checklist">
                     <h3 data-i18n="journey.card.title">Your Journey</h3>
                     <p class="journey-note" data-i18n="journey.card.note">Check off the tasks you have completed.</p>
@@ -333,7 +328,6 @@
                     <!-- Checklist का कामहरू main.js बाट आउँछन् -->
                     <ul class="journey-list" id="journey-list"></ul>
                 </div>
-            </div>
             <!-- Choose your situation -->
             <div class="journey-info">
                 <h2 data-i18n="journey.title">Your Japan journey, step by step.</h2>
