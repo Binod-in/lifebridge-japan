@@ -284,7 +284,7 @@
             render();
         });
 
-        monthInput.addEventListener("change", render);
+        monthInput.addEventListener("change", render); if (window.LBT && typeof window.LBT.onChange === "function") { window.LBT.onChange(function () { render(); }); } else { document.addEventListener("lb:lang", function () { render(); }); }
         render();
     </script>
 </body>
