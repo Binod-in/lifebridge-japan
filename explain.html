@@ -6,6 +6,206 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title data-i18n="explain.title">Explain a notice | LifeBridge Japan</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Explain page styles — same tokens as the rest of the site. */
+        .page-hero {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e5ecf5;
+            padding: 36px 20px 28px;
+        }
+
+        .page-hero-inner {
+            width: min(800px, 100%);
+            margin: 0 auto;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 14px;
+            background-color: #f3f8ff;
+            border: 1px solid #d5e5ff;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #13234b;
+        }
+
+        .page-hero h1 {
+            font-size: clamp(28px, 5vw, 40px);
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+
+        .explain-lead {
+            color: #425473;
+            font-size: 16px;
+            line-height: 1.6;
+            max-width: 640px;
+        }
+
+        /* Main cards — same look as the site's other cards. */
+        .card {
+            width: min(800px, calc(100% - 40px));
+            margin: 24px auto;
+            padding: 24px 20px;
+            background-color: #ffffff;
+            border: 1px solid #e5ecf5;
+            border-radius: 14px;
+            box-shadow: 0 6px 20px rgba(19, 35, 75, 0.08);
+        }
+
+        @media (min-width: 600px) {
+            .card {
+                padding: 28px;
+            }
+        }
+
+        .field {
+            margin-bottom: 22px;
+        }
+
+        .step-label {
+            display: block;
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+
+        /* Big, friendly photo picker: a label wrapping the real file
+           input, which covers the whole area as one large tap target. */
+        .upload-area {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 190px;
+            padding: 32px 20px;
+            text-align: center;
+            background-color: #f3f8ff;
+            border: 2px dashed #9dbfff;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: border-color 0.15s, background-color 0.15s;
+        }
+
+        .upload-area:hover {
+            border-color: #1261ff;
+            background-color: #edf4ff;
+        }
+
+        .upload-area:focus-within {
+            outline: 3px solid #1261ff;
+            outline-offset: 4px;
+        }
+
+        .upload-area svg {
+            width: 44px;
+            height: 44px;
+            color: #1261ff;
+        }
+
+        .upload-title {
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .upload-hint {
+            font-size: 13px;
+            color: #56647d;
+        }
+
+        #photo {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        #preview {
+            width: 100%;
+            max-height: 320px;
+            object-fit: contain;
+            margin-top: 14px;
+            border-radius: 10px;
+            border: 1px solid #e5ecf5;
+            background-color: #f5f9ff;
+        }
+
+        #language {
+            width: 100%;
+            min-height: 52px;
+            padding: 13px 14px;
+            border: 1px solid #cbd9eb;
+            border-radius: 8px;
+            background-color: #ffffff;
+            color: #13234b;
+        }
+
+        #explain-btn {
+            width: 100%;
+            padding: 16px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #explain-btn:disabled {
+            opacity: 0.65;
+            cursor: wait;
+        }
+
+        #status {
+            margin-top: 12px;
+            min-height: 24px;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #425473;
+        }
+
+        #result-card h2 {
+            font-size: 22px;
+            margin-bottom: 16px;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        @media (min-width: 700px) {
+            .result-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        .result-card {
+            background-color: #f5f9ff;
+            border: 1px solid #d5e5ff;
+            border-radius: 10px;
+            padding: 16px;
+        }
+
+        .result-card h3 {
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+
+        .result-card p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #425473;
+            white-space: pre-line;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .upload-area {
+                transition: none;
+            }
+        }
+    </style>
 </head>
 
 <body id="top">
@@ -19,6 +219,15 @@
                     <span class="logo-tag" data-i18n="footer.tagline">Your everyday guide to living in Japan.</span>
                 </div>
             </div>
+            <nav aria-label="Main navigation" class="main-nav" data-i18n-aria-label="doc.mainNavAria">
+                <a href="index.html" data-i18n="nav.home">Home</a>
+                <a href="start.html" data-i18n="nav.start">Start Here</a>
+                <a href="guide.html" data-i18n="nav.guides">Guides</a>
+                <a href="jobs.html" data-i18n="nav.jobs">Jobs</a>
+                <a href="japanese.html" data-i18n="nav.japanese">Japanese help</a>
+                <a href="emergency.html" data-i18n="nav.emergency">Emergency</a>
+                <a href="questions.html" data-i18n="nav.qa">Q&amp;A</a>
+            </nav>
             <div class="header-act">
                 <select id="lang-select" class="lang-select" aria-label="Language" data-i18n-aria-label="doc.langAria">
                     <option value="en">English</option>
@@ -26,35 +235,50 @@
                     <option value="vi">Tiếng Việt</option>
                     <option value="my">မြန်မာ</option>
                 </select>
+                <a class="btn" href="login.html" data-i18n="nav.profile">Demo Profile</a>
             </div>
         </div>
     </header>
 
     <main id="main-content">
         <section class="page-hero">
-            <p class="eyebrow" data-i18n="explain.eyebrow">AI notice explainer</p>
-            <h1 data-i18n="hero.explain">Explain a notice</h1>
-            <p data-i18n="explain.lead">Take a photo of a Japanese letter or notice. LifeBridge explains what it is,
-               why you got it, and what to do next — in simple words.</p>
+            <div class="page-hero-inner">
+                <p class="eyebrow" data-i18n="explain.eyebrow">AI notice explainer</p>
+                <h1 data-i18n="hero.explain">Explain a notice</h1>
+                <p class="explain-lead" data-i18n="explain.lead">Take a photo of a Japanese letter or notice. LifeBridge explains what it is,
+                   why you got it, and what to do next — in simple words.</p>
+            </div>
         </section>
 
         <section class="card">
             <form id="explain-form">
-                <label for="photo" data-i18n-html="explain.step1"><strong>1. Choose a photo of the notice</strong></label>
-                <input type="file" id="photo" name="photo" accept="image/*" capture="environment" required>
-                <img id="preview" alt="" style="display:none;max-width:100%;margin-top:12px;border-radius:8px;">
+                <div class="field">
+                    <label class="step-label" for="photo" data-i18n-html="explain.step1"><strong>1. Choose a photo of the notice</strong></label>
+                    <label class="upload-area">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                            <circle cx="12" cy="13" r="4"></circle>
+                        </svg>
+                        <span class="upload-title">Tap to take or choose a photo</span>
+                        <span class="upload-hint">A clear photo of the whole notice works best</span>
+                        <input type="file" id="photo" name="photo" accept="image/*" capture="environment" required>
+                    </label>
+                    <img id="preview" alt="" style="display:none;">
+                </div>
 
-                <label for="language" style="display:block;margin-top:16px;" data-i18n-html="explain.step2"><strong>2. Choose your language</strong></label>
-                <select id="language" name="language">
-                    <option value="ne" selected data-i18n="explain.optNepali">Nepali</option>
-                    <option value="en" data-i18n="explain.optEnglish">English</option>
-                    <option value="ja" data-i18n="topic.japanese.title">Japanese</option>
-                    <option value="vi">Tiếng Việt</option>
-                    <option value="my">မြန်မာ</option>
-                </select>
+                <div class="field">
+                    <label class="step-label" for="language" data-i18n-html="explain.step2"><strong>2. Choose your language</strong></label>
+                    <select id="language" name="language">
+                        <option value="ne" selected data-i18n="explain.optNepali">Nepali</option>
+                        <option value="en" data-i18n="explain.optEnglish">English</option>
+                        <option value="ja" data-i18n="topic.japanese.title">Japanese</option>
+                        <option value="vi">Tiếng Việt</option>
+                        <option value="my">မြန်မာ</option>
+                    </select>
+                </div>
 
-                <div style="margin-top:20px;">
-                    <button type="submit" class="btn" id="explain-btn" data-i18n="explain.submit">Explain</button>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-prim" id="explain-btn" data-i18n="explain.submit">Explain</button>
                 </div>
                 <p id="status" role="status"></p>
             </form>
@@ -62,20 +286,66 @@
 
         <section class="card" id="result-card" style="display:none;">
             <h2 data-i18n="explain.resultTitle">Your explanation</h2>
-            <h3 data-i18n="explain.hWhat">What is this?</h3>
-            <p id="result-what"></p>
-            <h3 data-i18n="explain.hWhy">Why did you get it?</h3>
-            <p id="result-why"></p>
-            <h3 data-i18n="explain.hImportance">How important is it?</h3>
-            <p id="result-importance"></p>
-            <h3 data-i18n="explain.hNext">What to do next</h3>
-            <p id="result-next"></p>
-            <h3 data-i18n="explain.hDeadline">Deadline</h3>
-            <p id="result-deadline"></p>
-            <h3 data-i18n="explain.hCheck">Things to check</h3>
-            <p id="result-check"></p>
+            <div class="result-grid">
+                <article class="result-card">
+                    <h3 data-i18n="explain.hWhat">What is this?</h3>
+                    <p id="result-what"></p>
+                </article>
+                <article class="result-card">
+                    <h3 data-i18n="explain.hWhy">Why did you get it?</h3>
+                    <p id="result-why"></p>
+                </article>
+                <article class="result-card">
+                    <h3 data-i18n="explain.hImportance">How important is it?</h3>
+                    <p id="result-importance"></p>
+                </article>
+                <article class="result-card">
+                    <h3 data-i18n="explain.hNext">What to do next</h3>
+                    <p id="result-next"></p>
+                </article>
+                <article class="result-card">
+                    <h3 data-i18n="explain.hDeadline">Deadline</h3>
+                    <p id="result-deadline"></p>
+                </article>
+                <article class="result-card">
+                    <h3 data-i18n="explain.hCheck">Things to check</h3>
+                    <p id="result-check"></p>
+                </article>
+            </div>
         </section>
     </main>
+
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <img alt="" src="logo/logo.png" />
+                    <span>LifeBridge Japan</span>
+                </div>
+                <p data-i18n="footer.tagline">Your everyday guide to living in Japan.</p>
+            </div>
+            <nav aria-label="Explore" class="footer-links" data-i18n-aria-label="doc.explore">
+                <h3 data-i18n="doc.explore">Explore</h3>
+                <a href="index.html" data-i18n="nav.home">Home</a>
+                <a href="start.html" data-i18n="nav.start">Start Here</a>
+                <a href="guide.html" data-i18n="nav.guides">Guides</a>
+                <a href="japanese.html" data-i18n="nav.japanese">Japanese help</a>
+            </nav>
+            <nav aria-label="Support" class="footer-links" data-i18n-aria-label="doc.support">
+                <h3 data-i18n="doc.support">Support</h3>
+                <a href="emergency.html" data-i18n="nav.emergency">Emergency</a>
+                <a href="questions.html" data-i18n="nav.qa">Q&amp;A</a>
+            </nav>
+            <div class="footer-project">
+                <h3 data-i18n="doc.about">About this project</h3>
+                <p data-i18n="doc.aboutText">LifeBridge Japan helps newcomers in Japan understand daily life — guides, money tools, and AI explanations of official notices.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <small data-i18n="doc.copyright">© 2026 LifeBridge Japan · Built for newcomers in Japan</small>
+            <a href="#top" data-i18n="doc.backTop">Back to top ↑</a>
+        </div>
+    </footer>
 
     <script src="i18n.js" defer></script>
     <script>
@@ -126,6 +396,8 @@
                 return;
             }
             btn.disabled = true;
+            const originalBtnText = btn.textContent;
+            btn.textContent = "Explaining...";
             setStatus("explain.reading", "Reading your notice... this can take a few seconds.");
             const data = new FormData();
             data.append("photo", photoInput.files[0]);
@@ -143,6 +415,7 @@
             } catch (err) {
                 setStatus("explain.failed", "Sorry, it did not work: {msg}", err.message);
             } finally {
+                btn.textContent = originalBtnText;
                 btn.disabled = false;
             }
         });

@@ -7,6 +7,163 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title data-i18n="idx.title">LifeBridge Japan</title>
     <link href="style.css" rel="stylesheet" />
+    <style>
+        /* Homepage-only additions. */
+        :root {
+            --accent: #FF6B81;
+        }
+
+        .hero {
+            position: relative;
+        }
+
+        /* Extra badge above the headline (accent = badges/highlights only). */
+        .hero-lang-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            margin: 0 0 18px 8px;
+            background-color: #FFF5F6;
+            border: 1px solid var(--accent);
+            border-radius: 6px;
+            font-size: 13px;
+            color: #13234b;
+            vertical-align: top;
+        }
+
+        /* Static example card: stacked on small screens, floating over the
+           hero image on wide screens. */
+        .hero-example {
+            max-width: 340px;
+            margin-top: 24px;
+            padding: 16px 18px;
+            background-color: #ffffff;
+            border: 1px solid #e5ecf5;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(19, 35, 75, 0.12);
+        }
+
+        .hero-example-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            margin-bottom: 10px;
+            background-color: var(--accent);
+            color: #ffffff;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .hero-example-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .hero-example-text {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #425473;
+        }
+
+        @media (min-width: 1100px) {
+            .hero-example {
+                position: absolute;
+                right: 32px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 300px;
+                margin-top: 0;
+            }
+        }
+
+        /* Big emergency dial numbers. */
+        .emergency-dial {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .emergency-dial-num {
+            display: block;
+            padding: 12px;
+            text-align: center;
+            font-size: 28px;
+            font-weight: 700;
+            color: #b51f2b;
+            background-color: #ffffff;
+            border: 1px solid #f0dce0;
+            border-radius: 10px;
+        }
+
+        .emergency-dial-num:hover {
+            border-color: #cf2938;
+        }
+
+        /* Mobile bottom navigation (hidden on larger screens). */
+        .bottom-nav {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 20;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            gap: 4px;
+            padding: 8px 8px calc(8px + env(safe-area-inset-bottom));
+            background-color: #ffffff;
+            border-top: 1px solid #e5ecf5;
+            box-shadow: 0 -4px 16px rgba(19, 35, 75, 0.08);
+        }
+
+        .bottom-nav a {
+            flex: 1;
+            min-width: 0;
+            padding: 8px 4px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: #425473;
+            border-radius: 8px;
+        }
+
+        .bottom-nav a.bottom-nav-main {
+            flex: 0 0 auto;
+            width: 76px;
+            height: 56px;
+            margin-top: -28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            color: #ffffff;
+            background-color: #1261ff;
+            border-radius: 16px;
+            box-shadow: 0 6px 16px rgba(18, 97, 255, 0.35);
+        }
+
+        @media (min-width: 769px) {
+            .bottom-nav {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-bottom: 84px;
+            }
+        }
+
+        /* Small "Source / Updated" line for guide cards. */
+        .card-meta {
+            font-size: 12px;
+            line-height: 1.5;
+            color: #56647d;
+        }
+    </style>
 </head>
 
 <body id="top"><a class="skip-link" href="#main-content" data-i18n="doc.skip">Skip to content</a>
@@ -47,17 +204,23 @@
         <section class="hero">
             <div class="hero-cnt">
                 <span class="hero-badge" data-i18n="idx.badge">Life in Japan, made simpler</span>
+                <span class="hero-lang-badge">Available in Nepali, English and Japanese</span>
                 <h1 data-i18n-html="hero.title">New to Japan?<br /> Know what to do next.</h1>
                 <p class="hero-desc" data-i18n="hero.subtitle">Simple step-by-step guides for documents, housing, jobs, money, Japanese and
                     everyday life in Japan.</p>
                 <div class="hero-actions">
-                    <a class="btn btn-prim" href="start.html" data-i18n="hero.start">Start My Journey →</a>
+                    <a class="btn btn-prim" href="explain.html" data-i18n="hero.explain">Explain a notice</a>
                     <a class="btn" href="guide.html" data-i18n="hero.guides">
                         Explore Guides
                     </a>
-                    <a class="btn" href="explain.html" data-i18n="hero.explain">Explain a notice</a>
+                    <a class="btn" href="start.html" data-i18n="hero.start">Start My Journey →</a>
                 </div>
                 <p class="hero-lang" data-i18n="idx.heroLang">Japanese phrases with English and Nepali meanings</p>
+                <aside class="hero-example" aria-label="Example explanation">
+                    <span class="hero-example-tag">Example</span>
+                    <p class="hero-example-title">City notice: please pay your gas bill</p>
+                    <p class="hero-example-text">What it is: your monthly gas bill. What to do: pay at a convenience store by the due date shown on the notice.</p>
+                </aside>
             </div>
         </section>
         <!-- Search -->
@@ -305,6 +468,10 @@
                         <h3 data-i18n="emg.residence">Lost Residence Card</h3>
                     </a>
                 </div>
+                <div class="emergency-dial">
+                    <a class="emergency-dial-num" href="tel:110" aria-label="Call police, 110">110</a>
+                    <a class="emergency-dial-num" href="tel:119" aria-label="Call ambulance or fire, 119">119</a>
+                </div>
                 <a class="emergency-button" href="emergency.html" data-i18n="emg.open">
                     Open Emergency Guide
                 </a>
@@ -380,6 +547,13 @@
             <a href="#top" data-i18n="doc.backTop">Back to top ↑</a>
         </div>
     </footer>
+    <nav class="bottom-nav" aria-label="Mobile">
+        <a href="index.html">Home</a>
+        <a href="guide.html">Guides</a>
+        <a href="explain.html" class="bottom-nav-main">Explain</a>
+        <a href="emergency.html">Emergency</a>
+        <a href="login.html">Profile</a>
+    </nav>
     <script src="phrases-data.js" defer></script>
     <script src="main.js" defer></script>
     <script src="i18n.js" defer></script>
