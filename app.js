@@ -146,6 +146,16 @@ function makeGuideCard(guide) {
     const description = document.createElement("p");
     description.textContent = (typeof guideDesc === "function") ? guideDesc(guide) : guide.description;
 
+    // Guides page मा card को header image देखाउने (Search/Saved मा होइन)
+    if (currentPage === "guide.html" && guide.image) {
+        const photo = document.createElement("img");
+        photo.className = "guide-card-image";
+        photo.src = guide.image;
+        photo.alt = "";
+        photo.loading = "lazy";
+        card.append(photo);
+    }
+
     card.append(icon, title, description);
 
     // Japanese र Emergency आफैंमा tool page हुन्, तिनलाई bookmark बटन नदिने

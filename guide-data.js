@@ -3,6 +3,7 @@
 // Search, Guides र Saved Guides page का लागि ८ वटा topic।
 //   id       = page को नाम (id + ".html" खुल्छ)
 //   icon     = icons folder भित्रको file
+//   image    = images folder भित्रको banner file (Guides card header)
 //   keywords = खोज्दा भेटिने शब्द (English, नेपाली, 日本語)
 // ============================================================
 
@@ -11,6 +12,7 @@ const guideData = [
         id: "housing",
         title: "Housing",
         icon: "icons/home.svg",
+        image: "images/housing.webp",
         description: "Apartments, moving and utilities",
         keywords: "house home apartment move moving rent room utilities घर कोठा भाडा 住居 引越し",
         i18n: { titleKey: "topic.housing.title", descKey: "topic.housing.sub" }
@@ -19,6 +21,7 @@ const guideData = [
         id: "jobs",
         title: "Jobs",
         icon: "icons/briefcase.svg",
+        image: "images/jobs.webp",
         description: "Prepare for a part-time job search",
         keywords: "job jobs work part-time arubaito baito काम जागिर 仕事 アルバイト",
         i18n: { titleKey: "topic.jobs.title", descKey: "gd.jobs.desc" }
@@ -27,6 +30,7 @@ const guideData = [
         id: "documents",
         title: "Documents",
         icon: "icons/document.svg",
+        image: "images/documents.webp",
         description: "Organize your residence and address paperwork",
         keywords: "residence card address register document documents कागजात ठेगाना 在留カード 住所",
         i18n: { titleKey: "topic.documents.title", descKey: "gd.documents.desc" }
@@ -35,6 +39,7 @@ const guideData = [
         id: "money",
         title: "Money",
         icon: "icons/yen.svg",
+        image: "images/money.webp",
         description: "Prepare for banking and everyday expenses",
         keywords: "bank account money salary banking budget पैसा बैंक 銀行 口座",
         i18n: { titleKey: "topic.money.title", descKey: "gd.money.desc" }
@@ -43,6 +48,7 @@ const guideData = [
         id: "transport",
         title: "Transportation",
         icon: "icons/train.svg",
+        image: "images/transport.webp",
         description: "Plan your route and learn to use local transport",
         keywords: "train bus ic card suica pasmo travel transport रेल यातायात 電車 交通",
         i18n: { titleKey: "topic.transport.title", descKey: "gd.transport.desc" }
@@ -51,6 +57,7 @@ const guideData = [
         id: "health",
         title: "Health",
         icon: "icons/heart.svg",
+        image: "images/health.webp",
         description: "Prepare for appointments and insurance questions",
         keywords: "hospital health insurance doctor clinic स्वास्थ्य अस्पताल बीमा 病院 保険",
         i18n: { titleKey: "topic.health.title", descKey: "gd.health.desc" }
@@ -59,6 +66,7 @@ const guideData = [
         id: "japanese",
         title: "Japanese",
         icon: "icons/chat.svg",
+        image: "images/japanese.webp",
         description: "Useful phrases with English and Nepali meanings",
         keywords: "japanese language phrase phrases nihongo जापानी भाषा 日本語",
         i18n: { titleKey: "topic.japanese.title", descKey: "gd.japanese.desc" }
@@ -67,6 +75,7 @@ const guideData = [
         id: "emergency",
         title: "Emergency",
         icon: "icons/alert.svg",
+        image: "images/emergency.webp",
         description: "Important contacts and lost-item next steps",
         keywords: "emergency police fire ambulance lost help आपतकाल प्रहरी 緊急 警察",
         i18n: { titleKey: "topic.emergency.title", descKey: "gd.emergency.desc" }

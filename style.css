@@ -1631,6 +1631,31 @@ details {
     margin: 0;
 }
 
+/* Wide topic banner on guide pages + header image on guide cards */
+.topic-banner {
+    display: block;
+    width: 100%;
+    height: clamp(180px, 28vw, 300px);
+    object-fit: cover;
+    border-radius: 14px;
+    margin: 0 0 24px;
+}
+
+.guide-card-image {
+    display: block;
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 16px;
+}
+
+@media (max-width: 600px) {
+    .guide-card-image {
+        height: 170px;
+    }
+}
+
 .detail-card h2 {
     font-size: 21px;
     margin-bottom: 12px;
