@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Money Tracker | LifeBridge Japan</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .summary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 16px 0; }
+        @media (min-width: 640px) { .summary-grid { grid-template-columns: repeat(4, 1fr); } }
+        .summary-box { background: #f2f6ff; border: 1px solid #d7e3ff; border-radius: 12px; padding: 14px; }
+        .summary-box span { display: block; font-size: 0.85rem; color: #44506b; }
+        .summary-box strong { font-size: 1.25rem; color: #12224d; }
+        .entry-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #e4e9f5; }
+        .entry-row .grow { flex: 1; }
+        .entry-row small { display: block; color: #66738f; }
+        .tag { font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; }
+        .tag-income { background: #e2f7e6; color: #166534; }
+        .tag-expense { background: #fde8e8; color: #991b1b; }
+        .tag-saving { background: #e6e9fd; color: #3730a3; }
+        .progress { background: #e4e9f5; border-radius: 999px; height: 12px; overflow: hidden; margin: 6px 0 4px; }
+        .progress > div { background: #2f6bff; height: 100%; }
+        .form-grid { display: grid; gap: 10px; }
+        .form-grid label { font-weight: 600; font-size: 0.9rem; }
+        .form-grid input, .form-grid select { width: 100%; padding: 10px; border: 1px solid #c3cee6; border-radius: 8px; font: inherit; }
+        .del-btn { border: 1px solid #e2b6b6; background: #fff; color: #991b1b; border-radius: 8px; padding: 4px 10px; cursor: pointer; }
+    </style>
+</head>
+
+<body id="top"><a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+        <div class="header-cnt">
+            <div class="logo">
+                <img alt="" src="logo/logo.png" />
+                <div class="logo-text">
+                    <span class="logo-name">LifeBridge Japan</span>
+                    <span class="logo-tag">Your everyday guide to living in Japan.</span>
+                </div>
+            </div>
+            <nav aria-label="Main navigation" class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="start.html">Start Here</a>
+                <a href="guide.html">Guides</a>
+                <a href="jobs.html">Jobs</a>
+                <a href="japanese.html">Japanese help</a>
+                <a href="emergency.html">Emergency</a>
+                <a href="questions.html">Q&amp;A</a>
+            </nav>
+            <div class="header-act">
+                <a class="btn" href="login.html">Demo Profile</a>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content" class="content-page"><a class="saved-back" href="money.html">← Money</a>
+        <h1>Money Tracker</h1>
+        <p class="page-lead">A simple record of what you earn, spend and save each month — and what you are saving for. Everything stays in this browser on your device.</p>
+
+        <article class="detail-card">
+            <h2>This month</h2>
+            <label for="month"><strong>Month</strong></label>
+            <input type="month" id="month">
+            <div class="summary-grid">
+                <div class="summary-box"><span>Earned</span><strong id="sum-income">¥0</strong></div>
+                <div class="summary-box"><span>Spent</span><strong id="sum-expense">¥0</strong></div>
+                <div class="summary-box"><span>Saved</span><strong id="sum-saving">¥0</strong></div>
+                <div class="summary-box"><span>Left</span><strong id="sum-left">¥0</strong></div>
+            </div>
+        </article>
+
+        <article class="detail-card">
+            <h2>Add an entry</h2>
+            <form id="entry-form" class="form-grid">
+                <div>
+                    <label for="type">Type</label>
+                    <select id="type">
+                        <option value="income">Income (earned)</option>
+                        <option value="expense" selected>Expense (spent)</option>
+                        <option value="saving">Saving (put aside)</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="amount">Amount (¥)</label>
+                    <input type="number" id="amount" min="1" step="1" required placeholder="e.g. 1500">
+                </div>
+                <div>
+                    <label for="note">What is it? / के का लागि?</label>
+                    <input type="text" id="note" placeholder="e.g. Sukiya salary, Rent, Food, Train">
+                </div>
+                <div id="goal-row" style="display:none;">
+                    <label for="goal-select">Saving for</label>
+                    <select id="goal-select"></select>
+                </div>
+                <div>
+                    <label for="date">Date</label>
+                    <input type="date" id="date" required>
+                </div>
+                <button type="submit" class="btn btn-prim">Add entry</button>
+                <p role="status" id="form-status"></p>
+            </form>
+        </article>
+
+        <article class="detail-card">
+            <h2>Savings goals</h2>
+            <div id="goals-list"></div>
+            <form id="goal-form" class="form-grid" style="margin-top:14px;">
+                <div>
+                    <label for="goal-name">New goal — what are you saving for?</label>
+                    <input type="text" id="goal-name" placeholder="e.g. Ticket to Nepal, New laptop">
+                </div>
+                <div>
+                    <label for="goal-target">Target amount (¥)</label>
+                    <input type="number" id="goal-target" min="1" step="1" placeholder="e.g. 120000">
+                </div>
+                <button type="submit" class="btn">Add goal</button>
+            </form>
+        </article>
+
+        <article class="detail-card">
+            <h2>Entries</h2>
+            <div id="entries-list"></div>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <img alt="" src="logo/logo.png" />
+                    <span>LifeBridge Japan</span>
+                </div>
+                <p>Your everyday guide to living in Japan.</p>
+            </div>
+            <nav aria-label="Explore" class="footer-links">
+                <h3>Explore</h3>
+                <a href="index.html">Home</a>
+                <a href="start.html">Start Here</a>
+                <a href="guide.html">Guides</a>
+                <a href="japanese.html">Japanese help</a>
+            </nav>
+            <nav aria-label="Support" class="footer-links">
+                <h3>Support</h3>
+                <a href="emergency.html">Emergency</a>
+                <a href="questions.html">Q&amp;A</a>
+            </nav>
+            <div class="footer-project">
+                <h3>About this project</h3>
+                <p>A school website project to help newcomers find their next steps in Japan.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <small>© 2026 LifeBridge Japan · School Project</small>
+            <a href="#top">Back to top ↑</a>
+        </div>
+    </footer>
+
+    <script>
+        // Money Tracker — all data stays in this browser (localStorage).
+        const ENTRIES_KEY = "lb_money_entries";
+        const GOALS_KEY = "lb_money_goals";
+
+        const load = (key, fallback) => {
+            try { return JSON.parse(localStorage.getItem(key)) || fallback; }
+            catch { return fallback; }
+        };
+        const save = (key, value) => localStorage.setItem(key, JSON.stringify(value));
+        const yen = n => "¥" + Number(n || 0).toLocaleString("ja-JP");
+
+        let entries = load(ENTRIES_KEY, []);
+        let goals = load(GOALS_KEY, []);
+
+        const monthInput = document.getElementById("month");
+        const today = new Date();
+        monthInput.value = today.toISOString().slice(0, 7);
+        document.getElementById("date").value = today.toISOString().slice(0, 10);
+
+        const typeSelect = document.getElementById("type");
+        const goalRow = document.getElementById("goal-row");
+        const goalSelect = document.getElementById("goal-select");
+
+        function refreshGoalOptions() {
+            goalSelect.innerHTML = "";
+            const general = document.createElement("option");
+            general.value = "";
+            general.textContent = "General savings";
+            goalSelect.appendChild(general);
+            for (const g of goals) {
+                const opt = document.createElement("option");
+                opt.value = g.id;
+                opt.textContent = g.name;
+                goalSelect.appendChild(opt);
+            }
+        }
+        typeSelect.addEventListener("change", () => {
+            goalRow.style.display = typeSelect.value === "saving" ? "block" : "none";
+        });
+
+        function render() {
+            const month = monthInput.value;
+            const inMonth = entries.filter(e => e.date.startsWith(month));
+            const sum = t => inMonth.filter(e => e.type === t).reduce((a, e) => a + e.amount, 0);
+            const income = sum("income"), expense = sum("expense"), saving = sum("saving");
+            document.getElementById("sum-income").textContent = yen(income);
+            document.getElementById("sum-expense").textContent = yen(expense);
+            document.getElementById("sum-saving").textContent = yen(saving);
+            document.getElementById("sum-left").textContent = yen(income - expense - saving);
+
+            // Goals progress uses ALL savings ever tagged to the goal.
+            const goalsList = document.getElementById("goals-list");
+            goalsList.innerHTML = goals.length ? "" : "<p>No goals yet. Add one below — for example a ticket home or a new laptop.</p>";
+            for (const g of goals) {
+                const savedAmt = entries
+                    .filter(e => e.type === "saving" && e.goalId === g.id)
+                    .reduce((a, e) => a + e.amount, 0);
+                const pct = g.target > 0 ? Math.min(100, Math.round(savedAmt / g.target * 100)) : 0;
+                const wrap = document.createElement("div");
+                wrap.innerHTML = `<strong></strong> — ${yen(savedAmt)} of ${yen(g.target)} (${pct}%)
+                    <div class="progress"><div style="width:${pct}%"></div></div>`;
+                wrap.querySelector("strong").textContent = g.name;
+                goalsList.appendChild(wrap);
+            }
+
+            const list = document.getElementById("entries-list");
+            list.innerHTML = inMonth.length ? "" : "<p>No entries for this month yet.</p>";
+            [...inMonth].sort((a, b) => b.date.localeCompare(a.date)).forEach(e => {
+                const goal = goals.find(g => g.id === e.goalId);
+                const row = document.createElement("div");
+                row.className = "entry-row";
+                const label = { income: "Income", expense: "Expense", saving: "Saving" }[e.type];
+                row.innerHTML = `<span class="tag tag-${e.type}">${label}</span>
+                    <div class="grow"><strong>${yen(e.amount)}</strong> <span class="entry-note"></span>
+                    <small>${e.date}${goal ? " · For: " + goal.name : ""}</small></div>`;
+                row.querySelector(".entry-note").textContent = e.note || "";
+                const del = document.createElement("button");
+                del.className = "del-btn";
+                del.textContent = "Delete";
+                del.addEventListener("click", () => {
+                    entries = entries.filter(x => x.id !== e.id);
+                    save(ENTRIES_KEY, entries);
+                    render();
+                });
+                row.appendChild(del);
+                list.appendChild(row);
+            });
+            refreshGoalOptions();
+        }
+
+        document.getElementById("entry-form").addEventListener("submit", ev => {
+            ev.preventDefault();
+            const amount = parseInt(document.getElementById("amount").value, 10);
+            if (!amount || amount <= 0) return;
+            entries.push({
+                id: Date.now().toString(),
+                type: typeSelect.value,
+                amount,
+                note: document.getElementById("note").value.trim(),
+                goalId: typeSelect.value === "saving" ? goalSelect.value : "",
+                date: document.getElementById("date").value
+            });
+            save(ENTRIES_KEY, entries);
+            document.getElementById("amount").value = "";
+            document.getElementById("note").value = "";
+            document.getElementById("form-status").textContent = "Added ✔";
+            render();
+        });
+
+        document.getElementById("goal-form").addEventListener("submit", ev => {
+            ev.preventDefault();
+            const name = document.getElementById("goal-name").value.trim();
+            const target = parseInt(document.getElementById("goal-target").value, 10);
+            if (!name || !target) return;
+            goals.push({ id: Date.now().toString(), name, target });
+            save(GOALS_KEY, goals);
+            document.getElementById("goal-name").value = "";
+            document.getElementById("goal-target").value = "";
+            render();
+        });
+
+        monthInput.addEventListener("change", render);
+        render();
+    </script>
+</body>
+
+</html>
