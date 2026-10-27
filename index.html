@@ -144,22 +144,22 @@
                     </div>
                     <nav aria-label="Journey navigation" class="journey-menu">
                         <a class="selected" href="#journey-checklist"><img alt="" class="icon"
-                                src="icons/checklist.svg" /> My Journey</a>
-                        <a href="saved-guides.html"><img alt="" class="icon" src="icons/bookmark.svg" /> Saved
-                            Guides</a>
-                        <a href="saved-phrases.html"><img alt="" class="icon" src="icons/chat.svg" /> Saved Phrases</a>
-                        <a href="important-dates.html"><img alt="" class="icon" src="icons/calendar.svg" /> Important
-                            Dates</a>
-                        <a href="settings.html"><img alt="" class="icon" src="icons/settings.svg" /> Settings</a>
+                                src="icons/checklist.svg" /> <span data-i18n="journey.nav.mine">My Journey</span></a>
+                        <a href="saved-guides.html"><img alt="" class="icon" src="icons/bookmark.svg" /> <span data-i18n="journey.nav.saved">Saved
+                            Guides</span></a>
+                        <a href="saved-phrases.html"><img alt="" class="icon" src="icons/chat.svg" /> <span data-i18n="journey.nav.phrases">Saved Phrases</span></a>
+                        <a href="important-dates.html"><img alt="" class="icon" src="icons/calendar.svg" /> <span data-i18n="journey.nav.dates">Important
+                            Dates</span></a>
+                        <a href="settings.html"><img alt="" class="icon" src="icons/settings.svg" /> <span data-i18n="journey.nav.settings">Settings</span></a>
                     </nav>
                 </aside>
                 <!-- Checklist -->
                 <div class="journey-card" id="journey-checklist">
-                    <h3>Your Journey</h3>
-                    <p class="journey-note">Check off the tasks you have completed.</p>
+                    <h3 data-i18n="journey.card.title">Your Journey</h3>
+                    <p class="journey-note" data-i18n="journey.card.note">Check off the tasks you have completed.</p>
                     <!-- Checklist को प्रगति -->
                     <div class="journey-progress">
-                        <label for="journey-progress-bar">
+                        <label for="journey-progress-bar" data-i18n="journey.progress.label">
                             Your progress
                         </label>
                         <progress id="journey-progress-bar" max="100" value="0">
@@ -173,57 +173,57 @@
             </div>
             <!-- Choose your situation -->
             <div class="journey-info">
-                <h2>Your Japan journey, step by step.</h2>
-                <p>Tell us your situation and explore a suggested checklist for your next steps.</p>
+                <h2 data-i18n="journey.title">Your Japan journey, step by step.</h2>
+                <p data-i18n="journey.desc">Tell us your situation and explore a suggested checklist for your next steps.</p>
                 <form action="start.html" class="journey-form" method="get">
-                    <label for="journey-status">Your situation</label>
+                    <label for="journey-status" data-i18n="journey.form.situation">Your situation</label>
                     <select id="journey-status" name="situation">
-                        <option value="student">Studying in Japan</option>
-                        <option value="new-arrival">Just Arrived</option>
-                        <option value="worker">Starting Work</option>
-                        <option value="moving-home">Moving Home</option>
-                        <option value="senmon-school">Find vocational schools</option>
-                        <option value="university">Find a university</option>
+                        <option value="student" data-i18n="journey.opt.student">Studying in Japan</option>
+                        <option value="new-arrival" data-i18n="journey.opt.new">Just Arrived</option>
+                        <option value="worker" data-i18n="journey.opt.work">Starting Work</option>
+                        <option value="moving-home" data-i18n="journey.opt.moving">Moving Home</option>
+                        <option value="senmon-school" data-i18n="journey.opt.senmon">Find vocational schools</option>
+                        <option value="university" data-i18n="journey.opt.university">Find a university</option>
                     </select>
-                    <button class="btn btn-prim" type="submit">Show my plan →</button>
+                    <button class="btn btn-prim" type="submit" data-i18n="journey.form.submit">Show my plan →</button>
                 </form>
             </div>
         </section>
         <!-- Journey stages -->
         <section class="journey-stages">
-            <h2>Where are you in your Japan journey?</h2>
+            <h2 data-i18n="stages.title">Where are you in your Japan journey?</h2>
             <div class="stages-grid">
                 <a class="stage-card" href="start.html?situation=new-arrival">
                     <span aria-hidden="true" class="stage-icon stage-pink"><img alt="" src="icons/plane.svg" /></span>
                     <div class="stage-text">
-                        <h3>Just Arrived</h3>
-                        <p>Start with the essential procedures for your first weeks in Japan.</p>
-                        <span class="stage-link">Start here →</span>
+                        <h3 data-i18n="stages.arrived.title">Just Arrived</h3>
+                        <p data-i18n="stages.arrived.desc">Start with the essential procedures for your first weeks in Japan.</p>
+                        <span class="stage-link" data-i18n="stages.arrived.link">Start here →</span>
                     </div>
                 </a>
                 <a class="stage-card" href="start.html?situation=student">
                     <span aria-hidden="true" class="stage-icon stage-blue"><img alt="" src="icons/cap.svg" /></span>
                     <div class="stage-text">
-                        <h3>Studying in Japan</h3>
-                        <p>School, part-time work, money and student life.</p>
-                        <span class="stage-link">Student guide →</span>
+                        <h3 data-i18n="stages.student.title">Studying in Japan</h3>
+                        <p data-i18n="stages.student.desc">School, part-time work, money and student life.</p>
+                        <span class="stage-link" data-i18n="stages.student.link">Student guide →</span>
                     </div>
                 </a>
                 <a class="stage-card" href="start.html?situation=worker">
                     <span aria-hidden="true" class="stage-icon stage-green"><img alt=""
                             src="icons/briefcase.svg" /></span>
                     <div class="stage-text">
-                        <h3>Starting Work</h3>
-                        <p>Work documents, salary and workplace basics.</p>
-                        <span class="stage-link">Work guide →</span>
+                        <h3 data-i18n="stages.work.title">Starting Work</h3>
+                        <p data-i18n="stages.work.desc">Work documents, salary and workplace basics.</p>
+                        <span class="stage-link" data-i18n="stages.work.link">Work guide →</span>
                     </div>
                 </a>
                 <a class="stage-card" href="start.html?situation=moving-home">
                     <span aria-hidden="true" class="stage-icon stage-orange"><img alt="" src="icons/move.svg" /></span>
                     <div class="stage-text">
-                        <h3>Moving Home</h3>
-                        <p>Address changes, utilities and moving procedures.</p>
-                        <span class="stage-link">Moving guide →</span>
+                        <h3 data-i18n="stages.moving.title">Moving Home</h3>
+                        <p data-i18n="stages.moving.desc">Address changes, utilities and moving procedures.</p>
+                        <span class="stage-link" data-i18n="stages.moving.link">Moving guide →</span>
                     </div>
                 </a>
             </div>
@@ -231,26 +231,26 @@
         <!-- Japanese phrases + emergency -->
         <div class="help-sections">
             <section class="japanese-helper" id="japanese-help">
-                <h2>Not sure what to say in Japanese?</h2>
-                <p class="helper-desc">
+                <h2 data-i18n="phrases.title">Not sure what to say in Japanese?</h2>
+                <p class="helper-desc" data-i18n="phrases.desc">
                     Find useful phrases for real-life situations
                     and show them directly when you need help.
                 </p>
                 <!-- Phrase categories -->
                 <div aria-label="Japanese phrase categories" class="phrase-categories">
-                    <button aria-pressed="true" data-category="hospital" type="button">
+                    <button aria-pressed="true" data-category="hospital" type="button" data-i18n="phrases.tab.hospital">
                         Hospital
                     </button>
-                    <button aria-pressed="false" data-category="city-hall" type="button">
+                    <button aria-pressed="false" data-category="city-hall" type="button" data-i18n="phrases.tab.cityhall">
                         City Hall
                     </button>
-                    <button aria-pressed="false" data-category="work" type="button">
+                    <button aria-pressed="false" data-category="work" type="button" data-i18n="phrases.tab.work">
                         Work
                     </button>
-                    <button aria-pressed="false" data-category="train" type="button">
+                    <button aria-pressed="false" data-category="train" type="button" data-i18n="phrases.tab.train">
                         Train
                     </button>
-                    <button aria-pressed="false" data-category="shopping" type="button">
+                    <button aria-pressed="false" data-category="shopping" type="button" data-i18n="phrases.tab.shopping">
                         Shopping
                     </button>
                 </div>
@@ -275,37 +275,37 @@
             </section>
             <!-- Emergency -->
             <section class="emergency-help">
-                <h2>Need help right now?</h2>
-                <p class="emergency-desc">
+                <h2 data-i18n="emg.title">Need help right now?</h2>
+                <p class="emergency-desc" data-i18n="emg.desc">
                     Get quick information for emergencies.
                 </p>
                 <div class="emergency-grid">
                     <a class="emergency-card" href="emergency.html#police">
                         <img alt="" src="icons/police.svg" />
-                        <h3>Police</h3>
+                        <h3 data-i18n="emg.police">Police</h3>
                     </a>
                     <a class="emergency-card" href="emergency.html#ambulance-fire">
                         <img alt="" src="icons/ambulance.svg" />
-                        <h3>Ambulance / Fire</h3>
+                        <h3 data-i18n="emg.ambulance">Ambulance / Fire</h3>
                     </a>
                     <a class="emergency-card" href="emergency.html#medical-help">
                         <img alt="" src="icons/medical.svg" />
-                        <h3>Medical advice #7119</h3>
+                        <h3 data-i18n="emg.medical">Medical advice #7119</h3>
                     </a>
                     <a class="emergency-card" href="emergency.html#lost-phone">
                         <img alt="" src="icons/phone.svg" />
-                        <h3>Lost Phone</h3>
+                        <h3 data-i18n="emg.phone">Lost Phone</h3>
                     </a>
                     <a class="emergency-card" href="emergency.html#lost-bank-card">
                         <img alt="" src="icons/card.svg" />
-                        <h3>Lost Bank Card</h3>
+                        <h3 data-i18n="emg.bankcard">Lost Bank Card</h3>
                     </a>
                     <a class="emergency-card" href="emergency.html#lost-residence-card">
                         <img alt="" src="icons/idcard.svg" />
-                        <h3>Lost Residence Card</h3>
+                        <h3 data-i18n="emg.residence">Lost Residence Card</h3>
                     </a>
                 </div>
-                <a class="emergency-button" href="emergency.html">
+                <a class="emergency-button" href="emergency.html" data-i18n="emg.open">
                     Open Emergency Guide
                 </a>
             </section>
@@ -314,12 +314,12 @@
         <section class="faq-section">
             <div class="faq-heading">
                 <div>
-                    <h2>Questions people often have</h2>
-                    <p>
+                    <h2 data-i18n="faq.title">Questions people often have</h2>
+                    <p data-i18n="faq.desc">
                         Find answers to common questions about living in Japan.
                     </p>
                 </div>
-                <a class="faq-all" href="questions.html">
+                <a class="faq-all" href="questions.html" data-i18n="faq.viewall">
                     View all questions →
                 </a>
             </div>
@@ -344,21 +344,6 @@
                         <span class="faq-tag tag-jobs">Jobs</span>
                         <span aria-hidden="true" class="faq-arrow">→</span>
                     </div>
-                </a>
-            </div>
-        </section>
-        <!-- अर्को कदम सुरु गर्ने banner -->
-        <section class="start-banner">
-            <div>
-                <h2>Not sure where to start?</h2>
-                <p>
-                    Choose your situation and explore your next steps.
-                </p>
-            </div>
-            <div class="banner-actions">
-                <a class="banner-primary" href="start.html" data-i18n="hero.start">Start My Journey →</a>
-                <a class="banner-secondary" href="guide.html">
-                    Browse all guides
                 </a>
             </div>
         </section>

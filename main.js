@@ -70,6 +70,7 @@ if (journeyList && progressBar && progressText) {
         checkbox.type = "checkbox";
         checkbox.checked = isTaskDone(task.id);
         text.textContent = task.text;
+        text.setAttribute("data-i18n", "journey.task." + task.id);
 
         // Tick लगाउँदा वा हटाउँदा सेभ गरेर progress बदल्ने
         checkbox.addEventListener("change", function () {
