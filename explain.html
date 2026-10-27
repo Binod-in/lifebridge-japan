@@ -205,6 +205,116 @@
                 transition: none;
             }
         }
+        /* Follow-up questions. */
+        #followup-card h2 {
+            font-size: 20px;
+            margin-bottom: 14px;
+        }
+
+        .chip-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .chip {
+            padding: 10px 14px;
+            background-color: #f3f8ff;
+            border: 1px solid #d5e5ff;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #13234b;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .chip:hover {
+            border-color: #1261ff;
+            background-color: #edf4ff;
+        }
+
+        .chip:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
+        #ask-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        @media (min-width: 600px) {
+            #ask-form {
+                flex-direction: row;
+            }
+        }
+
+        #ask-input {
+            flex: 1;
+            min-width: 0;
+            padding: 13px 14px;
+            border: 1px solid #cbd9eb;
+            border-radius: 8px;
+            background-color: #ffffff;
+            color: #13234b;
+        }
+
+        #ask-btn {
+            padding: 13px 24px;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+        #ask-btn:disabled {
+            opacity: 0.65;
+            cursor: wait;
+        }
+
+        #chat-thread {
+            display: grid;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        #chat-thread:empty {
+            margin-top: 0;
+        }
+
+        .chat-q {
+            justify-self: end;
+            max-width: 90%;
+            padding: 10px 14px;
+            background-color: #1261ff;
+            color: #ffffff;
+            border-radius: 14px 14px 4px 14px;
+            font-size: 14px;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        .chat-a {
+            justify-self: start;
+            max-width: 95%;
+            padding: 10px 14px;
+            background-color: #f5f9ff;
+            border: 1px solid #d5e5ff;
+            border-radius: 14px 14px 14px 4px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #425473;
+            white-space: pre-line;
+            overflow-wrap: anywhere;
+        }
+
+        #ask-status {
+            margin-top: 10px;
+            min-height: 22px;
+            font-size: 13px;
+            color: #425473;
+        }
     </style>
 </head>
 
@@ -312,39 +422,25 @@
                 </article>
             </div>
         </section>
+
+        <section class="card" id="followup-card" style="display:none;">
+            <h2 data-i18n="explain.followTitle">Ask a follow-up question</h2>
+            <div class="chip-row">
+                <button type="button" class="chip" data-i18n="explain.qDeadline">What happens if I miss the deadline?</button>
+                <button type="button" class="chip" data-i18n="explain.qWhere">Where do I pay or do this?</button>
+                <button type="button" class="chip" data-i18n="explain.qDocs">What documents do I need?</button>
+                <button type="button" class="chip" data-i18n="explain.qUrgent">Is this urgent?</button>
+            </div>
+            <form id="ask-form">
+                <input type="text" id="ask-input" data-i18n-placeholder="explain.askPlaceholder" placeholder="Ask something else about this notice..." autocomplete="off">
+                <button type="submit" class="btn btn-prim" id="ask-btn" data-i18n="explain.ask">Ask</button>
+            </form>
+            <div id="chat-thread" aria-live="polite"></div>
+            <p id="ask-status" role="status"></p>
+        </section>
     </main>
 
-    <footer class="site-footer">
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <div class="footer-logo">
-                    <img alt="" src="logo/logo.png" />
-                    <span>LifeBridge Japan</span>
-                </div>
-                <p data-i18n="footer.tagline">Your everyday guide to living in Japan.</p>
-            </div>
-            <nav aria-label="Explore" class="footer-links" data-i18n-aria-label="doc.explore">
-                <h3 data-i18n="doc.explore">Explore</h3>
-                <a href="index.html" data-i18n="nav.home">Home</a>
-                <a href="start.html" data-i18n="nav.start">Start Here</a>
-                <a href="guide.html" data-i18n="nav.guides">Guides</a>
-                <a href="japanese.html" data-i18n="nav.japanese">Japanese help</a>
-            </nav>
-            <nav aria-label="Support" class="footer-links" data-i18n-aria-label="doc.support">
-                <h3 data-i18n="doc.support">Support</h3>
-                <a href="emergency.html" data-i18n="nav.emergency">Emergency</a>
-                <a href="questions.html" data-i18n="nav.qa">Q&amp;A</a>
-            </nav>
-            <div class="footer-project">
-                <h3 data-i18n="doc.about">About this project</h3>
-                <p data-i18n="doc.aboutText">LifeBridge Japan helps newcomers in Japan understand daily life — guides, money tools, and AI explanations of official notices.</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <small data-i18n="doc.copyright">© 2026 LifeBridge Japan · Built for newcomers in Japan</small>
-            <a href="#top" data-i18n="doc.backTop">Back to top ↑</a>
-        </div>
-    </footer>
+
 
     <script src="i18n.js" defer></script>
     <script>
@@ -362,6 +458,16 @@
         const preview = document.getElementById("preview");
         const status = document.getElementById("status");
         const btn = document.getElementById("explain-btn"); function t(key, fallback) { try { if (window.LBT && typeof window.LBT.t === "function") { var v = window.LBT.t(key); if (typeof v === "string" && v !== "" && v !== key) return v; } } catch (e) {} return fallback; } var lastStatusKey = null, lastStatusFb = "", lastStatusMsg = ""; function setStatus(key, fb, msg) { lastStatusKey = key; lastStatusFb = fb; lastStatusMsg = msg || ""; status.textContent = t(key, fb).replace("{msg}", lastStatusMsg); }
+
+        let lastPhotoB64 = "";
+        let lastPhotoMime = "image/jpeg";
+        let lastExplanation = "";
+        const askForm = document.getElementById("ask-form");
+        const askInput = document.getElementById("ask-input");
+        const askBtn = document.getElementById("ask-btn");
+        const thread = document.getElementById("chat-thread");
+        const askStatus = document.getElementById("ask-status");
+        let asking = false;
 
         photoInput.addEventListener("change", () => {
             const file = photoInput.files[0];
@@ -410,6 +516,10 @@
                     document.getElementById(id).textContent = sections[id] || "—";
                 }
                 document.getElementById("result-card").style.display = "block";
+                lastExplanation = json.text || "";
+                thread.innerHTML = "";
+                askStatus.textContent = "";
+                document.getElementById("followup-card").style.display = "block";
                 lastStatusKey = null; status.textContent = "";
             } catch (err) {
                 setStatus("explain.failed", "Sorry, it did not work: {msg}", err.message);
@@ -417,6 +527,71 @@
                 btn.textContent = originalBtnText;
                 btn.disabled = false;
             }
+        });
+
+        photoInput.addEventListener("change", () => {
+            const file = photoInput.files[0];
+            if (!file) return;
+            lastPhotoMime = file.type || "image/jpeg";
+            const reader = new FileReader();
+            reader.onload = () => {
+                const url = String(reader.result || "");
+                const i = url.indexOf(",");
+                lastPhotoB64 = i >= 0 ? url.slice(i + 1) : "";
+            };
+            reader.readAsDataURL(file);
+        });
+
+        function addMsg(cls, text) {
+            const div = document.createElement("div");
+            div.className = cls;
+            div.textContent = text;
+            thread.appendChild(div);
+            div.scrollIntoView({ block: "nearest" });
+        }
+
+        async function askQuestion(question) {
+            question = (question || "").trim();
+            if (!question || asking || !lastExplanation) return;
+            asking = true;
+            askBtn.disabled = true;
+            const askLabel = askBtn.textContent;
+            askBtn.textContent = "Asking...";
+            document.querySelectorAll(".chip").forEach((c) => { c.disabled = true; });
+            askStatus.textContent = "";
+            addMsg("chat-q", question);
+            try {
+                const res = await fetch("/ask", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        question: question,
+                        language: document.getElementById("language").value,
+                        image: lastPhotoB64 ? ("data:" + lastPhotoMime + ";base64," + lastPhotoB64) : "",
+                        explanation: lastExplanation
+                    })
+                });
+                const json = await res.json();
+                if (!res.ok || json.error) throw new Error(json.error || "Something went wrong");
+                addMsg("chat-a", json.answer || "—");
+            } catch (err) {
+                askStatus.textContent = t("explain.failed", "Sorry, it did not work: {msg}").replace("{msg}", err.message);
+            } finally {
+                askBtn.textContent = askLabel;
+                askBtn.disabled = false;
+                document.querySelectorAll(".chip").forEach((c) => { c.disabled = false; });
+                asking = false;
+            }
+        }
+
+        askForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            askQuestion(askInput.value);
+            askInput.value = "";
+        });
+
+        document.querySelectorAll(".chip").forEach((chip) => {
+            chip.addEventListener("click", () => askQuestion(chip.textContent));
         });
     </script>
 </body>

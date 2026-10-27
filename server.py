@@ -119,5 +119,69 @@ def explain():
     return jsonify({"text": text})
 
 
+@app.post("/ask")
+def ask():
+    if not API_KEY:
+        return jsonify({"error": "Server is missing META_API_KEY"}), 500
+
+    body = request.get_json(silent=True) or {}
+    question = (body.get("question") or "").strip()
+    if not question:
+        return jsonify({"error": "No question received"}), 400
+
+    lang = body.get("language", "en")
+    lang_name = LANG_NAMES.get(lang, "English")
+    image = body.get("image") or ""
+    explanation = body.get("explanation") or ""
+
+    prompt = (
+        "You are helping a newcomer in Japan with a follow-up question about "
+        "an official Japanese notice. Answer briefly and simply.\n\n"
+        f"Write the answer in {lang_name}.\n"
+        "Use the earlier explanation below as context, and the photo of the "
+        "notice if it helps.\n\n"
+        f"Earlier explanation:\n{explanation}\n\n"
+        "Rules:\n"
+        "- Answer only about this notice. Keep it short and simple.\n"
+        "- If the notice does not contain the answer, honestly say it is not "
+        "written in the notice instead of guessing.\n"
+        "- Never invent amounts, dates, or names."
+    )
+
+    content = [{"type": "text", "text": prompt + f"\n\nQuestion: {question}"}]
+    if image:
+        content.append({"type": "image_url", "image_url": {"url": image}})
+
+    payload = {
+        "model": MODEL,
+        "messages": [{"role": "user", "content": content}],
+    }
+
+    req = urllib.request.Request(
+        f"{BASE_URL}/chat/completions",
+        data=json.dumps(payload).encode("utf-8"),
+        headers={
+            "Authorization": f"Bearer {API_KEY}",
+            "Content-Type": "application/json",
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=120) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+    except urllib.error.HTTPError as e:
+        detail = e.read().decode("utf-8", "replace")[:500]
+        return jsonify({"error": f"Meta API error {e.code}: {detail}"}), 502
+    except Exception as e:  # network, timeout, etc.
+        return jsonify({"error": f"Could not reach Meta API: {e}"}), 502
+
+    try:
+        answer = data["choices"][0]["message"]["content"]
+    except (KeyError, IndexError, TypeError):
+        return jsonify({"error": "Unexpected reply from Meta API"}), 502
+
+    return jsonify({"answer": answer})
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=port)
