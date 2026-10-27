@@ -17,22 +17,28 @@
                 <img alt="" src="logo/logo.png" />
                 <div class="logo-text">
                     <span class="logo-name">LifeBridge Japan</span>
-                    <span class="logo-tag">Your everyday guide to living in Japan.</span>
+                    <span class="logo-tag" data-i18n="footer.tagline">Your everyday guide to living in Japan.</span>
                 </div>
             </div>
             <!-- Main menu -->
             <nav aria-label="Main navigation" class="main-nav">
-                <a aria-current="page" class="active" href="index.html">Home</a>
-                <a href="start.html">Start Here</a>
-                <a href="guide.html">Guides</a>
-                <a href="jobs.html">Jobs</a>
-                <a href="japanese.html">Japanese help</a>
-                <a href="emergency.html">Emergency</a>
-                <a href="questions.html">Q&amp;A</a>
+                <a aria-current="page" class="active" href="index.html" data-i18n="nav.home">Home</a>
+                <a href="start.html" data-i18n="nav.start">Start Here</a>
+                <a href="guide.html" data-i18n="nav.guides">Guides</a>
+                <a href="jobs.html" data-i18n="nav.jobs">Jobs</a>
+                <a href="japanese.html" data-i18n="nav.japanese">Japanese help</a>
+                <a href="emergency.html" data-i18n="nav.emergency">Emergency</a>
+                <a href="questions.html" data-i18n="nav.qa">Q&amp;A</a>
             </nav>
             <!-- Right side of header -->
              <div class="header-act">
-                <a class="btn" href="login.html">Demo Profile</a>
+                <select id="lang-select" class="lang-select" aria-label="Language">
+                    <option value="en">English</option>
+                    <option value="ne">नेपाली</option>
+                    <option value="vi">Tiếng Việt</option>
+                    <option value="my">မြန်မာ</option>
+                </select>
+                <a class="btn" href="login.html" data-i18n="nav.profile">Demo Profile</a>
             </div>
         </div>
     </header>
@@ -41,27 +47,27 @@
         <section class="hero">
             <div class="hero-cnt">
                 <span class="hero-badge">Life in Japan, made simpler</span>
-                <h1>New to Japan?<br /> Know what to do next.</h1>
-                <p class="hero-desc">Simple step-by-step guides for documents, housing, jobs, money, Japanese and
+                <h1 data-i18n-html="hero.title">New to Japan?<br /> Know what to do next.</h1>
+                <p class="hero-desc" data-i18n="hero.subtitle">Simple step-by-step guides for documents, housing, jobs, money, Japanese and
                     everyday life in Japan.</p>
                 <div class="hero-actions">
-                    <a class="btn btn-prim" href="start.html">Start My Journey →</a>
-                    <a class="btn" href="guide.html">
+                    <a class="btn btn-prim" href="start.html" data-i18n="hero.start">Start My Journey →</a>
+                    <a class="btn" href="guide.html" data-i18n="hero.guides">
                         Explore Guides
                     </a>
-                    <a class="btn" href="explain.html">Explain a notice</a>
+                    <a class="btn" href="explain.html" data-i18n="hero.explain">Explain a notice</a>
                 </div>
                 <p class="hero-lang">Japanese phrases with English and Nepali meanings</p>
             </div>
         </section>
         <!-- Search -->
         <section aria-labelledby="search-title" class="search-section">
-            <h2 id="search-title">What do you need help with today?</h2>
+            <h2 id="search-title" data-i18n="search.title">What do you need help with today?</h2>
             <form action="search.html" class="search-form" method="get">
                 <label class="visually-hidden" for="search-input">Search life guides</label>
-                <input id="search-input" name="q" placeholder="Try: find a job, open a bank account, move house"
+                <input id="search-input" name="q" placeholder="Try: find a job, open a bank account, move house" data-i18n-placeholder="search.placeholder"
                     required="" type="search" />
-                <button class="btn btn-prim" type="submit">Search</button>
+                <button class="btn btn-prim" type="submit" data-i18n="search.button">Search</button>
             </form>
             <div class="search-popular">
                 <span>Popular:</span>
@@ -73,55 +79,55 @@
         </section>
         <!-- Topics -->
         <section class="topics">
-            <h2>Everything you need for life in Japan</h2>
-            <p class="topics-desc">Choose a topic and follow simple step-by-step instructions.</p>
+            <h2 data-i18n="topics.title">Everything you need for life in Japan</h2>
+            <p class="topics-desc" data-i18n="topics.subtitle">Choose a topic and follow simple step-by-step instructions.</p>
             <div class="topics-grid">
                 <article class="topic-card">
                     <img alt="" class="topic-icon" src="icons/home.svg" />
-                    <h3>Housing</h3>
-                    <p>Apartments, moving and utilities</p>
+                    <h3 data-i18n="topic.housing.title">Housing</h3>
+                    <p data-i18n="topic.housing.sub">Apartments, moving and utilities</p>
                     <a href="housing.html">Learn more</a>
                 </article>
                 <article class="topic-card">
                     <img alt="" class="topic-icon" src="icons/briefcase.svg" />
-                    <h3>Jobs</h3>
-                    <p>Part-time jobs and work basics</p>
+                    <h3 data-i18n="topic.jobs.title">Jobs</h3>
+                    <p data-i18n="topic.jobs.sub">Part-time jobs and work basics</p>
                     <a href="jobs.html">Learn more</a>
                 </article>
                 <article class="topic-card">
                     <img alt="" class="topic-icon" src="icons/document.svg" />
-                    <h3>Documents</h3>
-                    <p>Residence card and procedures</p>
+                    <h3 data-i18n="topic.documents.title">Documents</h3>
+                    <p data-i18n="topic.documents.sub">Residence card and procedures</p>
                     <a href="documents.html">Learn more</a>
                 </article>
                 <article class="topic-card">
                     <img alt="" class="topic-icon" src="icons/yen.svg" />
-                    <h3>Money</h3>
-                    <p>Banking, salary and daily expenses</p>
+                    <h3 data-i18n="topic.money.title">Money</h3>
+                    <p data-i18n="topic.money.sub">Banking, salary and daily expenses</p>
                     <a href="money.html">Learn more</a>
                 </article>
                 <article class="topic-card">
                     <img alt="" class="topic-icon" src="icons/train.svg" />
-                    <h3>Transportation</h3>
-                    <p>Trains, buses and IC cards</p>
+                    <h3 data-i18n="topic.transport.title">Transportation</h3>
+                    <p data-i18n="topic.transport.sub">Trains, buses and IC cards</p>
                     <a href="transport.html">Learn more</a>
                 </article>
                 <article class="topic-card">
                     <img alt="" class="topic-icon" src="icons/heart.svg" />
-                    <h3>Health</h3>
-                    <p>Hospitals and health insurance</p>
+                    <h3 data-i18n="topic.health.title">Health</h3>
+                    <p data-i18n="topic.health.sub">Hospitals and health insurance</p>
                     <a href="health.html">Learn more</a>
                 </article>
                 <article class="topic-card">
                     <img alt="" class="topic-icon" src="icons/chat.svg" />
-                    <h3>Japanese</h3>
-                    <p>Useful Japanese phrases for daily life</p>
+                    <h3 data-i18n="topic.japanese.title">Japanese</h3>
+                    <p data-i18n="topic.japanese.sub">Useful Japanese phrases for daily life</p>
                     <a href="japanese.html">Learn more</a>
                 </article>
                 <article class="topic-card">
                     <img alt="" class="topic-icon" src="icons/alert.svg" />
-                    <h3>Emergency</h3>
-                    <p>What to do when something goes wrong</p>
+                    <h3 data-i18n="topic.emergency.title">Emergency</h3>
+                    <p data-i18n="topic.emergency.sub">What to do when something goes wrong</p>
                     <a href="emergency.html">Learn more</a>
                 </article>
             </div>
@@ -350,7 +356,7 @@
                 </p>
             </div>
             <div class="banner-actions">
-                <a class="banner-primary" href="start.html">Start My Journey →</a>
+                <a class="banner-primary" href="start.html" data-i18n="hero.start">Start My Journey →</a>
                 <a class="banner-secondary" href="guide.html">
                     Browse all guides
                 </a>
@@ -365,32 +371,33 @@
                     <img alt="" src="logo/logo.png" />
                     <span>LifeBridge Japan</span>
                 </div>
-                <p>Your everyday guide to living in Japan.</p>
+                <p data-i18n="footer.tagline">Your everyday guide to living in Japan.</p>
             </div>
             <nav aria-label="Explore" class="footer-links">
                 <h3>Explore</h3>
-                <a href="index.html">Home</a>
-                <a href="start.html">Start Here</a>
-                <a href="guide.html">Guides</a>
-                <a href="japanese.html">Japanese help</a>
+                <a href="index.html" data-i18n="nav.home">Home</a>
+                <a href="start.html" data-i18n="nav.start">Start Here</a>
+                <a href="guide.html" data-i18n="nav.guides">Guides</a>
+                <a href="japanese.html" data-i18n="nav.japanese">Japanese help</a>
             </nav>
             <nav aria-label="Support" class="footer-links">
                 <h3>Support</h3>
-                <a href="emergency.html">Emergency</a>
-                <a href="questions.html">Q&amp;A</a>
+                <a href="emergency.html" data-i18n="nav.emergency">Emergency</a>
+                <a href="questions.html" data-i18n="nav.qa">Q&amp;A</a>
             </nav>
             <div class="footer-project">
                 <h3>About this project</h3>
-                <p>A school website project to help newcomers find their next steps in Japan.</p>
+                <p>LifeBridge Japan helps newcomers in Japan understand daily life — guides, money tools, and AI explanations of official notices.</p>
             </div>
         </div>
         <div class="footer-bottom">
-            <small>© 2026 LifeBridge Japan · School Project</small>
+            <small>© 2026 LifeBridge Japan · Built for newcomers in Japan</small>
             <a href="#top">Back to top ↑</a>
         </div>
     </footer>
     <script src="phrases-data.js" defer></script>
     <script src="main.js" defer></script>
+    <script src="i18n.js" defer></script>
     <script src="app.js" defer></script>
 </body>
 

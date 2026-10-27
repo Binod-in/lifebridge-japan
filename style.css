@@ -39,6 +39,17 @@ a {
     margin-left: 0;
 }
 
+.lang-select {
+    padding: 10px 12px;
+    border: 1px solid #1261ff;
+    border-radius: 7px;
+    background-color: #ffffff;
+    color: #1261ff;
+    font-size: 13px;
+    font-weight: 600;
+    max-width: 150px;
+}
+
 .logo {
     display: flex;
     align-items: center;

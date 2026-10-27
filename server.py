@@ -36,7 +36,7 @@ HEADERS = [
     "Things to check",
 ]
 
-LANG_NAMES = {"ne": "Nepali", "en": "English", "ja": "Japanese"}
+LANG_NAMES = {"ne": "Nepali", "en": "English", "ja": "Japanese", "vi": "Vietnamese", "my": "Burmese"}
 
 
 @app.get("/")

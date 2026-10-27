@@ -16,22 +16,28 @@
                 <img alt="" src="logo/logo.png" />
                 <div class="logo-text">
                     <span class="logo-name">LifeBridge Japan</span>
-                    <span class="logo-tag">Your everyday guide to living in Japan.</span>
+                    <span class="logo-tag" data-i18n="footer.tagline">Your everyday guide to living in Japan.</span>
                 </div>
             </div>
             <!-- Main menu -->
             <nav aria-label="Main navigation" class="main-nav">
-                <a href="index.html">Home</a>
-                <a href="start.html">Start Here</a>
-                <a href="guide.html">Guides</a>
-                <a href="jobs.html">Jobs</a>
-                <a href="japanese.html">Japanese help</a>
-                <a href="emergency.html">Emergency</a>
-                <a href="questions.html">Q&amp;A</a>
+                <a href="index.html" data-i18n="nav.home">Home</a>
+                <a href="start.html" data-i18n="nav.start">Start Here</a>
+                <a href="guide.html" data-i18n="nav.guides">Guides</a>
+                <a href="jobs.html" data-i18n="nav.jobs">Jobs</a>
+                <a href="japanese.html" data-i18n="nav.japanese">Japanese help</a>
+                <a href="emergency.html" data-i18n="nav.emergency">Emergency</a>
+                <a href="questions.html" data-i18n="nav.qa">Q&amp;A</a>
             </nav>
             <!-- Right side of header -->
             <div class="header-act">
-                <a class="btn" href="login.html">Demo Profile</a>
+                <select id="lang-select" class="lang-select" aria-label="Language">
+                    <option value="en">English</option>
+                    <option value="ne">नेपाली</option>
+                    <option value="vi">Tiếng Việt</option>
+                    <option value="my">မြန်မာ</option>
+                </select>
+                <a class="btn" href="login.html" data-i18n="nav.profile">Demo Profile</a>
             </div>
         </div>
     </header>
@@ -51,32 +57,33 @@
                     <img alt="" src="logo/logo.png" />
                     <span>LifeBridge Japan</span>
                 </div>
-                <p>Your everyday guide to living in Japan.</p>
+                <p data-i18n="footer.tagline">Your everyday guide to living in Japan.</p>
             </div>
             <nav aria-label="Explore" class="footer-links">
                 <h3>Explore</h3>
-                <a href="index.html">Home</a>
-                <a href="start.html">Start Here</a>
-                <a href="guide.html">Guides</a>
-                <a href="japanese.html">Japanese help</a>
+                <a href="index.html" data-i18n="nav.home">Home</a>
+                <a href="start.html" data-i18n="nav.start">Start Here</a>
+                <a href="guide.html" data-i18n="nav.guides">Guides</a>
+                <a href="japanese.html" data-i18n="nav.japanese">Japanese help</a>
             </nav>
             <nav aria-label="Support" class="footer-links">
                 <h3>Support</h3>
-                <a href="emergency.html">Emergency</a>
-                <a href="questions.html">Q&amp;A</a>
+                <a href="emergency.html" data-i18n="nav.emergency">Emergency</a>
+                <a href="questions.html" data-i18n="nav.qa">Q&amp;A</a>
             </nav>
             <div class="footer-project">
                 <h3>About this project</h3>
-                <p>A school website project to help newcomers find their next steps in Japan.</p>
+                <p>LifeBridge Japan helps newcomers in Japan understand daily life — guides, money tools, and AI explanations of official notices.</p>
             </div>
         </div>
         <div class="footer-bottom">
-            <small>© 2026 LifeBridge Japan · School Project</small>
+            <small>© 2026 LifeBridge Japan · Built for newcomers in Japan</small>
             <a href="#top">Back to top ↑</a>
         </div>
     </footer>
     <script src="phrases-data.js" defer></script>
     <script src="saved-phrases.js" defer></script>
+    <script src="i18n.js" defer></script>
     <script src="app.js" defer></script>
 </body>
 
