@@ -25,7 +25,7 @@ app = Flask(__name__, static_folder=None)
 API_KEY = os.environ.get("META_API_KEY", "")
 MODEL = os.environ.get("META_MODEL", "muse-spark-1.3")
 BASE_URL = os.environ.get("META_BASE_URL", "https://api.meta.ai/v1")
-PORT = int(os.environ.get("PORT", "5000"))
+port = int(os.environ.get("PORT", 5000))
 
 HEADERS = [
     "What is this?",
@@ -120,4 +120,4 @@ def explain():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=PORT)
+    app.run(host="0.0.0.0", port=port)
