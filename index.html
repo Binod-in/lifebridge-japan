@@ -15,7 +15,46 @@
 
         .hero {
             position: relative;
-            background-image: url("images/hero.webp");
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+            align-items: stretch;
+            gap: 32px;
+            background-image: none;
+        }
+
+        .hero-media {
+            display: block;
+            position: relative;
+            min-height: 340px;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .hero-media img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .hero-media {
+                min-height: 0;
+                height: 280px;
+                border-radius: 12px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-media {
+                height: 230px;
+            }
         }
 
         /* Extra badge above the headline (accent = badges/highlights only). */
@@ -237,6 +276,10 @@
                     <p class="hero-example-text">What it is: your monthly gas bill. What to do: pay at a convenience store by the due date shown on the notice.</p>
                 </aside>
             </div>
+            <picture class="hero-media">
+                <source media="(max-width: 640px)" srcset="images/hero-mobile.webp">
+                <img src="images/hero-wide.webp" alt="">
+            </picture>
         </section>
         <!-- Search -->
         <section aria-labelledby="search-title" class="search-section">
