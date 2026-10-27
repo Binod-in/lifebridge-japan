@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Money Tracker | LifeBridge Japan</title>
+    <title data-i18n="tracker.title">Money Tracker | LifeBridge Japan</title>
     <link rel="stylesheet" href="style.css">
     <style>
         .summary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 16px 0; }
@@ -28,7 +28,7 @@
     </style>
 </head>
 
-<body id="top"><a class="skip-link" href="#main-content">Skip to content</a>
+<body id="top"><a class="skip-link" href="#main-content" data-i18n="doc.skip">Skip to content</a>
     <header class="site-header">
         <div class="header-cnt">
             <div class="logo">
@@ -38,7 +38,7 @@
                     <span class="logo-tag" data-i18n="footer.tagline">Your everyday guide to living in Japan.</span>
                 </div>
             </div>
-            <nav aria-label="Main navigation" class="main-nav">
+            <nav aria-label="Main navigation" class="main-nav" data-i18n-aria-label="doc.mainNavAria">
                 <a href="index.html" data-i18n="nav.home">Home</a>
                 <a href="start.html" data-i18n="nav.start">Start Here</a>
                 <a href="guide.html" data-i18n="nav.guides">Guides</a>
@@ -48,7 +48,7 @@
                 <a href="questions.html" data-i18n="nav.qa">Q&amp;A</a>
             </nav>
             <div class="header-act">
-                <select id="lang-select" class="lang-select" aria-label="Language">
+                <select id="lang-select" class="lang-select" aria-label="Language" data-i18n-aria-label="doc.langAria">
                     <option value="en">English</option>
                     <option value="ne">नेपाली</option>
                     <option value="vi">Tiếng Việt</option>
@@ -59,72 +59,72 @@
         </div>
     </header>
 
-    <main id="main-content" class="content-page"><a class="saved-back" href="money.html">← Money</a>
-        <h1>Money Tracker</h1>
-        <p class="page-lead">A simple record of what you earn, spend and save each month — and what you are saving for. Everything stays in this browser on your device.</p>
+    <main id="main-content" class="content-page"><a class="saved-back" href="money.html" data-i18n="tracker.back">← Money</a>
+        <h1 data-i18n="money.trackerTitle">Money Tracker</h1>
+        <p class="page-lead" data-i18n="tracker.lead">A simple record of what you earn, spend and save each month — and what you are saving for. Everything stays in this browser on your device.</p>
 
         <article class="detail-card">
-            <h2>This month</h2>
-            <label for="month"><strong>Month</strong></label>
+            <h2 data-i18n="tracker.thisMonth">This month</h2>
+            <label for="month" data-i18n-html="tracker.monthLabel"><strong>Month</strong></label>
             <input type="month" id="month">
             <div class="summary-grid">
-                <div class="summary-box"><span>Earned</span><strong id="sum-income">¥0</strong></div>
-                <div class="summary-box"><span>Spent</span><strong id="sum-expense">¥0</strong></div>
-                <div class="summary-box"><span>Saved</span><strong id="sum-saving">¥0</strong></div>
-                <div class="summary-box"><span>Left</span><strong id="sum-left">¥0</strong></div>
+                <div class="summary-box"><span data-i18n="tracker.earned">Earned</span><strong id="sum-income">¥0</strong></div>
+                <div class="summary-box"><span data-i18n="tracker.spent">Spent</span><strong id="sum-expense">¥0</strong></div>
+                <div class="summary-box"><span data-i18n="tracker.saved">Saved</span><strong id="sum-saving">¥0</strong></div>
+                <div class="summary-box"><span data-i18n="tracker.left">Left</span><strong id="sum-left">¥0</strong></div>
             </div>
         </article>
 
         <article class="detail-card">
-            <h2>Add an entry</h2>
+            <h2 data-i18n="tracker.addEntry">Add an entry</h2>
             <form id="entry-form" class="form-grid">
                 <div>
-                    <label for="type">Type</label>
+                    <label for="type" data-i18n="tracker.type">Type</label>
                     <select id="type">
-                        <option value="income">Income (earned)</option>
-                        <option value="expense" selected>Expense (spent)</option>
-                        <option value="saving">Saving (put aside)</option>
+                        <option value="income" data-i18n="tracker.optIncome">Income (earned)</option>
+                        <option value="expense" selected data-i18n="tracker.optExpense">Expense (spent)</option>
+                        <option value="saving" data-i18n="tracker.optSaving">Saving (put aside)</option>
                     </select>
                 </div>
                 <div>
-                    <label for="amount">Amount (¥)</label>
+                    <label for="amount" data-i18n="tracker.amount">Amount (¥)</label>
                     <input type="number" id="amount" min="1" step="1" required placeholder="e.g. 1500">
                 </div>
                 <div>
-                    <label for="note">What is it? / के का लागि?</label>
-                    <input type="text" id="note" placeholder="e.g. Sukiya salary, Rent, Food, Train">
+                    <label for="note" data-i18n="tracker.noteLabel">What is it? / के का लागि?</label>
+                    <input type="text" id="note" placeholder="e.g. Sukiya salary, Rent, Food, Train" data-i18n-placeholder="tracker.notePlaceholder">
                 </div>
                 <div id="goal-row" style="display:none;">
-                    <label for="goal-select">Saving for</label>
+                    <label for="goal-select" data-i18n="tracker.savingFor">Saving for</label>
                     <select id="goal-select"></select>
                 </div>
                 <div>
-                    <label for="date">Date</label>
+                    <label for="date" data-i18n="dates.dateLabel">Date</label>
                     <input type="date" id="date" required>
                 </div>
-                <button type="submit" class="btn btn-prim">Add entry</button>
+                <button type="submit" class="btn btn-prim" data-i18n="tracker.addEntryBtn">Add entry</button>
                 <p role="status" id="form-status"></p>
             </form>
         </article>
 
         <article class="detail-card">
-            <h2>Savings goals</h2>
+            <h2 data-i18n="tracker.goalsTitle">Savings goals</h2>
             <div id="goals-list"></div>
             <form id="goal-form" class="form-grid" style="margin-top:14px;">
                 <div>
-                    <label for="goal-name">New goal — what are you saving for?</label>
-                    <input type="text" id="goal-name" placeholder="e.g. Ticket to Nepal, New laptop">
+                    <label for="goal-name" data-i18n="tracker.newGoal">New goal — what are you saving for?</label>
+                    <input type="text" id="goal-name" placeholder="e.g. Ticket to Nepal, New laptop" data-i18n-placeholder="tracker.goalPlaceholder">
                 </div>
                 <div>
-                    <label for="goal-target">Target amount (¥)</label>
+                    <label for="goal-target" data-i18n="tracker.target">Target amount (¥)</label>
                     <input type="number" id="goal-target" min="1" step="1" placeholder="e.g. 120000">
                 </div>
-                <button type="submit" class="btn">Add goal</button>
+                <button type="submit" class="btn" data-i18n="tracker.addGoal">Add goal</button>
             </form>
         </article>
 
         <article class="detail-card">
-            <h2>Entries</h2>
+            <h2 data-i18n="tracker.entries">Entries</h2>
             <div id="entries-list"></div>
         </article>
     </main>
@@ -138,26 +138,26 @@
                 </div>
                 <p data-i18n="footer.tagline">Your everyday guide to living in Japan.</p>
             </div>
-            <nav aria-label="Explore" class="footer-links">
-                <h3>Explore</h3>
+            <nav aria-label="Explore" class="footer-links" data-i18n-aria-label="doc.explore">
+                <h3 data-i18n="doc.explore">Explore</h3>
                 <a href="index.html" data-i18n="nav.home">Home</a>
                 <a href="start.html" data-i18n="nav.start">Start Here</a>
                 <a href="guide.html" data-i18n="nav.guides">Guides</a>
                 <a href="japanese.html" data-i18n="nav.japanese">Japanese help</a>
             </nav>
-            <nav aria-label="Support" class="footer-links">
-                <h3>Support</h3>
+            <nav aria-label="Support" class="footer-links" data-i18n-aria-label="doc.support">
+                <h3 data-i18n="doc.support">Support</h3>
                 <a href="emergency.html" data-i18n="nav.emergency">Emergency</a>
                 <a href="questions.html" data-i18n="nav.qa">Q&amp;A</a>
             </nav>
             <div class="footer-project">
-                <h3>About this project</h3>
-                <p>LifeBridge Japan helps newcomers in Japan understand daily life — guides, money tools, and AI explanations of official notices.</p>
+                <h3 data-i18n="doc.about">About this project</h3>
+                <p data-i18n="doc.aboutText">LifeBridge Japan helps newcomers in Japan understand daily life — guides, money tools, and AI explanations of official notices.</p>
             </div>
         </div>
         <div class="footer-bottom">
-            <small>© 2026 LifeBridge Japan · Built for newcomers in Japan</small>
-            <a href="#top">Back to top ↑</a>
+            <small data-i18n="doc.copyright">© 2026 LifeBridge Japan · Built for newcomers in Japan</small>
+            <a href="#top" data-i18n="doc.backTop">Back to top ↑</a>
         </div>
     </footer>
 
@@ -172,7 +172,7 @@
             catch { return fallback; }
         };
         const save = (key, value) => localStorage.setItem(key, JSON.stringify(value));
-        const yen = n => "¥" + Number(n || 0).toLocaleString("ja-JP");
+        const yen = n => "¥" + Number(n || 0).toLocaleString("ja-JP"); function t(key, fallback) { try { if (window.LBT && typeof window.LBT.t === "function") { var v = window.LBT.t(key); if (typeof v === "string" && v !== "" && v !== key) return v; } } catch (e) {} return fallback; }
 
         let entries = load(ENTRIES_KEY, []);
         let goals = load(GOALS_KEY, []);
@@ -190,7 +190,7 @@
             goalSelect.innerHTML = "";
             const general = document.createElement("option");
             general.value = "";
-            general.textContent = "General savings";
+            general.textContent = t("tracker.generalSavings", "General savings");
             goalSelect.appendChild(general);
             for (const g of goals) {
                 const opt = document.createElement("option");
@@ -215,33 +215,33 @@
 
             // Goals progress uses ALL savings ever tagged to the goal.
             const goalsList = document.getElementById("goals-list");
-            goalsList.innerHTML = goals.length ? "" : "<p>No goals yet. Add one below — for example a ticket home or a new laptop.</p>";
+            goalsList.innerHTML = goals.length ? "" : "<p>" + t("tracker.noGoals", "No goals yet. Add one below — for example a ticket home or a new laptop.") + "</p>";
             for (const g of goals) {
                 const savedAmt = entries
                     .filter(e => e.type === "saving" && e.goalId === g.id)
                     .reduce((a, e) => a + e.amount, 0);
                 const pct = g.target > 0 ? Math.min(100, Math.round(savedAmt / g.target * 100)) : 0;
                 const wrap = document.createElement("div");
-                wrap.innerHTML = `<strong></strong> — ${yen(savedAmt)} of ${yen(g.target)} (${pct}%)
+                wrap.innerHTML = `<strong></strong> — ` + t("tracker.goalProgress", "{saved} of {target} ({pct}%)").replace("{saved}", yen(savedAmt)).replace("{target}", yen(g.target)).replace("{pct}", pct) + `
                     <div class="progress"><div style="width:${pct}%"></div></div>`;
                 wrap.querySelector("strong").textContent = g.name;
                 goalsList.appendChild(wrap);
             }
 
             const list = document.getElementById("entries-list");
-            list.innerHTML = inMonth.length ? "" : "<p>No entries for this month yet.</p>";
+            list.innerHTML = inMonth.length ? "" : "<p>" + t("tracker.noEntries", "No entries for this month yet.") + "</p>";
             [...inMonth].sort((a, b) => b.date.localeCompare(a.date)).forEach(e => {
                 const goal = goals.find(g => g.id === e.goalId);
                 const row = document.createElement("div");
                 row.className = "entry-row";
-                const label = { income: "Income", expense: "Expense", saving: "Saving" }[e.type];
+                const label = { income: t("tracker.tagIncome", "Income"), expense: t("tracker.tagExpense", "Expense"), saving: t("tracker.tagSaving", "Saving") }[e.type];
                 row.innerHTML = `<span class="tag tag-${e.type}">${label}</span>
                     <div class="grow"><strong>${yen(e.amount)}</strong> <span class="entry-note"></span>
-                    <small>${e.date}${goal ? " · For: " + goal.name : ""}</small></div>`;
+                    <small>${e.date}${goal ? t("tracker.forGoal", " · For: {name}").replace("{name}", goal.name) : ""}</small></div>`;
                 row.querySelector(".entry-note").textContent = e.note || "";
                 const del = document.createElement("button");
                 del.className = "del-btn";
-                del.textContent = "Delete";
+                del.textContent = t("tracker.delete", "Delete");
                 del.addEventListener("click", () => {
                     entries = entries.filter(x => x.id !== e.id);
                     save(ENTRIES_KEY, entries);
@@ -268,7 +268,7 @@
             save(ENTRIES_KEY, entries);
             document.getElementById("amount").value = "";
             document.getElementById("note").value = "";
-            document.getElementById("form-status").textContent = "Added ✔";
+            document.getElementById("form-status").textContent = t("tracker.added", "Added ✔");
             render();
         });
 
