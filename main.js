@@ -58,8 +58,43 @@ const universityJourneyTasks = [
     { id: "univ-visa", text: "Confirm your student visa status after enrollment" }
 ];
 
+const studentJourneyTasks = [
+    { id: "stu-orient", text: "Attend your school orientation" },
+    { id: "stu-baito", text: "Get permission before starting part-time work" },
+    { id: "stu-insurance", text: "Join a health insurance plan" },
+    { id: "stu-bank", text: "Open a bank account" },
+    { id: "stu-ic", text: "Get an IC card for trains and buses" },
+    { id: "stu-address", text: "Register your address if you move" }
+];
+
+const workerJourneyTasks = [
+    { id: "work-contract", text: "Check your work contract and working hours" },
+    { id: "work-tax", text: "Learn about tax and pension deductions" },
+    { id: "work-insurance", text: "Join the employee health insurance" },
+    { id: "work-bank", text: "Open a bank account for your salary" },
+    { id: "work-commute", text: "Plan your commute route" },
+    { id: "work-emergency", text: "Save emergency contacts" }
+];
+
+const movingJourneyTasks = [
+    { id: "move-notice", text: "Submit a moving-out notice at your old office" },
+    { id: "move-address", text: "Register your new address within 14 days" },
+    { id: "move-util", text: "Set up electricity, gas and water" },
+    { id: "move-internet", text: "Arrange your internet connection" },
+    { id: "move-post", text: "Forward your mail to the new address" },
+    { id: "move-update", text: "Update your address on bank and insurance" }
+];
+
 const journeySituation = new URLSearchParams(location.search).get("situation") || "";
-const journeyTasks = journeySituation === "senmon-school" ? senmonJourneyTasks : journeySituation === "university" ? universityJourneyTasks : defaultJourneyTasks;
+const journeyTaskLists = {
+    "senmon-school": senmonJourneyTasks,
+    "university": universityJourneyTasks,
+    "student": studentJourneyTasks,
+    "worker": workerJourneyTasks,
+    "moving-home": movingJourneyTasks
+};
+// new-arrival र Home page ले default (arrival) सूची पाउँछन्
+const journeyTasks = journeyTaskLists[journeySituation] || defaultJourneyTasks;
 
 const journeyList = document.querySelector("#journey-list");
 const progressBar = document.querySelector("#journey-progress-bar");
@@ -151,8 +186,34 @@ const phraseCard = document.querySelector(".phrase-card");
 const categoryButtons = document.querySelectorAll(".phrase-categories button");
 const savedPhrasesKey = "lifego-saved-phrases";
 
-// अहिले कुन category छानिएको छ
+// अहिले कुन category र कुन नम्बरको वाक्य छानिएको छ
 let currentCategory = "hospital";
+let currentIndex = 0;
+
+// छानिएको category का वाक्यहरू (phrases-data.js नआए खाली)
+function phraseList(category) {
+    try {
+        const group = typeof phraseExamples !== "undefined" ? phraseExamples[category] : null;
+        if (group && Array.isArray(group.phrases)) return group.phrases;
+    } catch (error) {
+        // तल खाली list
+    }
+    return [];
+}
+
+function currentPhrase() {
+    const list = phraseList(currentCategory);
+    return list.length > 0 ? list[currentIndex % list.length] : null;
+}
+
+function uiLang() {
+    try {
+        if (window.LBT && typeof window.LBT.lang === "function") return window.LBT.lang();
+        return document.documentElement.getAttribute("lang") || "en";
+    } catch (error) {
+        return "en";
+    }
+}
 
 // Browser मा सेभ भएका वाक्यहरू पढ्ने
 function readSavedPhrases() {
@@ -182,28 +243,71 @@ if (phraseCard && categoryButtons.length > 0) {
     const saveButton = phraseCard.querySelector("#save-phrase-btn");
     const statusText = phraseCard.querySelector("#phrase-status");
 
+    // अघिल्लो/अर्को वाक्य बटन (phrases-data.js कै आधारमा बन्छ)
+    const phraseNav = document.createElement("div");
+    phraseNav.className = "phrase-nav";
+    const prevButton = document.createElement("button");
+    prevButton.type = "button";
+    prevButton.className = "btn";
+    const phraseCounter = document.createElement("span");
+    phraseCounter.className = "phrase-count";
+    phraseCounter.setAttribute("role", "status");
+    const nextButton = document.createElement("button");
+    nextButton.type = "button";
+    nextButton.className = "btn";
+    phraseNav.append(prevButton, phraseCounter, nextButton);
+    phraseCard.append(phraseNav);
+
+    function updatePhraseNav(total) {
+        prevButton.textContent = mainT("jap.prev", "← Previous");
+        nextButton.textContent = mainT("jap.next", "Next →");
+        phraseCounter.textContent = mainT("jap.count", "{i} of {n}")
+            .replace("{i}", String(currentIndex + 1))
+            .replace("{n}", String(total));
+        prevButton.disabled = total <= 1;
+        nextButton.disabled = total <= 1;
+    }
+
+    prevButton.addEventListener("click", function () {
+        showPhrase(currentCategory, currentIndex - 1);
+    });
+    nextButton.addEventListener("click", function () {
+        showPhrase(currentCategory, currentIndex + 1);
+    });
+
     // Save बटनको text: सेभ छ भने "Saved", नत्र "Save"
     function updateSaveButton() {
-        const isSaved = readSavedPhrases().includes(phraseExamples[currentCategory].japanese);
+        const savedPhrase = currentPhrase();
+        const isSaved = savedPhrase ? readSavedPhrases().includes(savedPhrase.japanese) : false;
         saveButton.textContent = isSaved ? mainT("main.saveOn", "★ Saved") : mainT("main.saveOff", "☆ Save");
         saveButton.setAttribute("aria-pressed", String(isSaved));
     }
 
-    // Card मा छानिएको category को वाक्य देखाउने
-    function showPhrase(category) {
-        const example = phraseExamples[category];
-        if (!example) return;
+    // Card मा छानिएको category को नम्बर अनुसारको वाक्य देखाउने
+    function showPhrase(category, index) {
+        const list = phraseList(category);
+        if (list.length === 0) {
+            statusText.textContent = mainT("main.noPhrases", "Phrases could not be loaded. Please reload the page.");
+            return;
+        }
 
         currentCategory = category;
+        currentIndex = (((typeof index === "number" ? index : 0) % list.length) + list.length) % list.length;
+        const example = list[currentIndex];
 
         // Category नाम पहिल्यै भएको phrases.tab.* key बाट (अङ्ग्रेजी मिल्छ)
+        const group = phraseExamples[category] || {};
         const tabKey = category === "city-hall" ? "cityhall" : category;
-        categoryLabel.textContent = mainT("phrases.tab." + tabKey, example.category);
+        categoryLabel.textContent = mainT("phrases.tab." + tabKey, group.category || category);
         japaneseText.textContent = example.japanese;
         readingText.textContent = example.reading;
         englishText.textContent = example.english;
+        // नेपाली अर्थ नेपाली UI मा मात्र (vi/my प्रयोगकर्ताका लागि अप्रासङ्गिक)
+        nepaliText.hidden = uiLang() !== "ne";
         nepaliText.textContent = example.nepali;
         statusText.textContent = "";
+
+        updatePhraseNav(list.length);
 
         // छानिएको बटनमा निलो धर्सो
         for (const button of categoryButtons) {
@@ -219,7 +323,7 @@ if (phraseCard && categoryButtons.length > 0) {
             if ("speechSynthesis" in window) {
                 window.speechSynthesis.cancel(); // पुरानो आवाज रोक्ने
             }
-            showPhrase(button.dataset.category);
+            showPhrase(button.dataset.category, 0);
         });
     }
 
@@ -230,7 +334,9 @@ if (phraseCard && categoryButtons.length > 0) {
             return;
         }
 
-        const speech = new SpeechSynthesisUtterance(phraseExamples[currentCategory].japanese);
+        const spoken = currentPhrase();
+        if (!spoken) return;
+        const speech = new SpeechSynthesisUtterance(spoken.japanese);
         speech.lang = "ja-JP";
         speech.rate = 0.85;
 
@@ -257,7 +363,9 @@ if (phraseCard && categoryButtons.length > 0) {
             return;
         }
 
-        navigator.clipboard.writeText(phraseExamples[currentCategory].japanese)
+        const copied = currentPhrase();
+        if (!copied) return;
+        navigator.clipboard.writeText(copied.japanese)
             .then(function () {
                 statusText.textContent = mainT("main.copied", "Phrase copied.");
             })
@@ -268,7 +376,9 @@ if (phraseCard && categoryButtons.length > 0) {
 
     // Save: वाक्य सेभ गर्ने वा हटाउने
     saveButton.addEventListener("click", function () {
-        const text = phraseExamples[currentCategory].japanese;
+        const current = currentPhrase();
+        if (!current) return;
+        const text = current.japanese;
         let saved = readSavedPhrases();
         const wasSaved = saved.includes(text);
 
@@ -292,10 +402,10 @@ if (phraseCard && categoryButtons.length > 0) {
     });
 
     // Page खुल्दा पहिलो वाक्य देखाउने
-    showPhrase(currentCategory);
+    showPhrase(currentCategory, 0);
 
     // भाषा फेरिँदा card फेरि देखाउने (जापानी/reading/अर्थ उस्तै रहन्छ)
     document.addEventListener("lb:lang", function () {
-        showPhrase(currentCategory);
+        showPhrase(currentCategory, currentIndex);
     });
 }

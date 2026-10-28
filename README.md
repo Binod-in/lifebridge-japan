@@ -7,7 +7,7 @@ Moving to Japan is exciting, but everyday life comes with a stack of Japanese pa
 ## What it does
 
 1. **Upload a photo** of any Japanese notice.
-2. **Get a simple explanation** in **Nepali, English, or Japanese** — what the notice is, in plain words.
+2. **Get a simple explanation** in **Nepali, English, Vietnamese, Burmese, or Japanese** — what the notice is, in plain words.
 3. **See your next steps** — exactly what to do, where to go, and what to bring.
 4. **Never miss a deadline** — payment and submission dates are pulled out and highlighted.
 5. **No guessing** — if a date, amount, or detail in the photo is unclear, the app asks you to confirm it instead of inventing an answer.
@@ -26,6 +26,26 @@ The prototype focuses on the most common notices newcomers receive:
 - **Frontend:** a simple, mobile-friendly web page (HTML, CSS, JavaScript)
 - **Backend:** a small Python server
 - **AI:** Meta models via the **Meta Model API** read the notice photo, understand the Japanese text, and explain it in the user's language with steps and deadlines
+
+## Run locally
+
+```bat
+pip install -r requirements.txt
+set META_API_KEY=your-key-here
+python server.py
+```
+
+Then open http://127.0.0.1:5000/ — the AI features need `META_API_KEY`, everything
+else (guides, phrases, tracker, settings) works without it. See
+[.env.example](.env.example) for optional settings (`LB_API_TOKEN`,
+`TRUST_PROXY`, rate limits). For production, serve with waitress or gunicorn
+instead of the Flask dev server (see `server.py`).
+
+Run the test suite:
+
+```bat
+python -m unittest discover tests -v
+```
 
 ## Why it matters
 

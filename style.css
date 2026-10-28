@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&display=swap");
+
 * {
     margin: 0;
     padding: 0;
@@ -5,10 +7,15 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Noto Sans Devanagari", Arial, "Helvetica Neue", sans-serif;
     color: #13234b;
     background-color: #f5f9ff;
     line-height: 1.5;
+}
+
+/* देवनागरी मात्रा/शिरोरेखाका लागि अलि खुला line-height */
+html[lang="ne"] body {
+    line-height: 1.7;
 }
 
 a {
@@ -76,7 +83,7 @@ a {
 }
 
 .logo-tag {
-    font-size: 11px;
+    font-size: 13px;
     color: #56647d;
     max-width: 230px;
 }
@@ -470,7 +477,7 @@ a {
 
 .journey-list input:checked+span {
     text-decoration: line-through;
-    color: #778397;
+    color: #5a6478;
 }
 
 /* this is right side of content */
@@ -1166,14 +1173,15 @@ a {
     .header-cnt {
         width: 100%;
         padding: 16px 20px;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 16px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px;
     }
 
     .logo {
-        width: 100%;
-        flex-shrink: 0;
+        flex: 1 1 auto;
+        min-width: 0;
     }
 
     .logo img {
@@ -1192,16 +1200,28 @@ a {
     }
 
     .main-nav {
-        width: 100%;
-        order: 0;
-        display: flex;
         flex-wrap: wrap;
-        justify-content: flex-start;
-        gap: 8px 16px;
     }
 
-    .main-nav a {
+    /* JS चलेपछि मेनु बटनले खोल्छ; JS नचले माथिको wrap नै देखिन्छ */
+    .js .main-nav {
+        display: none;
+    }
+
+    .js .main-nav.open {
+        display: flex;
+        width: 100%;
+        order: 5;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 2px;
+        padding-top: 4px;
+    }
+
+    .js .main-nav.open a {
         font-size: 15px;
+        padding: 12px 4px;
+        border-bottom: 1px solid #eef2f8;
     }
 
     .topics {
@@ -1214,6 +1234,7 @@ a {
 
     .header-act {
         width: 100%;
+        order: 4;
         margin-left: 0;
         flex-wrap: wrap;
         gap: 10px;
@@ -1497,13 +1518,13 @@ a {
 
 #journey-progress-text {
     margin-top: 8px;
-    font-size: 12px;
+    font-size: 13px;
     line-height: 1.5;
     color: #56647d;
 }
 
 .phrase-categories button {
-    padding: 8px 0;
+    padding: 12px 8px;
     border: none;
     border-bottom: 2px solid transparent;
     background-color: transparent;
@@ -1869,4 +1890,252 @@ details p {
     .hero {
         background-image: none;
     }
+}
+
+/* ---------- Header profile link (JS बाट थपिन्छ) ---------- */
+.profile-link {
+    padding: 10px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1261ff;
+    border: 1px solid #1261ff;
+    border-radius: 7px;
+    white-space: nowrap;
+}
+
+/* ---------- Mobile menu button (JS बाट थपिन्छ) ---------- */
+.menu-btn {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .js .menu-btn {
+        display: inline-flex;
+        align-items: center;
+        order: 2;
+        min-height: 44px;
+        padding: 10px 14px;
+        font: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        color: #1261ff;
+        background-color: #ffffff;
+        border: 1px solid #1261ff;
+        border-radius: 7px;
+        cursor: pointer;
+    }
+}
+
+/* ---------- Mobile bottom navigation (JS बाट सबै पेजमा) ---------- */
+.bottom-nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 20;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    gap: 4px;
+    padding: 8px 8px calc(8px + env(safe-area-inset-bottom));
+    background-color: #ffffff;
+    border-top: 1px solid #e5ecf5;
+    box-shadow: 0 -4px 16px rgba(19, 35, 75, 0.08);
+}
+
+.bottom-nav a {
+    flex: 1;
+    min-width: 0;
+    min-height: 44px;
+    padding: 8px 4px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: #425473;
+    border-radius: 8px;
+}
+
+.bottom-nav a[aria-current="page"] {
+    color: #1261ff;
+}
+
+.bottom-nav a.bottom-nav-main {
+    flex: 0 0 auto;
+    width: 76px;
+    height: 56px;
+    margin-top: -28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: #ffffff;
+    background-color: #1261ff;
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(18, 97, 255, 0.35);
+}
+
+@media (min-width: 769px) {
+    .bottom-nav {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-bottom: 84px;
+    }
+}
+
+/* ---------- Phrase prev/next row ---------- */
+.phrase-nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.phrase-nav .btn {
+    min-height: 44px;
+}
+
+.phrase-count {
+    font-size: 13px;
+    color: #56647d;
+}
+
+/* ---------- Footer small text ---------- */
+.footer-bottom small {
+    font-size: 13px;
+}
+
+/* ---------- Dark theme ---------- */
+html[data-theme="dark"] body {
+    color: #e6ecf7;
+    background-color: #0f1a33;
+}
+
+html[data-theme="dark"] .site-header,
+html[data-theme="dark"] .site-footer,
+html[data-theme="dark"] .detail-card,
+html[data-theme="dark"] .journey-card,
+html[data-theme="dark"] .content-page .journey-card,
+html[data-theme="dark"] .phrase-card,
+html[data-theme="dark"] .topic-card,
+html[data-theme="dark"] .emergency-card,
+html[data-theme="dark"] .faq-card,
+html[data-theme="dark"] .summary-box,
+html[data-theme="dark"] .hero-example,
+html[data-theme="dark"] .bottom-nav,
+html[data-theme="dark"] .page-hero,
+html[data-theme="dark"] .card,
+html[data-theme="dark"] details {
+    background-color: #16244a;
+    border-color: #26355c;
+    color: #e6ecf7;
+}
+
+html[data-theme="dark"] .hero {
+    background-image:
+        linear-gradient(rgba(15, 26, 51, 0.93), rgba(15, 26, 51, 0.86)),
+        url("images/hero-wide.webp");
+}
+
+@media (max-width: 640px) {
+    html[data-theme="dark"] .hero {
+        background-image:
+            linear-gradient(rgba(15, 26, 51, 0.93), rgba(15, 26, 51, 0.86)),
+            url("images/hero-mobile.webp");
+    }
+}
+
+html[data-theme="dark"] .detail-card p,
+html[data-theme="dark"] .page-note,
+html[data-theme="dark"] .hero-example-text,
+html[data-theme="dark"] .explain-lead,
+html[data-theme="dark"] .result-card p,
+html[data-theme="dark"] .chat-a,
+html[data-theme="dark"] #status,
+html[data-theme="dark"] #ask-status,
+html[data-theme="dark"] .upload-hint,
+html[data-theme="dark"] .phrase-count,
+html[data-theme="dark"] .saved-phrase-item .saved-meaning,
+html[data-theme="dark"] #journey-progress-text,
+html[data-theme="dark"] .card-meta {
+    color: #c3cede;
+}
+
+html[data-theme="dark"] .result-card,
+html[data-theme="dark"] .chat-a,
+html[data-theme="dark"] .upload-area,
+html[data-theme="dark"] .eyebrow,
+html[data-theme="dark"] .chip {
+    background-color: #1d2f5c;
+    border-color: #33456e;
+    color: #e6ecf7;
+}
+
+html[data-theme="dark"] .btn,
+html[data-theme="dark"] .menu-btn,
+html[data-theme="dark"] .profile-link,
+html[data-theme="dark"] .lang-select {
+    background-color: #16244a;
+    border-color: #7aa5ff;
+    color: #9dbcff;
+}
+
+html[data-theme="dark"] .btn-prim,
+html[data-theme="dark"] #explain-btn,
+html[data-theme="dark"] #ask-btn,
+html[data-theme="dark"] .bottom-nav a.bottom-nav-main {
+    background-color: #2f6bff;
+    border-color: #2f6bff;
+    color: #ffffff;
+}
+
+html[data-theme="dark"] input,
+html[data-theme="dark"] select,
+html[data-theme="dark"] textarea,
+html[data-theme="dark"] #language,
+html[data-theme="dark"] #ask-input {
+    background-color: #101d3d;
+    border-color: #33456e;
+    color: #e6ecf7;
+}
+
+html[data-theme="dark"] .main-nav a {
+    color: #c3cede;
+}
+
+html[data-theme="dark"] .main-nav a:hover,
+html[data-theme="dark"] .main-nav a.active {
+    color: #9dbcff;
+    border-bottom-color: #9dbcff;
+}
+
+html[data-theme="dark"] .bottom-nav a {
+    color: #c3cede;
+}
+
+html[data-theme="dark"] .bottom-nav a[aria-current="page"] {
+    color: #9dbcff;
+}
+
+html[data-theme="dark"] .phrase-categories button {
+    color: #e6ecf7;
+}
+
+html[data-theme="dark"] .phrase-categories button:hover,
+html[data-theme="dark"] .phrase-categories button[aria-pressed="true"] {
+    color: #9dbcff;
+    border-bottom-color: #9dbcff;
+}
+
+html[data-theme="dark"] .emergency-dial-num {
+    background-color: #16244a;
+    border-color: #5c2630;
+    color: #ff8f9d;
+}
+
+html[data-theme="dark"] .journey-list input:checked+span {
+    color: #9aa6bd;
 }

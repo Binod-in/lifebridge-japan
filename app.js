@@ -449,7 +449,7 @@ if (resetButton) {
         try {
             const keys = Object.keys(localStorage);
             for (const key of keys) {
-                if (key.startsWith("lifego-")) {
+                if (key.startsWith("lifego-") || key === "lb_money_entries" || key === "lb_money_goals") {
                     localStorage.removeItem(key);
                 }
             }

@@ -152,7 +152,7 @@
             "app.removeDate": "Remove {t}",
             "app.dateRemoved": "Date removed.",
             "app.dateSaved": "Date saved.",
-            "app.resetConfirm": "Remove all LifeBridge saved tasks, phrases, guides, dates and demo profile from this browser?",
+            "app.resetConfirm": "Remove all LifeBridge saved tasks, phrases, guides, dates, money records and demo profile from this browser? Your language choice is kept.",
             "app.dataReset": "LifeBridge data reset.",
             "app.storageResetFail": "Could not reset browser storage.",
             "gd.jobs.desc": "Prepare for a part-time job search",
@@ -384,7 +384,7 @@
             "tracker.optExpense": "Expense (spent)",
             "tracker.optSaving": "Saving (put aside)",
             "tracker.amount": "Amount (¥)",
-            "tracker.noteLabel": "What is it? / के का लागि?",
+            "tracker.noteLabel": "What is it?",
             "tracker.notePlaceholder": "e.g. Sukiya salary, Rent, Food, Train",
             "tracker.savingFor": "Saving for",
             "tracker.addEntryBtn": "Add entry",
@@ -429,7 +429,53 @@
             "privacy.item4": "If this policy changes, the new version will be posted on this page.",
             "footer.about": "About",
             "footer.terms": "Terms of Use",
-            "footer.privacy": "Privacy Policy"
+            "footer.privacy": "Privacy Policy",
+            "doc.mobileNav": "Mobile",
+            "doc.menu": "Menu",
+            "nav.explainShort": "Explain",
+            "nav.profileShort": "Profile",
+            "idx.heroExampleAria": "Example explanation",
+            "idx.heroExampleTag": "Example",
+            "idx.heroExampleTitle": "City notice: please pay your gas bill",
+            "idx.heroExampleText": "What it is: your monthly gas bill. What to do: pay at a convenience store by the due date shown on the notice.",
+            "explain.uploadTitle": "Tap to take or choose a photo",
+            "explain.uploadHint": "A clear photo of the whole notice works best",
+            "explain.askLabel": "Ask something else about this notice",
+            "explain.explaining": "Explaining...",
+            "explain.asking": "Asking...",
+            "explain.badFormat": "The reply was unclear. Please try again with a clearer photo of the whole notice.",
+            "emg.callPolice": "Call police, 110",
+            "emg.callAmbulance": "Call ambulance or fire, 119",
+            "tracker.goalError": "Please enter a goal name and a target amount.",
+            "tracker.deleteConfirm": "Delete this entry?",
+            "net.offline": "You are offline. Connect to the internet and try again.",
+            "set.themeTitle": "Appearance",
+            "set.themeDesc": "Choose light or dark colors, or follow your device.",
+            "set.themeSystem": "Follow device",
+            "set.themeLight": "Light",
+            "set.themeDark": "Dark",
+            "jap.prev": "← Previous",
+            "jap.next": "Next →",
+            "jap.count": "{i} of {n}",
+            "journey.task.stu-orient": "Attend your school orientation",
+            "journey.task.stu-baito": "Get permission before starting part-time work",
+            "journey.task.stu-insurance": "Join a health insurance plan",
+            "journey.task.stu-bank": "Open a bank account",
+            "journey.task.stu-ic": "Get an IC card for trains and buses",
+            "journey.task.stu-address": "Register your address if you move",
+            "journey.task.work-contract": "Check your work contract and working hours",
+            "journey.task.work-tax": "Learn about tax and pension deductions",
+            "journey.task.work-insurance": "Join the employee health insurance",
+            "journey.task.work-bank": "Open a bank account for your salary",
+            "journey.task.work-commute": "Plan your commute route",
+            "journey.task.work-emergency": "Save emergency contacts",
+            "journey.task.move-notice": "Submit a moving-out notice at your old office",
+            "journey.task.move-address": "Register your new address within 14 days",
+            "journey.task.move-util": "Set up electricity, gas and water",
+            "journey.task.move-internet": "Arrange your internet connection",
+            "journey.task.move-post": "Forward your mail to the new address",
+            "journey.task.move-update": "Update your address on bank and insurance",
+            "main.noPhrases": "Phrases could not be loaded. Please reload the page."
         },
         ne: {
             "nav.home": "गृहपृष्ठ",
@@ -568,7 +614,7 @@
             "app.removeDate": "{t} हटाउनुहोस्",
             "app.dateRemoved": "मिति हटाइयो।",
             "app.dateSaved": "मिति सेभ भयो।",
-            "app.resetConfirm": "यो ब्राउजरबाट LifeBridge का सबै सेभ गरिएका कार्य, वाक्यांश, गाइड, मिति र डेमो प्रोफाइल हटाउने?",
+            "app.resetConfirm": "यो ब्राउजरबाट LifeBridge का सबै सेभ गरिएका कार्य, वाक्यांश, गाइड, मिति, पैसाको रेकर्ड र डेमो प्रोफाइल हटाउने? भाषा छनोट यथावत रहन्छ।",
             "app.dataReset": "LifeBridge डाटा रिसेट भयो।",
             "app.storageResetFail": "ब्राउजर स्टोरेज रिसेट गर्न सकिएन।",
             "gd.jobs.desc": "पार्ट-टाइम काम खोज्ने तयारी गर्नुहोस्",
@@ -800,7 +846,7 @@
             "tracker.optExpense": "खर्च (खर्च गरेको)",
             "tracker.optSaving": "बचत (छुट्याएको)",
             "tracker.amount": "रकम (¥)",
-            "tracker.noteLabel": "यो के हो? / के का लागि?",
+            "tracker.noteLabel": "यो के हो?",
             "tracker.notePlaceholder": "जस्तै: Sukiya तलब, भाडा, खाना, रेल",
             "tracker.savingFor": "केका लागि बचत",
             "tracker.addEntryBtn": "प्रविष्टि थप्नुहोस्",
@@ -845,7 +891,53 @@
             "privacy.item4": "यो नीति परिवर्तन भएमा नयाँ संस्करण यही पेजमा राखिनेछ।",
             "footer.about": "हाम्रोबारे",
             "footer.terms": "प्रयोगका सर्तहरू",
-            "footer.privacy": "गोपनीयता नीति"
+            "footer.privacy": "गोपनीयता नीति",
+            "doc.mobileNav": "मोबाइल",
+            "doc.menu": "मेनु",
+            "nav.explainShort": "व्याख्या",
+            "nav.profileShort": "प्रोफाइल",
+            "idx.heroExampleAria": "उदाहरण व्याख्या",
+            "idx.heroExampleTag": "उदाहरण",
+            "idx.heroExampleTitle": "सिटी सूचना: कृपया ग्यास बिल तिर्नुहोस्",
+            "idx.heroExampleText": "यो के हो: तपाईंको मासिक ग्यास बिल। के गर्ने: सूचनामा देखिएको म्यादभित्र सुविधा पसलबाट तिर्नुहोस्।",
+            "explain.uploadTitle": "फोटो खिच्न वा छान्न ट्याप गर्नुहोस्",
+            "explain.uploadHint": "पूरै सूचनाको स्पष्ट फोटो राम्रो हुन्छ",
+            "explain.askLabel": "यो सूचनाबारे अरू केही सोध्नुहोस्",
+            "explain.explaining": "व्याख्या गर्दै...",
+            "explain.asking": "सोध्दै...",
+            "explain.badFormat": "जवाफ स्पष्ट भएन। पूरै सूचनाको स्पष्ट फोटो लिएर फेरि प्रयास गर्नुहोस्।",
+            "emg.callPolice": "प्रहरीलाई कल गर्नुहोस्, ११०",
+            "emg.callAmbulance": "एम्बुलेन्स वा दमकललाई कल गर्नुहोस्, ११९",
+            "tracker.goalError": "कृपया लक्ष्यको नाम र रकम लेख्नुहोस्।",
+            "tracker.deleteConfirm": "यो प्रविष्टि मेट्ने?",
+            "net.offline": "तपाईं अफलाइन हुनुहुन्छ। इन्टरनेट जोडेर फेरि प्रयास गर्नुहोस्।",
+            "set.themeTitle": "रूपरङ",
+            "set.themeDesc": "हल्का वा गाढा रङ छान्नुहोस्, वा उपकरणअनुसार राख्नुहोस्।",
+            "set.themeSystem": "उपकरणअनुसार",
+            "set.themeLight": "हल्का",
+            "set.themeDark": "गाढा",
+            "jap.prev": "← अघिल्लो",
+            "jap.next": "अर्को →",
+            "jap.count": "{n} मध्ये {i}",
+            "journey.task.stu-orient": "विद्यालयको अभिमुखीकरण कार्यक्रममा जानुहोस्",
+            "journey.task.stu-baito": "पार्ट-टाइम काम सुरु गर्नुअघि अनुमति लिनुहोस्",
+            "journey.task.stu-insurance": "स्वास्थ्य बीमा योजनामा जोडिनुहोस्",
+            "journey.task.stu-bank": "बैंक खाता खोल्नुहोस्",
+            "journey.task.stu-ic": "रेल र बसका लागि आईसी कार्ड लिनुहोस्",
+            "journey.task.stu-address": "सरेमा ठेगाना दर्ता गर्नुहोस्",
+            "journey.task.work-contract": "कामको सम्झौता र काम गर्ने समय हेर्नुहोस्",
+            "journey.task.work-tax": "कर र पेन्सन कटौतीबारे बुझ्नुहोस्",
+            "journey.task.work-insurance": "कर्मचारी स्वास्थ्य बीमामा जोडिनुहोस्",
+            "journey.task.work-bank": "तलबका लागि बैंक खाता खोल्नुहोस्",
+            "journey.task.work-commute": "कार्यालय जाने बाटो योजना बनाउनुहोस्",
+            "journey.task.work-emergency": "आपतकालीन सम्पर्क सेभ गर्नुहोस्",
+            "journey.task.move-notice": "पुरानो कार्यालयमा सर्ने सूचना दिनुहोस्",
+            "journey.task.move-address": "१४ दिनभित्र नयाँ ठेगाना दर्ता गर्नुहोस्",
+            "journey.task.move-util": "बिजुली, ग्यास र पानी जोड्नुहोस्",
+            "journey.task.move-internet": "इन्टरनेट व्यवस्था गर्नुहोस्",
+            "journey.task.move-post": "हुलाक नयाँ ठेगानामा पठाउने व्यवस्था गर्नुहोस्",
+            "journey.task.move-update": "बैंक र बीमामा ठेगाना अद्यावधिक गर्नुहोस्",
+            "main.noPhrases": "वाक्यहरू लोड हुन सकेनन्। कृपया पेज फेरि खोल्नुहोस्।"
         },
         vi: {
             "nav.home": "Trang chủ",
@@ -984,7 +1076,7 @@
             "app.removeDate": "Gỡ {t}",
             "app.dateRemoved": "Đã gỡ ngày.",
             "app.dateSaved": "Đã lưu ngày.",
-            "app.resetConfirm": "Gỡ tất cả công việc, mẫu câu, hướng dẫn, ngày tháng và hồ sơ demo đã lưu của LifeBridge khỏi trình duyệt này?",
+            "app.resetConfirm": "Gỡ tất cả công việc, mẫu câu, hướng dẫn, ngày tháng, sổ thu chi và hồ sơ demo đã lưu của LifeBridge khỏi trình duyệt này? Ngôn ngữ đã chọn được giữ lại.",
             "app.dataReset": "Đã đặt lại dữ liệu LifeBridge.",
             "app.storageResetFail": "Không thể đặt lại bộ nhớ trình duyệt.",
             "gd.jobs.desc": "Chuẩn bị tìm việc làm bán thời gian",
@@ -1189,7 +1281,7 @@
             "tracker.optExpense": "Chi tiêu (đã chi)",
             "tracker.optSaving": "Tiết kiệm (để dành)",
             "tracker.amount": "Số tiền (¥)",
-            "tracker.noteLabel": "Đó là gì? / के का लागि?",
+            "tracker.noteLabel": "Đó là gì?",
             "tracker.notePlaceholder": "VD: lương Sukiya, tiền thuê nhà, ăn uống, tàu điện",
             "tracker.savingFor": "Tiết kiệm cho",
             "tracker.addEntryBtn": "Thêm mục",
@@ -1234,7 +1326,80 @@
             "privacy.item4": "Nếu chính sách này thay đổi, phiên bản mới sẽ được đăng trên trang này.",
             "footer.about": "Giới thiệu",
             "footer.terms": "Điều khoản sử dụng",
-            "footer.privacy": "Chính sách quyền riêng tư"
+            "footer.privacy": "Chính sách quyền riêng tư",
+            "guide.stepsTitle": "Các bước thực hiện",
+            "guide.bringTitle": "Cần mang theo",
+            "guide.linksTitle": "Liên kết chính thức",
+            "doc.step1": "Tìm văn phòng thành phố hoặc quận và hỏi quầy nào phụ trách thủ tục chuyển đến (転入届, tennyu-todoke).",
+            "doc.step2": "Điền đơn chuyển đến tại văn phòng. Xuất trình thẻ cư trú nếu cần giúp đỡ.",
+            "doc.step3": "Nộp đơn cùng thẻ cư trú và hộ chiếu. Địa chỉ mới sẽ được in ở mặt sau của thẻ.",
+            "doc.step4": "Hỏi về đăng ký bảo hiểm y tế và hưu trí trong cùng lần đến.",
+            "doc.step5": "Giữ mọi biên lai và thư nhận được, và lưu các hạn tiếp theo vào Important Dates.",
+            "doc.bring1": "Thẻ cư trú (在留カード)",
+            "doc.bring2": "Hộ chiếu",
+            "doc.bring3": "Giấy tờ chứng minh địa chỉ mới, ví dụ hợp đồng thuê nhà",
+            "doc.bring4": "Con dấu cá nhân (hanko) nếu có. Chữ ký thường được chấp nhận, hãy hỏi văn phòng.",
+            "doc.link1": "Cục Quản lý xuất nhập cảnh (thủ tục chính thức) →",
+            "doc.link2": "Thông tin đa ngôn ngữ của ISA →",
+            "doc.source": "Nguồn: Cục Quản lý xuất nhập cảnh Nhật Bản. Kiểm tra tháng 10/2026. Quy định có thể thay đổi, hãy xác nhận với văn phòng địa phương.",
+            "jobs.step1": "Xác nhận bạn được phép làm việc. Du học sinh cần giấy phép (資格外活動許可) trước khi bắt đầu.",
+            "jobs.step2": "Tìm việc trên Hello Work và các trang tuyển dụng. Ghi lại công việc, lương giờ và ga gần nhất.",
+            "jobs.step3": "Chuẩn bị hồ sơ và ghi lại số giờ bạn có thể làm mỗi tuần.",
+            "jobs.step4": "Nộp đơn và tham dự phỏng vấn. Mang thẻ cư trú; mang thông tin tài khoản ngân hàng nếu được nhận.",
+            "jobs.step5": "Đọc điều kiện làm việc bằng văn bản trước ca đầu tiên và giữ một bản.",
+            "jobs.bring1": "Hồ sơ (mẫu rirekisho tiếng Nhật rất phổ biến)",
+            "jobs.bring2": "Thẻ cư trú, và thẻ sinh viên nếu bạn là du học sinh",
+            "jobs.bring3": "Số giờ rảnh mỗi tuần, đã viết ra giấy",
+            "jobs.bring4": "Thông tin tài khoản ngân hàng, để nhận lương sau khi được nhận",
+            "jobs.link1": "Tìm việc Hello Work (chính thức) →",
+            "jobs.link2": "Cục Quản lý xuất nhập cảnh (thông tin giấy phép làm việc) →",
+            "jobs.source": "Nguồn: Hello Work và Cục Quản lý xuất nhập cảnh Nhật Bản. Kiểm tra tháng 10/2026. Quy định có thể thay đổi, hãy xác nhận với văn phòng liên quan.",
+            "doc.mobileNav": "Di động",
+            "doc.menu": "Menu",
+            "nav.explainShort": "Giải thích",
+            "nav.profileShort": "Hồ sơ",
+            "idx.heroExampleAria": "Ví dụ giải thích",
+            "idx.heroExampleTag": "Ví dụ",
+            "idx.heroExampleTitle": "Thông báo của thành phố: vui lòng thanh toán hóa đơn gas",
+            "idx.heroExampleText": "Đây là gì: hóa đơn gas hàng tháng của bạn. Cần làm gì: thanh toán tại cửa hàng tiện lợi trước ngày đến hạn ghi trên thông báo.",
+            "explain.uploadTitle": "Chạm để chụp hoặc chọn ảnh",
+            "explain.uploadHint": "Ảnh rõ nét toàn bộ thông báo sẽ cho kết quả tốt nhất",
+            "explain.askLabel": "Hỏi thêm về thông báo này",
+            "explain.explaining": "Đang giải thích...",
+            "explain.asking": "Đang hỏi...",
+            "explain.badFormat": "Câu trả lời chưa rõ. Vui lòng thử lại với ảnh rõ nét hơn chụp toàn bộ thông báo.",
+            "emg.callPolice": "Gọi cảnh sát, 110",
+            "emg.callAmbulance": "Gọi cấp cứu hoặc cứu hỏa, 119",
+            "tracker.goalError": "Vui lòng nhập tên mục tiêu và số tiền.",
+            "tracker.deleteConfirm": "Xóa mục này?",
+            "net.offline": "Bạn đang ngoại tuyến. Hãy kết nối internet rồi thử lại.",
+            "set.themeTitle": "Giao diện",
+            "set.themeDesc": "Chọn màu sáng hoặc tối, hoặc theo thiết bị.",
+            "set.themeSystem": "Theo thiết bị",
+            "set.themeLight": "Sáng",
+            "set.themeDark": "Tối",
+            "jap.prev": "← Trước",
+            "jap.next": "Tiếp →",
+            "jap.count": "{i} / {n}",
+            "journey.task.stu-orient": "Tham dự buổi hướng dẫn của trường",
+            "journey.task.stu-baito": "Xin phép trước khi làm thêm bán thời gian",
+            "journey.task.stu-insurance": "Tham gia bảo hiểm y tế",
+            "journey.task.stu-bank": "Mở tài khoản ngân hàng",
+            "journey.task.stu-ic": "Mua thẻ IC đi tàu và xe buýt",
+            "journey.task.stu-address": "Đăng ký địa chỉ nếu bạn chuyển nhà",
+            "journey.task.work-contract": "Kiểm tra hợp đồng và giờ làm việc",
+            "journey.task.work-tax": "Tìm hiểu về thuế và bảo hiểm hưu trí bị khấu trừ",
+            "journey.task.work-insurance": "Tham gia bảo hiểm y tế của nhân viên",
+            "journey.task.work-bank": "Mở tài khoản ngân hàng nhận lương",
+            "journey.task.work-commute": "Lên kế hoạch đường đi làm",
+            "journey.task.work-emergency": "Lưu các số liên lạc khẩn cấp",
+            "journey.task.move-notice": "Nộp thông báo chuyển đi tại văn phòng cũ",
+            "journey.task.move-address": "Đăng ký địa chỉ mới trong 14 ngày",
+            "journey.task.move-util": "Đăng ký điện, gas và nước",
+            "journey.task.move-internet": "Lắp đặt internet",
+            "journey.task.move-post": "Chuyển tiếp bưu phẩm về địa chỉ mới",
+            "journey.task.move-update": "Cập nhật địa chỉ ở ngân hàng và bảo hiểm",
+            "main.noPhrases": "Không tải được mẫu câu. Vui lòng tải lại trang."
         },
         my: {
             "nav.home": "ပင်မစာမျက်နှာ",
@@ -1373,7 +1538,7 @@
             "app.removeDate": "{t} ကို ဖယ်ရှားမယ်",
             "app.dateRemoved": "ရက်စွဲ ဖယ်ရှားပြီးပြီ။",
             "app.dateSaved": "ရက်စွဲ သိမ်းပြီးပြီ။",
-            "app.resetConfirm": "ဤဘရောင်ဇာမှ LifeBridge ၏ သိမ်းထားသော အလုပ်များ၊ စကားစုများ၊ လမ်းညွှန်များ၊ ရက်စွဲများနှင့် စမ်းသပ်ပရိုဖိုင်အားလုံး ဖယ်ရှားမလား။",
+            "app.resetConfirm": "ဤဘရောင်ဇာမှ LifeBridge ၏ သိမ်းထားသော အလုပ်များ၊ စကားစုများ၊ လမ်းညွှန်များ၊ ရက်စွဲများ၊ ငွေစာရင်းများနှင့် စမ်းသပ်ပရိုဖိုင်အားလုံး ဖယ်ရှားမလား။ ရွေးထားသော ဘာသာစကား ဆက်ထားပါမယ်။",
             "app.dataReset": "LifeBridge ဒေတာ ပြန်လည်သတ်မှတ်ပြီးပြီ။",
             "app.storageResetFail": "ဘရောင်ဇာသိုလှောင်မှု ပြန်လည်သတ်မှတ်၍မရပါ။",
             "gd.jobs.desc": "အချိန်ပိုင်းအလုပ် ရှာဖွေဖို့ ပြင်ဆင်ပါ",
@@ -1578,7 +1743,7 @@
             "tracker.optExpense": "အသုံးစရိတ် (သုံးသော)",
             "tracker.optSaving": "စုငွေ (ဖယ်ထားသော)",
             "tracker.amount": "ပမာဏ (¥)",
-            "tracker.noteLabel": "အဲဒါ ဘာလဲ? / के का लागि?",
+            "tracker.noteLabel": "အဲဒါ ဘာလဲ?",
             "tracker.notePlaceholder": "ဥပမာ- Sukiya လစာ၊ အိမ်လခ၊ အစားအသောက်၊ ရထား",
             "tracker.savingFor": "ဘာအတွက်စုနေသလဲ",
             "tracker.addEntryBtn": "မှတ်တမ်း ထည့်မယ်",
@@ -1623,7 +1788,80 @@
             "privacy.item4": "ဒီမူဝါဒ ပြောင်းလဲပါက ဗားရှင်းအသစ်ကို ဒီစာမျက်နှာတွင် တင်ပေးပါမယ်။",
             "footer.about": "ကျွန်ုပ်တို့အကြောင်း",
             "footer.terms": "အသုံးပြုမှု စည်းမျဉ်းများ",
-            "footer.privacy": "ကိုယ်ရေးအချက်အလက် မူဝါဒ"
+            "footer.privacy": "ကိုယ်ရေးအချက်အလက် မူဝါဒ",
+            "guide.stepsTitle": "လိုက်နာရန် အဆင့်များ",
+            "guide.bringTitle": "ယူဆောင်ရမည့်အရာများ",
+            "guide.linksTitle": "တရားဝင် လင့်ခ်များ",
+            "doc.step1": "မြို့ သို့မဟုတ် ရပ်ကွက် ရုံးရှာပြီး ပြောင်းရွှေ့ဝင်ရောက်မှု (転入届, tennyu-todoke) ဘယ်ကောင်တာက ကိုင်တွယ်သလဲ မေးပါ။",
+            "doc.step2": "ရုံးတွင် ပြောင်းရွှေ့ဖောင် ဖြည့်ပါ။ အကူအညီလိုပါက နေထိုင်ခွင့်ကတ် ပြပါ။",
+            "doc.step3": "ဖောင်ကို နေထိုင်ခွင့်ကတ်နှင့် နိုင်ငံကူးလက်မှတ်နှင့်အတူ တင်ပါ။ လိပ်စာအသစ်ကို ကတ်နောက်ကျောတွင် ရိုက်နှိပ်ပေးပါမယ်။",
+            "doc.step4": "တစ်ကြိမ်တည်းလာရောက်စဉ် ကျန်းမာရေးအာမခံနှင့် ပင်စင်စာရင်းသွင်းမှုအကြောင်း မေးပါ။",
+            "doc.step5": "ရရှိသော ပြေစာနှင့် စာတိုင်း သိမ်းထားပြီး နောက်နောက်ဆုံးရက်များကို Important Dates တွင် မှတ်ပါ။",
+            "doc.bring1": "နေထိုင်ခွင့်ကတ် (在留カード)",
+            "doc.bring2": "နိုင်ငံကူးလက်မှတ်",
+            "doc.bring3": "ငှားရမ်းစာချုပ်ကဲ့သို့ လိပ်စာအသစ် အထောက်အထား",
+            "doc.bring4": "ရှိပါက ကိုယ်ပိုင်တံဆိပ် (hanko)။ လက်မှတ်လည်း ရတတ်တာမို့ ရုံးကို မေးပါ။",
+            "doc.link1": "လူဝင်မှုကြီးကြပ်ရေးဌာန (တရားဝင် လုပ်ထုံးလုပ်နည်းများ) →",
+            "doc.link2": "ISA ဘာသာစကားစုံ သတင်းအချက်အလက် →",
+            "doc.source": "ရင်းမြစ် — ဂျပန် လူဝင်မှုကြီးကြပ်ရေးဌာန။ 2026 အောက်တိုဘာ စစ်ဆေးပြီး။ စည်းမျဉ်းများ ပြောင်းနိုင်တာမို့ ဒေသရုံးနှင့် အတည်ပြုပါ။",
+            "jobs.step1": "အလုပ်လုပ်ခွင့် ရှိမရှိ အတည်ပြုပါ။ ကျောင်းသားများ မစမီ ခွင့်ပြုချက် (資格外活動許可) လိုအပ်ပါတယ်။",
+            "jobs.step2": "Hello Work နှင့် အလုပ်ရှာဝက်ဘ်ဆိုက်များတွင် ရှာပါ။ တာဝန်၊ တစ်နာရီလုပ်ခနှင့် အနီးဆုံးဘူတာ မှတ်ပါ။",
+            "jobs.step3": "ကိုယ်ရေးအကျဉ်း ပြင်ဆင်ပြီး တစ်ပတ်မှာ အလုပ်လုပ်နိုင်သော နာရီများ ချရေးပါ။",
+            "jobs.step4": "လျှောက်ထားပြီး အင်တာဗျူး တက်ပါ။ နေထိုင်ခွင့်ကတ် ယူသွားပါ။ အလုပ်ရပါက ဘဏ်အကောင့် အချက်အလက် ယူသွားပါ။",
+            "jobs.step5": "ပထမအလုပ်ဆင်းမီ စာဖြင့်ရေးထားသော အလုပ်အခြေအနေများ ဖတ်ပြီး မိတ္တူ သိမ်းပါ။",
+            "jobs.bring1": "ကိုယ်ရေးအကျဉ်း (ဂျပန် rirekisho ပုံစံ အသုံးများ)",
+            "jobs.bring2": "နေထိုင်ခွင့်ကတ်၊ ကျောင်းသားဆိုပါက ကျောင်းသားကတ်",
+            "jobs.bring3": "တစ်ပတ်မှာ အားသော နာရီများ၊ ချရေးထားသော",
+            "jobs.bring4": "အလုပ်ရပြီးနောက် လစာအတွက် ဘဏ်အကောင့် အချက်အလက်",
+            "jobs.link1": "Hello Work အလုပ်ရှာဖွေမှု (တရားဝင်) →",
+            "jobs.link2": "လူဝင်မှုကြီးကြပ်ရေးဌာန (အလုပ်လုပ်ခွင့် သတင်း) →",
+            "jobs.source": "ရင်းမြစ် — Hello Work နှင့် ဂျပန် လူဝင်မှုကြီးကြပ်ရေးဌာန။ 2026 အောက်တိုဘာ စစ်ဆေးပြီး။ စည်းမျဉ်းများ ပြောင်းနိုင်တာမို့ သက်ဆိုင်ရာရုံးနှင့် အတည်ပြုပါ။",
+            "doc.mobileNav": "မိုဘိုင်း",
+            "doc.menu": "မီနူး",
+            "nav.explainShort": "ရှင်းပြချက်",
+            "nav.profileShort": "ပရိုဖိုင်",
+            "idx.heroExampleAria": "ဥပမာ ရှင်းလင်းချက်",
+            "idx.heroExampleTag": "ဥပမာ",
+            "idx.heroExampleTitle": "မြို့တော် အကြောင်းကြားစာ — gas ဘေလ် ပေးဆောင်ပါ",
+            "idx.heroExampleText": "ဒါက ဘာလဲ — သင့်လစဉ် gas ဘေလ်။ ဘာလုပ်ရမလဲ — စာမှာပါတဲ့ နောက်ဆုံးရက်မတိုင်ခင် convenience store မှာ ပေးဆောင်ပါ။",
+            "explain.uploadTitle": "ဓာတ်ပုံရိုက်ရန် သို့မဟုတ် ရွေးရန် တို့ပါ",
+            "explain.uploadHint": "အကြောင်းကြားစာတစ်ခုလုံးကို ရှင်းလင်းစွာရိုက်ထားသော ဓာတ်ပုံ အကောင်းဆုံးပါ",
+            "explain.askLabel": "ဒီအကြောင်းကြားစာအကြောင်း နောက်ထပ်မေးပါ",
+            "explain.explaining": "ရှင်းပြနေပါသည်...",
+            "explain.asking": "မေးနေပါသည်...",
+            "explain.badFormat": "အဖြေ မရှင်းလင်းပါ။ အကြောင်းကြားစာတစ်ခုလုံးကို ရှင်းလင်းစွာရိုက်ပြီး ထပ်ကြိုးစားပါ။",
+            "emg.callPolice": "ရဲကို ဖုန်းဆက်ပါ၊ ၁၁၀",
+            "emg.callAmbulance": "လူနာတင်ယာဉ် သို့မဟုတ် မီးသတ်ကို ဖုန်းဆက်ပါ၊ ၁၁၉",
+            "tracker.goalError": "ပန်းတိုင်အမည်နှင့် ပမာဏ ထည့်ပေးပါ။",
+            "tracker.deleteConfirm": "ဒီမှတ်တမ်း ဖျက်မလား။",
+            "net.offline": "အင်တာနက် ပြတ်နေပါသည်။ ချိတ်ဆက်ပြီး ထပ်ကြိုးစားပါ။",
+            "set.themeTitle": "အသွင်အပြင်",
+            "set.themeDesc": "အလင်းရောင် သို့မဟုတ် အမှောင်ရောင် ရွေးပါ၊ သို့မဟုတ် စက်နှင့် လိုက်ပါ။",
+            "set.themeSystem": "စက်နှင့်လိုက်",
+            "set.themeLight": "အလင်း",
+            "set.themeDark": "အမှောင်",
+            "jap.prev": "← ရှေ့တစ်ခု",
+            "jap.next": "နောက်တစ်ခု →",
+            "jap.count": "{n} ခုတွင် {i} ခု",
+            "journey.task.stu-orient": "ကျောင်းမိတ်ဆက်ပွဲသို့ တက်ရောက်ပါ",
+            "journey.task.stu-baito": "အချိန်ပိုင်းအလုပ် မစမီ ခွင့်ပြုချက်ယူပါ",
+            "journey.task.stu-insurance": "ကျန်းမာရေး အာမခံတွင် ပါဝင်ပါ",
+            "journey.task.stu-bank": "ဘဏ်အကောင့် ဖွင့်ပါ",
+            "journey.task.stu-ic": "ရထားနှင့် ဘတ်စ်ကားအတွက် IC ကတ် ယူပါ",
+            "journey.task.stu-address": "ပြောင်းရွှေ့ပါက လိပ်စာမှတ်ပုံတင်ပါ",
+            "journey.task.work-contract": "အလုပ်စာချုပ်နှင့် အလုပ်ချိန်များ စစ်ဆေးပါ",
+            "journey.task.work-tax": "အခွန်နှင့် ပင်စင်ဖြတ်တောက်မှုများ လေ့လာပါ",
+            "journey.task.work-insurance": "ဝန်ထမ်း ကျန်းမာရေးအာမခံတွင် ပါဝင်ပါ",
+            "journey.task.work-bank": "လစာအတွက် ဘဏ်အကောင့် ဖွင့်ပါ",
+            "journey.task.work-commute": "အလုပ်သွားလမ်း စီစဉ်ပါ",
+            "journey.task.work-emergency": "အရေးပေါ် ဆက်သွယ်ရန်များ သိမ်းထားပါ",
+            "journey.task.move-notice": "ဟောင်းုံးရုံးတွင် ပြောင်းရွှေ့မည့် အကြောင်းကြားစာ တင်ပါ",
+            "journey.task.move-address": "၁၄ ရက်အတွင်း လိပ်စာအသစ် မှတ်ပုံတင်ပါ",
+            "journey.task.move-util": "လျှပ်စစ်၊ gas နှင့် ရေ ချိတ်ဆက်ပါ",
+            "journey.task.move-internet": "အင်တာနက် စီစဉ်ပါ",
+            "journey.task.move-post": "စာများကို လိပ်စာအသစ်သို့ လွှဲပေးရန် စီစဉ်ပါ",
+            "journey.task.move-update": "ဘဏ်နှင့် အာမခံတွင် လိပ်စာ ပြင်ဆင်ပါ",
+            "main.noPhrases": "စကားစုများ ဖွင့်၍မရပါ။ စာမျက်နှာ ပြန်ဖွင့်ပါ။"
         }
     };
 
@@ -1719,7 +1957,156 @@
         apply(lang);
     }
 
+    // ------------------------------------------------------------
+    // Shared site chrome: current-page mark, mobile menu button,
+    // profile link, bottom nav, theme and service worker.
+    // This file loads on every page, so one place covers all pages.
+    // ------------------------------------------------------------
+    var THEME_KEY = "lb_theme";
+
+    function currentPageName() {
+        try {
+            var name = window.location.pathname.split("/").pop() || "index.html";
+            return name.split("?")[0].split("#")[0] || "index.html";
+        } catch (e) {
+            return "index.html";
+        }
+    }
+
+    function markCurrentNav(page) {
+        var links = document.querySelectorAll(".main-nav a");
+        for (var i = 0; i < links.length; i++) {
+            var href = String(links[i].getAttribute("href") || "").split("?")[0].split("#")[0];
+            if (href === page) {
+                links[i].setAttribute("aria-current", "page");
+                if ((" " + links[i].className + " ").indexOf(" active ") === -1) {
+                    links[i].className += (links[i].className ? " " : "") + "active";
+                }
+            } else {
+                links[i].removeAttribute("aria-current");
+                links[i].className = (" " + links[i].className + " ").replace(/ active /g, " ").replace(/^\s+|\s+$/g, "");
+            }
+        }
+    }
+
+    function addMenuButton() {
+        var header = document.querySelector(".header-cnt");
+        var nav = document.querySelector(".main-nav");
+        if (!header || !nav || document.querySelector(".menu-btn")) return;
+        nav.id = "main-nav";
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "menu-btn";
+        btn.setAttribute("aria-expanded", "false");
+        btn.setAttribute("aria-controls", "main-nav");
+        var label = document.createElement("span");
+        label.setAttribute("data-i18n", "doc.menu");
+        label.textContent = "Menu";
+        btn.appendChild(label);
+        btn.addEventListener("click", function () {
+            var isOpen = (" " + nav.className + " ").indexOf(" open ") !== -1;
+            if (isOpen) {
+                nav.className = (" " + nav.className + " ").replace(/ open /g, " ").replace(/^\s+|\s+$/g, "");
+                btn.setAttribute("aria-expanded", "false");
+            } else {
+                nav.className += " open";
+                btn.setAttribute("aria-expanded", "true");
+            }
+        });
+        header.insertBefore(btn, nav);
+    }
+
+    function addProfileLink() {
+        var box = document.querySelector(".header-act");
+        if (!box || box.querySelector('a[href="login.html"]')) return;
+        var link = document.createElement("a");
+        link.href = "login.html";
+        link.className = "profile-link";
+        link.setAttribute("data-i18n", "nav.profile");
+        link.textContent = "Demo Profile";
+        box.appendChild(link);
+    }
+
+    function addBottomNav(page) {
+        if (document.querySelector(".bottom-nav")) return;
+        var nav = document.createElement("nav");
+        nav.className = "bottom-nav";
+        nav.setAttribute("data-i18n-aria-label", "doc.mobileNav");
+        nav.setAttribute("aria-label", "Mobile");
+        var items = [
+            ["index.html", "nav.home", "Home", false],
+            ["guide.html", "nav.guides", "Guides", false],
+            ["explain.html", "nav.explainShort", "Explain", true],
+            ["emergency.html", "nav.emergency", "Emergency", false],
+            ["login.html", "nav.profileShort", "Profile", false]
+        ];
+        for (var i = 0; i < items.length; i++) {
+            var a = document.createElement("a");
+            a.href = items[i][0];
+            a.setAttribute("data-i18n", items[i][1]);
+            a.textContent = items[i][2];
+            if (items[i][3]) a.className = "bottom-nav-main";
+            if (items[i][0] === page) a.setAttribute("aria-current", "page");
+            nav.appendChild(a);
+        }
+        document.body.appendChild(nav);
+    }
+
+    function themePreference() {
+        try {
+            var saved = window.localStorage.getItem(THEME_KEY);
+            if (saved === "light" || saved === "dark") return saved;
+        } catch (e) { /* fall through to system */ }
+        try {
+            if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+                return "dark";
+            }
+        } catch (e) { /* fall through to light */ }
+        return "light";
+    }
+
+    function applyTheme() {
+        document.documentElement.setAttribute("data-theme", themePreference());
+    }
+
+    window.LBTheme = {
+        get: themePreference,
+        set: function (theme) {
+            if (theme !== "light" && theme !== "dark" && theme !== "system") theme = "system";
+            try {
+                if (theme === "system") {
+                    window.localStorage.removeItem(THEME_KEY);
+                } else {
+                    window.localStorage.setItem(THEME_KEY, theme);
+                }
+            } catch (e) { /* private mode: apply for this view only */ }
+            applyTheme();
+        }
+    };
+
+    function registerWorker() {
+        try {
+            if ("serviceWorker" in navigator && window.location.protocol.indexOf("http") === 0) {
+                window.addEventListener("load", function () {
+                    navigator.serviceWorker.register("sw.js").catch(function () { /* offline stays off */ });
+                });
+            }
+        } catch (e) { /* ignore */ }
+    }
+
+    function siteChrome() {
+        try { document.documentElement.className += " js"; } catch (e) { /* ignore */ }
+        var page = currentPageName();
+        try { markCurrentNav(page); } catch (e) { /* ignore */ }
+        try { addMenuButton(); } catch (e) { /* ignore */ }
+        try { addProfileLink(); } catch (e) { /* ignore */ }
+        try { addBottomNav(page); } catch (e) { /* ignore */ }
+        try { applyTheme(); } catch (e) { /* ignore */ }
+        try { registerWorker(); } catch (e) { /* ignore */ }
+    }
+
     document.addEventListener("DOMContentLoaded", function () {
+        siteChrome();
         var select = document.getElementById("lang-select");
         if (select) {
             select.addEventListener("change", function () {

@@ -7,10 +7,12 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title data-i18n="idx.title">LifeBridge Japan</title>
     <link href="style.css" rel="stylesheet" />
+    <link rel="manifest" href="site.webmanifest" />
+    <meta name="theme-color" content="#1261ff" />
     <style>
         /* Homepage-only additions. */
         :root {
-            --accent: #FF6B81;
+            --accent: #BE123C;
         }
 
         .hero {
@@ -63,7 +65,7 @@
             background-color: var(--accent);
             color: #ffffff;
             border-radius: 20px;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.04em;
@@ -116,60 +118,7 @@
             border-color: #cf2938;
         }
 
-        /* Mobile bottom navigation (hidden on larger screens). */
-        .bottom-nav {
-            position: fixed;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 20;
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-around;
-            gap: 4px;
-            padding: 8px 8px calc(8px + env(safe-area-inset-bottom));
-            background-color: #ffffff;
-            border-top: 1px solid #e5ecf5;
-            box-shadow: 0 -4px 16px rgba(19, 35, 75, 0.08);
-        }
-
-        .bottom-nav a {
-            flex: 1;
-            min-width: 0;
-            padding: 8px 4px;
-            text-align: center;
-            font-size: 12px;
-            font-weight: 600;
-            color: #425473;
-            border-radius: 8px;
-        }
-
-        .bottom-nav a.bottom-nav-main {
-            flex: 0 0 auto;
-            width: 76px;
-            height: 56px;
-            margin-top: -28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
-            color: #ffffff;
-            background-color: #1261ff;
-            border-radius: 16px;
-            box-shadow: 0 6px 16px rgba(18, 97, 255, 0.35);
-        }
-
-        @media (min-width: 769px) {
-            .bottom-nav {
-                display: none;
-            }
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding-bottom: 84px;
-            }
-        }
+        /* Mobile bottom navigation lives in style.css now (added by i18n.js). */
 
         /* Small "Source / Updated" line for guide cards. */
         .card-meta {
@@ -243,10 +192,10 @@
                         Explore Guides
                     </a>
                 </div>
-                <aside class="hero-example" aria-label="Example explanation">
-                    <span class="hero-example-tag">Example</span>
-                    <p class="hero-example-title">City notice: please pay your gas bill</p>
-                    <p class="hero-example-text">What it is: your monthly gas bill. What to do: pay at a convenience store by the due date shown on the notice.</p>
+                <aside class="hero-example" aria-label="Example explanation" data-i18n-aria-label="idx.heroExampleAria">
+                    <span class="hero-example-tag" data-i18n="idx.heroExampleTag">Example</span>
+                    <p class="hero-example-title" data-i18n="idx.heroExampleTitle">City notice: please pay your gas bill</p>
+                    <p class="hero-example-text" data-i18n="idx.heroExampleText">What it is: your monthly gas bill. What to do: pay at a convenience store by the due date shown on the notice.</p>
                 </aside>
             </div>
         </section>
@@ -475,8 +424,8 @@
                     </a>
                 </div>
                 <div class="emergency-dial">
-                    <a class="emergency-dial-num" href="tel:110" aria-label="Call police, 110">110</a>
-                    <a class="emergency-dial-num" href="tel:119" aria-label="Call ambulance or fire, 119">119</a>
+                    <a class="emergency-dial-num" href="tel:110" aria-label="Call police, 110" data-i18n-aria-label="emg.callPolice">110</a>
+                    <a class="emergency-dial-num" href="tel:119" aria-label="Call ambulance or fire, 119" data-i18n-aria-label="emg.callAmbulance">119</a>
                 </div>
                 <a class="emergency-button" href="emergency.html" data-i18n="emg.open">
                     Open Emergency Guide
@@ -554,13 +503,7 @@
             <a href="#top" data-i18n="doc.backTop">Back to top ↑</a>
         </div>
     </footer>
-    <nav class="bottom-nav" aria-label="Mobile">
-        <a href="index.html">Home</a>
-        <a href="guide.html">Guides</a>
-        <a href="explain.html" class="bottom-nav-main">Explain</a>
-        <a href="emergency.html">Emergency</a>
-        <a href="login.html">Profile</a>
-    </nav>
+    <!-- Bottom nav is added on every page by i18n.js -->
     <script src="phrases-data.js" defer></script>
     <script src="main.js" defer></script>
     <script src="i18n.js" defer></script>

@@ -32,9 +32,11 @@ class AskEndpointTest(unittest.TestCase):
         self.client = server.app.test_client()
         self._key = server.API_KEY
         server.API_KEY = "test-key"
+        server._reset_rate_limits()
 
     def tearDown(self):
         server.API_KEY = self._key
+        server._reset_rate_limits()
 
     def test_missing_key_returns_500(self):
         server.API_KEY = ""
@@ -58,7 +60,7 @@ class AskEndpointTest(unittest.TestCase):
             res = self.client.post("/ask", json={
                 "question": "Where do I pay?",
                 "language": "ne",
-                "image": "data:image/jpeg;base64,AAA",
+                "image": "data:image/jpeg;base64,/9j/2Q==",
                 "explanation": "This is a gas bill.",
             })
 
@@ -67,7 +69,7 @@ class AskEndpointTest(unittest.TestCase):
         sent = json.dumps(captured["body"])
         self.assertIn("Where do I pay?", sent)
         self.assertIn("This is a gas bill.", sent)
-        self.assertIn("data:image/jpeg;base64,AAA", sent)
+        self.assertIn("data:image/jpeg;base64,/9j/2Q==", sent)
         self.assertIn("Nepali", sent)
         self.assertIn("not written in the notice", sent)
 

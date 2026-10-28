@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title data-i18n="tracker.title">Money Tracker | LifeBridge Japan</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css"><link rel="manifest" href="site.webmanifest"><meta name="theme-color" content="#1261ff">
     <style>
         .summary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 16px 0; }
         @media (min-width: 640px) { .summary-grid { grid-template-columns: repeat(4, 1fr); } }
@@ -24,7 +24,7 @@
         .form-grid { display: grid; gap: 10px; }
         .form-grid label { font-weight: 600; font-size: 0.9rem; }
         .form-grid input, .form-grid select { width: 100%; padding: 10px; border: 1px solid #c3cee6; border-radius: 8px; font: inherit; }
-        .del-btn { border: 1px solid #e2b6b6; background: #fff; color: #991b1b; border-radius: 8px; padding: 4px 10px; cursor: pointer; }
+        .del-btn { border: 1px solid #e2b6b6; background: #fff; color: #991b1b; border-radius: 8px; padding: 10px 14px; min-height: 44px; cursor: pointer; }
     </style>
 </head>
 
@@ -91,7 +91,7 @@
                     <input type="number" id="amount" min="1" step="1" required placeholder="e.g. 1500">
                 </div>
                 <div>
-                    <label for="note" data-i18n="tracker.noteLabel">What is it? / के का लागि?</label>
+                    <label for="note" data-i18n="tracker.noteLabel">What is it?</label>
                     <input type="text" id="note" placeholder="e.g. Sukiya salary, Rent, Food, Train" data-i18n-placeholder="tracker.notePlaceholder">
                 </div>
                 <div id="goal-row" style="display:none;">
@@ -113,13 +113,13 @@
             <form id="goal-form" class="form-grid" style="margin-top:14px;">
                 <div>
                     <label for="goal-name" data-i18n="tracker.newGoal">New goal — what are you saving for?</label>
-                    <input type="text" id="goal-name" placeholder="e.g. Ticket to Nepal, New laptop" data-i18n-placeholder="tracker.goalPlaceholder">
+                    <input type="text" id="goal-name" required placeholder="e.g. Ticket to Nepal, New laptop" data-i18n-placeholder="tracker.goalPlaceholder">
                 </div>
                 <div>
                     <label for="goal-target" data-i18n="tracker.target">Target amount (¥)</label>
-                    <input type="number" id="goal-target" min="1" step="1" placeholder="e.g. 120000">
+                    <input type="number" id="goal-target" min="1" step="1" required placeholder="e.g. 120000">
                 </div>
-                <button type="submit" class="btn" data-i18n="tracker.addGoal">Add goal</button>
+                <button type="submit" class="btn" data-i18n="tracker.addGoal">Add goal</button><p role="status" id="goal-status"></p>
             </form>
         </article>
 
@@ -224,8 +224,8 @@
                 const pct = g.target > 0 ? Math.min(100, Math.round(savedAmt / g.target * 100)) : 0;
                 const wrap = document.createElement("div");
                 wrap.innerHTML = `<strong></strong> — ` + t("tracker.goalProgress", "{saved} of {target} ({pct}%)").replace("{saved}", yen(savedAmt)).replace("{target}", yen(g.target)).replace("{pct}", pct) + `
-                    <div class="progress"><div style="width:${pct}%"></div></div>`;
-                wrap.querySelector("strong").textContent = g.name;
+                    <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pct}"><div style="width:${pct}%"></div></div>`;
+                wrap.querySelector("strong").textContent = g.name; wrap.querySelector(".progress").setAttribute("aria-label", g.name);
                 goalsList.appendChild(wrap);
             }
 
@@ -244,7 +244,7 @@
                 del.className = "del-btn";
                 del.textContent = t("tracker.delete", "Delete");
                 del.addEventListener("click", () => {
-                    entries = entries.filter(x => x.id !== e.id);
+                    if (!confirm(t("tracker.deleteConfirm", "Delete this entry?"))) return; entries = entries.filter(x => x.id !== e.id);
                     save(ENTRIES_KEY, entries);
                     render();
                 });
@@ -277,11 +277,11 @@
             ev.preventDefault();
             const name = document.getElementById("goal-name").value.trim();
             const target = parseInt(document.getElementById("goal-target").value, 10);
-            if (!name || !target) return;
+            const goalStatus = document.getElementById("goal-status"); if (!name || !target || target <= 0) { goalStatus.textContent = t("tracker.goalError", "Please enter a goal name and a target amount."); return; }
             goals.push({ id: Date.now().toString(), name, target });
             save(GOALS_KEY, goals);
             document.getElementById("goal-name").value = "";
-            document.getElementById("goal-target").value = "";
+            document.getElementById("goal-target").value = ""; goalStatus.textContent = "";
             render();
         });
 

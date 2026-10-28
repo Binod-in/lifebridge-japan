@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title data-i18n="settings.title">Settings | LifeBridge Japan</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="theme-color" content="#1261ff">
 </head>
 
 <body id="top"><a class="skip-link" href="#main-content" data-i18n="doc.skip">Skip to content</a>
@@ -37,13 +39,22 @@
                     <option value="vi">Tiếng Việt</option>
                     <option value="my">မြန်မာ</option>
                 </select>
-                
+
             </div>
         </div>
     </header>
     <main id="main-content" class="content-page"><a class="saved-back" href="index.html" data-i18n="doc.back">← Home</a>
         <h1 data-i18n="journey.nav.settings">Settings</h1>
         <p class="page-lead" data-i18n="settings.lead">This project saves your checklist, phrases, guides and dates only in this browser.</p>
+        <article class="detail-card">
+            <h2 data-i18n="set.themeTitle">Appearance</h2>
+            <p data-i18n="set.themeDesc">Choose light or dark colors, or follow your device.</p>
+            <div class="phrase-nav" role="group" aria-label="Appearance" data-i18n-aria-label="set.themeTitle">
+                <button type="button" class="btn" data-theme-choice="system" data-i18n="set.themeSystem">Follow device</button>
+                <button type="button" class="btn" data-theme-choice="light" data-i18n="set.themeLight">Light</button>
+                <button type="button" class="btn" data-theme-choice="dark" data-i18n="set.themeDark">Dark</button>
+            </div>
+        </article>
         <article class="detail-card">
             <h2 data-i18n="settings.profileTitle">Demo profile</h2>
             <p id="profile-summary"></p><a class="btn" href="login.html" data-i18n="settings.editName">Edit display name</a>
@@ -89,6 +100,33 @@
     </footer>
     <script src="i18n.js" defer></script>
     <script src="app.js" defer></script>
+    <script>
+        // Theme picker: marks the saved choice and applies it via window.LBTheme.
+        document.addEventListener("DOMContentLoaded", function () {
+            var buttons = document.querySelectorAll("[data-theme-choice]");
+            if (!buttons.length || !window.LBTheme) return;
+            function savedChoice() {
+                try {
+                    var saved = window.localStorage.getItem("lb_theme");
+                    if (saved === "light" || saved === "dark") return saved;
+                } catch (e) { /* fall through to system */ }
+                return "system";
+            }
+            function mark(choice) {
+                for (var i = 0; i < buttons.length; i++) {
+                    buttons[i].setAttribute("aria-pressed", String(buttons[i].getAttribute("data-theme-choice") === choice));
+                }
+            }
+            for (var j = 0; j < buttons.length; j++) {
+                buttons[j].addEventListener("click", function () {
+                    var choice = this.getAttribute("data-theme-choice");
+                    window.LBTheme.set(choice);
+                    mark(choice);
+                });
+            }
+            mark(savedChoice());
+        });
+    </script>
 </body>
 
 </html>

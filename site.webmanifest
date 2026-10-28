@@ -1,0 +1,17 @@
+{
+  "name": "LifeBridge Japan",
+  "short_name": "LifeBridge",
+  "description": "Everyday guides and AI explanations of Japanese notices for newcomers in Japan.",
+  "start_url": "index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f5f9ff",
+  "theme_color": "#1261ff",
+  "icons": [
+    {
+      "src": "logo/logo.png",
+      "sizes": "56x56",
+      "type": "image/png"
+    }
+  ]
+}

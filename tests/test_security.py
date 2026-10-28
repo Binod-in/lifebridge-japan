@@ -26,7 +26,8 @@ def _api_reply(text):
 
 
 def _image_file(name="notice.jpg", size=1024):
-    return (io.BytesIO(b"x" * size), name, "image/jpeg")
+    body = b"\xff\xd8\xff" + b"x" * max(0, size - 3)  # real JPEG magic bytes
+    return (io.BytesIO(body), name, "image/jpeg")
 
 
 class StaticAllowlistTest(unittest.TestCase):
@@ -82,6 +83,220 @@ class UploadValidationTest(unittest.TestCase):
         finally:
             server.MAX_UPLOAD_BYTES = old
         self.assertEqual(res.status_code, 413)
+
+    def test_fake_image_rejected(self):
+        with mock.patch.object(server.urllib.request, "urlopen",
+                               side_effect=lambda req, timeout=120: _api_reply("ok")):
+            data = {"photo": (io.BytesIO(b"this is not photo data at all"),
+                              "fake.jpg", "image/jpeg"),
+                    "language": "en"}
+            res = self.client.post("/explain", data=data,
+                                   content_type="multipart/form-data")
+        self.assertEqual(res.status_code, 400)
+
+
+class ImageKindTest(unittest.TestCase):
+    def test_magic_bytes(self):
+        self.assertEqual(server._image_kind(b"\xff\xd8\xff" + b"0" * 20), "image/jpeg")
+        self.assertEqual(server._image_kind(b"\x89PNG\r\n\x1a\n" + b"0" * 20), "image/png")
+        self.assertEqual(server._image_kind(b"RIFF1234WEBP" + b"0" * 20), "image/webp")
+        self.assertEqual(server._image_kind(b"GIF89a" + b"0" * 20), "")
+        self.assertEqual(server._image_kind(b"hello"), "")
+        self.assertEqual(server._image_kind(b""), "")
+
+
+class ExplainSuccessTest(unittest.TestCase):
+    def setUp(self):
+        server.app.testing = True
+        self.client = server.app.test_client()
+        self._key = server.API_KEY
+        server.API_KEY = "test-key"
+        server._reset_rate_limits()
+
+    def tearDown(self):
+        server.API_KEY = self._key
+        server._reset_rate_limits()
+
+    def test_explain_returns_text(self):
+        with mock.patch.object(server.urllib.request, "urlopen",
+                               side_effect=lambda req, timeout=120: _api_reply("What is this?\nA gas bill.")):
+            data = {"photo": _image_file(), "language": "ne"}
+            res = self.client.post("/explain", data=data,
+                                   content_type="multipart/form-data")
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.get_json(), {"text": "What is this?\nA gas bill."})
+
+    def test_meta_error_is_sanitized(self):
+        err = server.urllib.error.HTTPError(
+            "https://api.meta.ai/v1/chat/completions", 401, "Unauthorized", {}, None)
+
+        def fake_urlopen(req, timeout=120):
+            raise err
+
+        with mock.patch.object(server.urllib.request, "urlopen", side_effect=fake_urlopen):
+            data = {"photo": _image_file(), "language": "en"}
+            res = self.client.post("/explain", data=data,
+                                   content_type="multipart/form-data")
+        self.assertEqual(res.status_code, 502)
+        self.assertNotIn("401", res.get_json()["error"])
+        self.assertIn("try again", res.get_json()["error"])
+
+
+class SecurityHeadersTest(unittest.TestCase):
+    def setUp(self):
+        server.app.testing = True
+        self.client = server.app.test_client()
+
+    def test_headers_present(self):
+        res = self.client.get("/")
+        try:
+            self.assertIn("Content-Security-Policy", res.headers)
+            self.assertIn("Strict-Transport-Security", res.headers)
+            self.assertIn("Permissions-Policy", res.headers)
+            self.assertEqual(res.headers["X-Content-Type-Options"], "nosniff")
+            self.assertEqual(res.headers["X-Frame-Options"], "DENY")
+            self.assertIn("camera=(self)", res.headers["Permissions-Policy"])
+        finally:
+            res.close()
+
+    def test_cache_headers(self):
+        res = self.client.get("/style.css")
+        try:
+            self.assertIn("max-age=86400", res.headers.get("Cache-Control", ""))
+        finally:
+            res.close()
+        res = self.client.get("/")
+        try:
+            self.assertIn("no-cache", res.headers.get("Cache-Control", ""))
+        finally:
+            res.close()
+
+
+class AccessControlTest(unittest.TestCase):
+    def setUp(self):
+        server.app.testing = True
+        self.client = server.app.test_client()
+        self._key = server.API_KEY
+        self._token = server.API_TOKEN
+        server.API_KEY = "test-key"
+        server.API_TOKEN = ""
+        server._reset_rate_limits()
+
+    def tearDown(self):
+        server.API_KEY = self._key
+        server.API_TOKEN = self._token
+        server._reset_rate_limits()
+
+    def test_cross_site_origin_rejected(self):
+        res = self.client.post("/ask", json={"question": "Hi?", "language": "en"},
+                               headers={"Origin": "https://evil.example"})
+        self.assertEqual(res.status_code, 403)
+
+    def test_same_origin_allowed(self):
+        with mock.patch.object(server.urllib.request, "urlopen",
+                               side_effect=lambda req, timeout=120: _api_reply("ok")):
+            res = self.client.post("/ask", json={"question": "Hi?", "language": "en"},
+                                   headers={"Origin": "http://localhost"})
+        self.assertEqual(res.status_code, 200)
+
+    def test_token_required_when_set(self):
+        server.API_TOKEN = "s3cret"
+        res = self.client.post("/ask", json={"question": "Hi?", "language": "en"})
+        self.assertEqual(res.status_code, 401)
+        res = self.client.post("/ask", json={"question": "Hi?", "language": "en"},
+                               headers={"X-LB-Token": "wrong"})
+        self.assertEqual(res.status_code, 401)
+        with mock.patch.object(server.urllib.request, "urlopen",
+                               side_effect=lambda req, timeout=120: _api_reply("ok")):
+            res = self.client.post("/ask", json={"question": "Hi?", "language": "en"},
+                                   headers={"X-LB-Token": "s3cret"})
+        self.assertEqual(res.status_code, 200)
+
+
+class ProxyRateLimitTest(unittest.TestCase):
+    def setUp(self):
+        server.app.testing = True
+        self.client = server.app.test_client()
+        self._key = server.API_KEY
+        self._ask = server.ASK_LIMIT
+        self._proxy = server.TRUST_PROXY
+        server.API_KEY = "test-key"
+        server.ASK_LIMIT = 1
+        server._reset_rate_limits()
+
+    def tearDown(self):
+        server.API_KEY = self._key
+        server.ASK_LIMIT = self._ask
+        server.TRUST_PROXY = self._proxy
+        server._reset_rate_limits()
+
+    def _ask(self, xff=None):
+        headers = {"X-Forwarded-For": xff} if xff else {}
+        with mock.patch.object(server.urllib.request, "urlopen",
+                               side_effect=lambda req, timeout=120: _api_reply("ok")):
+            return self.client.post("/ask", json={"question": "Hi?", "language": "en"},
+                                    headers=headers)
+
+    def test_forwarded_ip_used_when_trusted(self):
+        server.TRUST_PROXY = True
+        self.assertEqual(self._ask("1.2.3.4").status_code, 200)
+        self.assertEqual(self._ask("1.2.3.4").status_code, 429)
+        self.assertEqual(self._ask("5.6.7.8").status_code, 200)
+
+    def test_forwarded_ip_ignored_when_untrusted(self):
+        server.TRUST_PROXY = False
+        self.assertEqual(self._ask("1.2.3.4").status_code, 200)
+        self.assertEqual(self._ask("5.6.7.8").status_code, 429)
+
+
+class AskValidationTest(unittest.TestCase):
+    def setUp(self):
+        server.app.testing = True
+        self.client = server.app.test_client()
+        self._key = server.API_KEY
+        server.API_KEY = "test-key"
+        server._reset_rate_limits()
+
+    def tearDown(self):
+        server.API_KEY = self._key
+        server._reset_rate_limits()
+
+    def test_long_question_rejected(self):
+        res = self.client.post("/ask", json={"question": "x" * 2001, "language": "en"})
+        self.assertEqual(res.status_code, 400)
+
+    def test_long_explanation_rejected(self):
+        res = self.client.post("/ask", json={"question": "Hi?", "language": "en",
+                                             "explanation": "y" * 8001})
+        self.assertEqual(res.status_code, 400)
+
+    def test_bad_image_rejected(self):
+        for image in ["not-a-data-uri",
+                      "data:image/gif;base64,/9j/2Q==",
+                      "data:image/jpeg;base64,aGVsbG8="]:
+            res = self.client.post("/ask", json={"question": "Hi?", "language": "en",
+                                                 "image": image})
+            self.assertEqual(res.status_code, 400, image)
+
+
+class NotFoundTest(unittest.TestCase):
+    def setUp(self):
+        server.app.testing = True
+        self.client = server.app.test_client()
+
+    def test_api_path_returns_json_404(self):
+        res = self.client.get("/explain/nope")
+        self.assertEqual(res.status_code, 404)
+        self.assertEqual(res.get_json(), {"error": "Not found."})
+
+    def test_page_path_returns_html_404(self):
+        res = self.client.get("/missing-page.html")
+        self.assertEqual(res.status_code, 404)
+        self.assertIn(b"Page not found", res.data)
+
+    def test_dot_segments_rejected(self):
+        res = self.client.get("/a/../server.py")
+        self.assertEqual(res.status_code, 404)
 
 
 class RateLimitTest(unittest.TestCase):

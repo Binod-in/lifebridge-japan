@@ -66,6 +66,7 @@ function removePhrase(index) {
 
 // List लाई page मा देखाउने
 function showSavedPhrases() {
+    if (!savedList) return;
     savedList.replaceChildren();
     emptyMessage.hidden = phrases.length > 0;
 
@@ -82,7 +83,7 @@ function showSavedPhrases() {
         textBox.append(japanese);
 
         // phrases-data.js मा भेटिए अर्थ पनि देखाउने
-        const info = findPhraseByJapanese(text);
+        const info = (typeof findPhraseByJapanese === "function") ? findPhraseByJapanese(text) : null;
         if (info) {
             const meaning = document.createElement("p");
             meaning.className = "saved-meaning";
