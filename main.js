@@ -27,8 +27,9 @@ function mainT(key, fallback) {
 // १. Journey checklist
 // Checklist का कामहरू यहाँ एकै ठाउँमा छन्।
 // HTML मा <ul id="journey-list"> खाली छ, यहीँबाट भरिन्छ।
+// start.html मा ?situation= हेरेर सूची छानिन्छ।
 // ------------------------------------------------------------
-const journeyTasks = [
+const defaultJourneyTasks = [
     { id: "address", text: "Register your home address" },
     { id: "insurance", text: "Join a health insurance plan" },
     { id: "ic-card", text: "Get an IC card for trains and buses" },
@@ -36,6 +37,29 @@ const journeyTasks = [
     { id: "bank", text: "Open a bank account" },
     { id: "job", text: "Find a part-time job" }
 ];
+
+const senmonJourneyTasks = [
+    { id: "senmon-field", text: "Decide your field of study (IT, nursing care, cooking, design and so on)" },
+    { id: "senmon-japanese", text: "Check the Japanese requirement — most schools ask for JLPT N2" },
+    { id: "senmon-shortlist", text: "Shortlist schools and check their admission schedules" },
+    { id: "senmon-docs", text: "Prepare documents: passport, residence card, school transcripts, bank statement" },
+    { id: "senmon-apply", text: "Apply and take the entrance exam and interview" },
+    { id: "senmon-fees", text: "Pay the admission fees and complete enrollment" },
+    { id: "senmon-visa", text: "Confirm your student visa status after enrollment" }
+];
+
+const universityJourneyTasks = [
+    { id: "univ-faculty", text: "Decide your faculty and the language of instruction (Japanese or English program)" },
+    { id: "univ-eju", text: "Check the EJU and JLPT requirements for your choices" },
+    { id: "univ-shortlist", text: "Shortlist universities — application windows differ by school" },
+    { id: "univ-docs", text: "Prepare documents and your statement of purpose" },
+    { id: "univ-exam", text: "Take the entrance exam or document screening and interview" },
+    { id: "univ-fees", text: "Pay the fees and complete enrollment" },
+    { id: "univ-visa", text: "Confirm your student visa status after enrollment" }
+];
+
+const journeySituation = new URLSearchParams(location.search).get("situation") || "";
+const journeyTasks = journeySituation === "senmon-school" ? senmonJourneyTasks : journeySituation === "university" ? universityJourneyTasks : defaultJourneyTasks;
 
 const journeyList = document.querySelector("#journey-list");
 const progressBar = document.querySelector("#journey-progress-bar");
@@ -111,6 +135,12 @@ if (journeyList && progressBar && progressText) {
 
     // भाषा फेरिँदा progress पाठ फेरि देखाउने (task नाम data-i18n बाट फेरिन्छ)
     document.addEventListener("lb:lang", updateJourneyProgress);
+}
+
+// Official school search card: study situations मा मात्र देखाउने
+const schoolSearchCard = document.querySelector("#school-search-card");
+if (schoolSearchCard) {
+    schoolSearchCard.hidden = journeySituation !== "senmon-school" && journeySituation !== "university";
 }
 
 
