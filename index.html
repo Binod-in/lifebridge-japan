@@ -4,6 +4,18 @@
 
 <head>
     <meta charset="utf-8" />
+    <script>
+        // Apply the saved theme before first paint (avoids a light-theme flash).
+        (function () {
+            var theme = "light";
+            try {
+                var saved = localStorage.getItem("lb_theme");
+                if (saved === "light" || saved === "dark") { theme = saved; }
+                else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) { theme = "dark"; }
+            } catch (e) { /* keep light */ }
+            document.documentElement.setAttribute("data-theme", theme);
+        })();
+    </script>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title data-i18n="idx.title">LifeBridge Japan</title>
     <link href="style.css" rel="stylesheet" />
@@ -124,25 +136,39 @@
             line-height: 1.5;
             color: #56647d;
         }
-        /* Money Tracker promo band (replaces the old home journey panel). */
-        .tracker-promo {
-            padding: 50px 65px;
-            background-color: #eaf4ff;
-        }
-        .tracker-promo .detail-card {
-            max-width: 640px;
-            margin: 0 auto;
-        }
-        @media (max-width: 600px) {
-            .tracker-promo {
-                padding: 32px 20px;
-            }
-        }
+        /* Home Money Tracker card: two columns on desktop, stacked on mobile. */
+        .tracker-promo { padding: 50px 65px; background-color: #eaf4ff; }
+        .tracker-promo .tracker-card { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 32px; }
+        .tracker-promo .tracker-body { min-width: 0; }
+        .tracker-promo .tracker-art { width: 100%; aspect-ratio: 4 / 3; border-radius: 12px; overflow: hidden; align-self: start; }
+        .tracker-promo .tracker-art img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
         .tracker-promo .summary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 16px 0; }
-        @media (min-width: 640px) { .tracker-promo .summary-grid { grid-template-columns: repeat(4, 1fr); } }
         .tracker-promo .summary-box { background: #f2f6ff; border: 1px solid #d7e3ff; border-radius: 12px; padding: 14px; }
         .tracker-promo .summary-box span { display: block; font-size: 0.85rem; color: #44506b; }
-        .tracker-promo .summary-box strong { font-size: 1.25rem; color: #12224d; }
+        .tracker-promo .summary-box strong { display: block; font-size: 1.25rem; color: #12224d; }
+        .tracker-promo .tile-icon { width: 22px; height: 22px; margin-bottom: 6px; }
+        .tracker-promo .tracker-goal { margin: 16px 0; }
+        .tracker-promo .tracker-goal-head { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; margin-bottom: 6px; }
+        .tracker-promo .progress { background: #e4e9f5; border-radius: 999px; height: 12px; overflow: hidden; margin: 6px 0 4px; }
+        .tracker-promo .progress > div { background: #1261ff; height: 100%; }
+        .tracker-promo .tracker-quick-form { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
+        .tracker-promo .tracker-quick-form .full-row { grid-column: 1 / -1; }
+        .tracker-promo .tracker-quick-form label { display: block; font-weight: 600; margin-bottom: 4px; }
+        .tracker-promo .tracker-quick-form input, .tracker-promo .tracker-quick-form select { width: 100%; min-height: 44px; padding: 10px 12px; font-size: 16px; border: 1px solid #c7d3e8; border-radius: 8px; box-sizing: border-box; background: #fff; }
+        .tracker-promo .tracker-quick-form button { min-height: 48px; font-size: 16px; }
+        .tracker-promo .tag { font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+        .tracker-promo .tag-income { background: #e2f7e6; color: #166534; }
+        .tracker-promo .tag-expense { background: #fde8e8; color: #991b1b; }
+        .tracker-promo .tag-saving { background: #e6e9fd; color: #3730a3; }
+        .tracker-promo .tracker-recent-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #e4e9f5; }
+        .tracker-promo .recent-note { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        @media (max-width: 640px) {
+            .tracker-promo { padding: 32px 20px; }
+            .tracker-promo .tracker-card { grid-template-columns: 1fr; }
+            .tracker-promo .tracker-art { order: -1; }
+            .tracker-promo .tracker-art img { height: 100%; }
+            .tracker-promo .tracker-quick-form { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 
@@ -274,16 +300,52 @@
         </section>
         <!-- Money Tracker -->
         <section class="tracker-promo">
-            <article class="detail-card">
-                <h2 data-i18n="idx.trackerTitle">Track your money in Japan</h2>
-                <p data-i18n="idx.trackerDesc">See what you earned, spent and saved this month.</p>
-                <div class="summary-grid">
-                    <div class="summary-box"><span data-i18n="tracker.earned">Earned</span><strong id="home-sum-income">¥0</strong></div>
-                    <div class="summary-box"><span data-i18n="tracker.spent">Spent</span><strong id="home-sum-expense">¥0</strong></div>
-                    <div class="summary-box"><span data-i18n="tracker.saved">Saved</span><strong id="home-sum-saving">¥0</strong></div>
-                    <div class="summary-box"><span data-i18n="tracker.left">Left</span><strong id="home-sum-left">¥0</strong></div>
+            <article class="detail-card tracker-card">
+                <div class="tracker-body">
+                    <h2 data-i18n="idx.trackerTitle">Track your money in Japan</h2>
+                    <p data-i18n="idx.trackerDesc">See what you earned, spent and saved this month.</p>
+                    <div class="summary-grid">
+                        <div class="summary-box"><img class="tile-icon" alt="" src="icons/yen.svg" /><span data-i18n="tracker.earned">Earned</span><strong id="home-sum-income">¥0</strong></div>
+                        <div class="summary-box"><img class="tile-icon" alt="" src="icons/card.svg" /><span data-i18n="tracker.spent">Spent</span><strong id="home-sum-expense">¥0</strong></div>
+                        <div class="summary-box"><img class="tile-icon" alt="" src="icons/bookmark.svg" /><span data-i18n="tracker.saved">Saved</span><strong id="home-sum-saving">¥0</strong></div>
+                        <div class="summary-box"><img class="tile-icon" alt="" src="icons/calendar.svg" /><span data-i18n="tracker.left">Left</span><strong id="home-sum-left">¥0</strong></div>
+                    </div>
+                    <div class="tracker-goal" id="home-goal-row" hidden>
+                        <div class="tracker-goal-head"><strong id="home-goal-name"></strong><span id="home-goal-text"></span></div>
+                        <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="home-goal-bar"><div id="home-goal-fill" style="width:0%"></div></div>
+                    </div>
+                    <h3 data-i18n="tracker.addEntry">Add an entry</h3>
+                    <form id="home-entry-form" class="tracker-quick-form">
+                        <div>
+                            <label for="home-type" data-i18n="tracker.type">Type</label>
+                            <select id="home-type">
+                                <option value="income" data-i18n="tracker.optIncome">Income (earned)</option>
+                                <option value="expense" selected data-i18n="tracker.optExpense">Expense (spent)</option>
+                                <option value="saving" data-i18n="tracker.optSaving">Saving (put aside)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="home-amount" data-i18n="tracker.amount">Amount (¥)</label>
+                            <input type="number" id="home-amount" min="1" step="1" required placeholder="e.g. 1500">
+                        </div>
+                        <div class="full-row">
+                            <label for="home-note" data-i18n="tracker.noteLabel">What is it?</label>
+                            <input type="text" id="home-note" placeholder="e.g. Sukiya salary, Rent, Food, Train" data-i18n-placeholder="tracker.notePlaceholder">
+                        </div>
+                        <div class="full-row" id="home-goal-pick" style="display:none;">
+                            <label for="home-goal-select" data-i18n="tracker.savingFor">Saving for</label>
+                            <select id="home-goal-select"></select>
+                        </div>
+                        <div class="full-row"><button type="submit" class="btn btn-prim" data-i18n="tracker.addEntryBtn">Add entry</button></div>
+                    </form>
+                    <p id="home-form-status" role="status"></p>
+                    <h3 data-i18n="idx.trackerRecent">Recent</h3>
+                    <div id="home-recent-list"></div>
+                    <p><a class="btn btn-prim" href="tracker.html" data-i18n="money.trackerOpen">Open Money Tracker</a></p>
                 </div>
-                <a class="btn btn-prim" href="tracker.html" data-i18n="money.trackerOpen">Open Money Tracker</a>
+                <div class="tracker-art">
+                    <img src="images/money.webp" alt="" />
+                </div>
             </article>
         </section>
         <!-- Journey stages -->
@@ -363,7 +425,7 @@
                                 src="icons/speaker.svg" /> Listen</button>
                         <button class="btn btn-icon" id="copy-btn" type="button" data-i18n-html="jap.copy"><img alt="" class="icon"
                                 src="icons/copy.svg" /> Copy</button>
-                        <button aria-pressed="false" class="btn" id="save-phrase-btn" type="button">
+                        <button aria-pressed="false" class="btn" id="save-phrase-btn" type="button" data-i18n="main.saveOff">
                             ☆ Save
                         </button>
                     </div>
@@ -485,28 +547,103 @@
     <script src="i18n.js" defer></script>
     <script src="app.js" defer></script>
     <script>
-        // Home Money Tracker summary — same data and math as tracker.html.
+        // Home Money Tracker summary - same data and math as tracker.html.
         (function () {
-            try {
-                var entries = JSON.parse(localStorage.getItem("lb_money_entries")) || [];
-                if (!Array.isArray(entries)) entries = [];
-                var month = new Date().toISOString().slice(0, 7);
-                var income = 0, expense = 0, saving = 0;
-                for (var i = 0; i < entries.length; i++) {
-                    var e = entries[i] || {};
+            var ENTRIES_KEY = "lb_money_entries", GOALS_KEY = "lb_money_goals";
+            function load(key) { try { var v = JSON.parse(localStorage.getItem(key)) || []; return Array.isArray(v) ? v : []; } catch (e) { return []; } }
+            var yen = function (n) { return "¥" + Number(n || 0).toLocaleString("ja-JP"); };
+            function t(key, fallback) { try { if (window.LBT && typeof window.LBT.t === "function") { var v = window.LBT.t(key); if (typeof v === "string" && v !== "" && v !== key) return v; } } catch (e) {} return fallback; }
+            // Local date as YYYY-MM-DD (toISOString uses UTC, which is
+            // yesterday in Japan before 9 AM).
+            function localDateStr(when) {
+                var y = when.getFullYear();
+                var m = String(when.getMonth() + 1).padStart(2, "0");
+                var d = String(when.getDate()).padStart(2, "0");
+                return y + "-" + m + "-" + d;
+            }
+            var typeSelect = document.getElementById("home-type");
+            var goalPick = document.getElementById("home-goal-pick");
+            var goalSelect = document.getElementById("home-goal-select");
+            function refreshGoalPicker(goals) {
+                goalSelect.innerHTML = "";
+                var general = document.createElement("option");
+                general.value = "";
+                general.textContent = t("tracker.generalSavings", "General savings");
+                goalSelect.appendChild(general);
+                for (var i = 0; i < goals.length; i++) {
+                    var opt = document.createElement("option");
+                    opt.value = goals[i].id;
+                    opt.textContent = goals[i].name;
+                    goalSelect.appendChild(opt);
+                }
+                goalPick.style.display = (typeSelect.value === "saving" && goals.length > 0) ? "block" : "none";
+            }
+            function render() {
+                var entries = load(ENTRIES_KEY), goals = load(GOALS_KEY);
+                var month = localDateStr(new Date()).slice(0, 7);
+                var income = 0, expense = 0, saving = 0, i, e;
+                for (i = 0; i < entries.length; i++) {
+                    e = entries[i] || {};
                     if (typeof e.date !== "string" || e.date.slice(0, 7) !== month) continue;
                     var amt = Number(e.amount) || 0;
                     if (e.type === "income") income += amt;
                     else if (e.type === "expense") expense += amt;
                     else if (e.type === "saving") saving += amt;
                 }
-                var yen = function (n) { return "¥" + Number(n || 0).toLocaleString("ja-JP"); };
-                var set = function (id, value) { var el = document.getElementById(id); if (el) el.textContent = value; };
+                var set = function (id, v) { var el = document.getElementById(id); if (el) el.textContent = v; };
                 set("home-sum-income", yen(income));
                 set("home-sum-expense", yen(expense));
                 set("home-sum-saving", yen(saving));
                 set("home-sum-left", yen(income - expense - saving));
-            } catch (err) { /* keep ¥0 fallbacks */ }
+                var row = document.getElementById("home-goal-row");
+                if (goals.length > 0) {
+                    var g = goals[0], savedAmt = 0;
+                    for (i = 0; i < entries.length; i++) { e = entries[i] || {}; if (e.type === "saving" && e.goalId === g.id) savedAmt += (Number(e.amount) || 0); }
+                    var pct = g.target > 0 ? Math.min(100, Math.round(savedAmt / g.target * 100)) : 0;
+                    row.hidden = false;
+                    set("home-goal-name", g.name);
+                    set("home-goal-text", t("tracker.goalProgress", "{saved} of {target} ({pct}%)").replace("{saved}", yen(savedAmt)).replace("{target}", yen(g.target)).replace("{pct}", pct));
+                    document.getElementById("home-goal-fill").style.width = pct + "%";
+                    var bar = document.getElementById("home-goal-bar");
+                    if (bar) bar.setAttribute("aria-valuenow", String(pct));
+                } else { row.hidden = true; }
+                var list = document.getElementById("home-recent-list");
+                list.innerHTML = "";
+                var sorted = entries.slice().sort(function (a, b) { return String((b && b.date) || "").localeCompare(String((a && a.date) || "")); }).slice(0, 3);
+                if (!sorted.length) { var p = document.createElement("p"); p.textContent = t("idx.trackerEmpty", "No entries yet. Add your first one above."); list.appendChild(p); }
+                var tags = { income: t("tracker.tagIncome", "Income"), expense: t("tracker.tagExpense", "Expense"), saving: t("tracker.tagSaving", "Saving") };
+                for (i = 0; i < sorted.length; i++) {
+                    e = sorted[i] || {};
+                    var div = document.createElement("div");
+                    div.className = "tracker-recent-row";
+                    var tag = document.createElement("span");
+                    tag.className = "tag tag-" + (e.type || "");
+                    tag.textContent = tags[e.type] || String(e.type || "");
+                    var note = document.createElement("span");
+                    note.className = "recent-note";
+                    note.textContent = e.note || "";
+                    var strong = document.createElement("strong");
+                    strong.textContent = yen(e.amount);
+                    div.appendChild(tag); div.appendChild(note); div.appendChild(strong);
+                    list.appendChild(div);
+                }
+                refreshGoalPicker(goals);
+            }
+            typeSelect.addEventListener("change", function () { refreshGoalPicker(load(GOALS_KEY)); });
+            document.getElementById("home-entry-form").addEventListener("submit", function (ev) {
+                ev.preventDefault();
+                var amount = parseInt(document.getElementById("home-amount").value, 10);
+                if (!amount || amount <= 0) return;
+                var entries = load(ENTRIES_KEY);
+                entries.push({ id: Date.now().toString(), type: typeSelect.value, amount: amount, note: document.getElementById("home-note").value.trim(), goalId: typeSelect.value === "saving" ? goalSelect.value : "", date: localDateStr(new Date()) });
+                try { localStorage.setItem(ENTRIES_KEY, JSON.stringify(entries)); } catch (e2) { return; }
+                document.getElementById("home-amount").value = "";
+                document.getElementById("home-note").value = "";
+                document.getElementById("home-form-status").textContent = t("tracker.added", "Added ✔");
+                render();
+            });
+            if (window.LBT && typeof window.LBT.onChange === "function") { window.LBT.onChange(function () { render(); }); } else { document.addEventListener("lb:lang", function () { render(); }); }
+            render();
         })();
     </script>
 </body>

@@ -3,6 +3,18 @@
 
 <head>
     <meta charset="UTF-8">
+    <script>
+        // Apply the saved theme before first paint (avoids a light-theme flash).
+        (function () {
+            var theme = "light";
+            try {
+                var saved = localStorage.getItem("lb_theme");
+                if (saved === "light" || saved === "dark") { theme = saved; }
+                else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) { theme = "dark"; }
+            } catch (e) { /* keep light */ }
+            document.documentElement.setAttribute("data-theme", theme);
+        })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title data-i18n="money.title">Money | LifeBridge Japan</title>
     <link rel="stylesheet" href="style.css"><link rel="manifest" href="site.webmanifest"><meta name="theme-color" content="#1261ff">
@@ -53,11 +65,6 @@
                 <li data-i18n="money.item4">Plan a monthly budget for rent, food, transport and bills.</li>
             </ol><button class="btn" data-save-guide="money" aria-pressed="false" data-i18n="app.save">☆ Save guide</button>
             <p role="status" class="save-status"></p>
-        </article>
-        <article class="detail-card">
-            <h2 data-i18n="money.trackerTitle">Money Tracker</h2>
-            <p data-i18n="money.trackerDesc">Keep a simple record of what you earn, spend and save each month — and what you are saving for.</p>
-            <a class="btn btn-prim" href="tracker.html" data-i18n="money.trackerOpen">Open Money Tracker</a>
         </article>
         <article class="detail-card">
             <h2 data-i18n="guide.stepsTitle">Steps to follow</h2>

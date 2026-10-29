@@ -27,14 +27,14 @@
             }
         },
         {
-            "id": "lostcard",
+            "id": "lost-residence",
             "links": ["emergency.html"],
             "keys": {
-                "en": ["lost", "lose", "missing card", "stolen"],
-                "ne": ["हरायो", "हराएको", "चोरी"],
-                "vi": ["mất", "đánh mất"],
-                "my": ["ပျောက်", "ပျောက်ဆုံး"],
-                "ja": ["紛失", "なくし"]
+                "en": ["lost", "lose", "missing", "stolen", "residence card", "zairyu", "zairyu card", "reissue"],
+                "ne": ["हरायो", "हराएको", "चोरी", "निवास कार्ड", "रेसिडेन्स"],
+                "vi": ["mất", "đánh mất", "thẻ cư trú", "the cu tru"],
+                "my": ["ပျောက်", "ပျောက်ဆုံး", "နေထိုင်ခွင့်ကတ်"],
+                "ja": ["紛失", "なくし", "在留カード", "在留"]
             },
             "answers": {
                 "en": "For a lost residence card, report to the police first, then visit the immigration office to reissue it. Carry the police report.",
@@ -81,7 +81,7 @@
             "id": "bank",
             "links": ["money.html"],
             "keys": {
-                "en": ["bank", "account", "open account", "salary", "remittance"],
+                "en": ["bank", "open account", "bank account", "salary", "remittance"],
                 "ne": ["बैंक", "खाता", "तलब"],
                 "vi": ["ngân hàng", "ngan hang", "tài khoản", "tai khoan", "lương"],
                 "my": ["ဘဏ်", "အကောင့်", "လစာ"],
@@ -92,6 +92,91 @@
                 "ne": "बैंक छान्नुहोस् र निवास कार्ड र ठेगाना प्रमाणसहित खाता खोल्नुहोस्। शुल्क र भाषा सहयोगबारे सोध्नुहोस्।",
                 "vi": "Chọn ngân hàng và mở tài khoản bằng thẻ cư trú và giấy tờ địa chỉ. Hỏi về phí và hỗ trợ ngôn ngữ.",
                 "my": "ဘဏ်ရွေးပြီး နေထိုင်ခွင့်ကတ်နှင့် လိပ်စာအထောက်အထားဖြင့် အကောင့်ဖွင့်ပါ။ အခကြေးငွေနှင့် ဘာသာစကား အကူအညီအကြောင်း မေးပါ။"
+            }
+        },
+        {
+            "id": "garbage",
+            "links": [],
+            "keys": {
+                "en": ["garbage", "trash", "rubbish", "gomi", "burnable", "non-burnable", "recycle", "recycling", "sorting"],
+                "ne": ["फोहोर", "गोमि", "जल्ने फोहोर", "रिसाइकल"],
+                "vi": ["rác", "rac", "gomi", "phân loại rác", "tái chế", "tai che"],
+                "my": ["အမှိုက်", "ဂိုမီ", "ခွဲခြား"],
+                "ja": ["ごみ", "ゴミ", "分別", "燃えるごみ"]
+            },
+            "answers": {
+                "en": "Sort garbage by your city's rules: burnable, non-burnable, and recyclables go out on different days. Check your city's garbage calendar or the ward office.",
+                "ne": "आफ्नो सहरको नियमअनुसार फोहोर छुट्याउनुहोस्: जल्ने, नजल्ने र रिसाइकल फरक-फरक दिन जान्छ। सहरको फोहोर पात्रो वा वार्ड कार्यालयमा हेर्नुहोस्।",
+                "vi": "Hãy phân loại rác theo quy định của thành phố: rác cháy được, rác không cháy được và rác tái chế đổ vào các ngày khác nhau. Xem lịch đổ rác hoặc hỏi văn phòng quận.",
+                "my": "မြို့စည်းမျဉ်းအတိုင်း အမှိုက်ခွဲပါ - မီးလောင်နိုင်သော၊ မလောင်နိုင်သော၊ ပြန်လည်အသုံးပြုနိုင်သော အမှိုက်များကို မတူညီသောနေ့များတွင် စွန့်ပါ။ မြို့အမှိုက်ပြက္ခဒိန် သို့မဟုတ် ရပ်ကွက်ရုံးတွင် ကြည့်ပါ။"
+            }
+        },
+        {
+            "id": "tax",
+            "links": [],
+            "keys": {
+                "en": ["tax", "taxes", "resident tax", "income tax", "tax office", "tax return", "nenmatsu", "year-end"],
+                "ne": ["कर", "आयकर", "निवासी कर", "कर कार्यालय", "ट्याक्स"],
+                "vi": ["thuế", "thue", "thuế thu nhập", "khai thuế", "cục thuế"],
+                "my": ["အခွန်", "ဝင်ငွေခွန်", "အခွန်ရုံး"],
+                "ja": ["税金", "住民税", "所得税", "確定申告"]
+            },
+            "answers": {
+                "en": "Residents pay income tax and residence tax. Employees usually pay through their company; ask your employer or the ward office for your notice.",
+                "ne": "बासिन्दाले आयकर र निवासी कर तिर्नुपर्छ। कर्मचारीले प्रायः कम्पनीमार्फत तिर्छन्; सूचना पत्रका लागि रोजगारदाता वा वार्ड कार्यालयसँग सोध्नुहोस्।",
+                "vi": "Người dân đóng thuế thu nhập và thuế cư trú. Người đi làm thường đóng qua công ty; hãy hỏi công ty hoặc văn phòng quận về giấy báo thuế.",
+                "my": "နေထိုင်သူများ ဝင်ငွေခွန်နှင့် နေထိုင်ခွန် ပေးရပါတယ်။ ဝန်ထမ်းများ ပုံမှန်အားဖြင့် ကုမ္ပဏီမှတစ်ဆင့် ပေးပါတယ်။ အခွန်စာရွက်အတွက် အလုပ်ရှင် သို့မဟုတ် ရပ်ကွက်ရုံးကို မေးပါ။"
+            }
+        },
+        {
+            "id": "pension",
+            "links": [],
+            "keys": {
+                "en": ["pension", "nenkin", "retirement"],
+                "ne": ["पेन्सन", "निवृत्तिभरण", "नेन्किन"],
+                "vi": ["lương", "luong", "lương hưu", "luong huu", "nenkin", "hưu trí", "huu tri"],
+                "my": ["ပင်စင်", "နန်ကင်း"],
+                "ja": ["年金"]
+            },
+            "answers": {
+                "en": "Almost everyone must join the pension system (nenkin). Employees pay through their company; others pay at the ward office or convenience store.",
+                "ne": "लगभग सबैजना पेन्सन प्रणाली (नेन्किन) मा जोडिनुपर्छ। कर्मचारीले कम्पनीमार्फत तिर्छन्; अरूले वार्ड कार्यालय वा सुविधा पसलमा तिर्छन्।",
+                "vi": "Hầu như ai cũng phải tham gia bảo hiểm hưu trí (nenkin). Người đi làm đóng qua công ty; các trường hợp khác đóng ở văn phòng quận hoặc cửa hàng tiện lợi.",
+                "my": "လူတိုင်းနီးပါး ပင်စင်စနစ် (နန်ကင်း) တွင် ပါဝင်ရပါတယ်။ ဝန်ထမ်းများ ကုမ္ပဏီမှတစ်ဆင့် ပေးပြီး ကျန်သူများ ရပ်ကွက်ရုံး သို့မဟုတ် ကွန်ဘိနိတွင် ပေးပါတယ်။"
+            }
+        },
+        {
+            "id": "visa",
+            "links": [],
+            "keys": {
+                "en": ["visa", "renewal", "renew", "status of residence", "zairyu period", "immigration"],
+                "ne": ["भिसा", "नवीकरण", "अध्यागमन", "भिसा थप्ने"],
+                "vi": ["visa", "thị thực", "thi thuc", "gia hạn", "cục xuất nhập cảnh"],
+                "my": ["ဗီဇာ", "သက်တမ်းတိုး", "လူဝင်မှု"],
+                "ja": ["ビザ", "在留期間", "更新", "入国管理局"]
+            },
+            "answers": {
+                "en": "Apply to renew your visa at the immigration office before it expires. Bring your residence card, passport, and the application form.",
+                "ne": "भिसा सकिनुअघि अध्यागमन कार्यालयमा नवीकरणका लागि आवेदन दिनुहोस्। निवास कार्ड, राहदानी र आवेदन फारम लैजानुहोस्।",
+                "vi": "Hãy xin gia hạn visa tại cục xuất nhập cảnh trước khi hết hạn. Mang thẻ cư trú, hộ chiếu và đơn xin gia hạn.",
+                "my": "ဗီဇာမကုန်မီ လူဝင်မှုရုံးတွင် သက်တမ်းတိုးလျှောက်ပါ။ နေထိုင်ခွင့်ကတ်၊ နိုင်ငံကူးလက်မှတ်နှင့် လျှောက်လွှာပုံစံ ယူသွားပါ။"
+            }
+        },
+        {
+            "id": "mynumber",
+            "links": [],
+            "keys": {
+                "en": ["my number", "mynumber", "my-number", "individual number", "maina"],
+                "ne": ["माई नम्बर", "माइ नम्बर", "व्यक्तिगत नम्बर"],
+                "vi": ["my number", "mã số cá nhân", "ma so ca nhan", "thẻ my number"],
+                "my": ["မိုင်နမ်ဘာ", "ကိုယ်ပိုင်နံပါတ်"],
+                "ja": ["マイナンバー", "個人番号"]
+            },
+            "answers": {
+                "en": "My Number is your personal ID number in Japan. You need the card or notification for jobs, tax, and health insurance procedures.",
+                "ne": "माई नम्बर जापानमा तपाईंको व्यक्तिगत परिचय नम्बर हो। काम, कर र स्वास्थ्य बीमाका कामका लागि कार्ड वा सूचना पत्र चाहिन्छ।",
+                "vi": "My Number là mã số định danh cá nhân của bạn ở Nhật. Bạn cần thẻ hoặc giấy báo mã số khi làm thủ tục việc làm, thuế và bảo hiểm y tế.",
+                "my": "မိုင်နမ်ဘာသည် ဂျပန်တွင် သင့်ကိုယ်ပိုင်မှတ်ပုံတင်နံပါတ် ဖြစ်ပါတယ်။ အလုပ်၊ အခွန်နှင့် ကျန်းမာရေးအာမခံ ကိစ္စများအတွက် ကတ် သို့မဟုတ် အကြောင်းကြားစာ လိုပါတယ်။"
             }
         },
         {
@@ -160,6 +245,40 @@
                 "ne": "मोबाइल पसल र इलेक्ट्रोनिक्स पसलबाट सिम कार्ड लिन सक्नुहुन्छ। निवास कार्ड लैजानुहोस् र मासिक योजनाबारे सोध्नुहोस्।",
                 "vi": "Bạn có thể mua SIM tại cửa hàng di động và điện máy. Mang thẻ cư trú và hỏi về gói cước hàng tháng.",
                 "my": "မိုဘိုင်းဆိုင်နှင့် လျှပ်စစ်ပစ္စည်းဆိုင်များတွင် ဆင်းမ်ကတ် ဝယ်နိုင်ပါတယ်။ နေထိုင်ခွင့်ကတ် ယူသွားပြီး လစဉ်ပက်ကေ့ချ်အကြောင်း မေးပါ။"
+            }
+        },
+        {
+            "id": "lost-phone",
+            "links": ["emergency.html"],
+            "keys": {
+                "en": ["lost", "lose", "missing", "stolen", "my phone", "find my"],
+                "ne": ["हरायो", "हराएको", "चोरी", "फोन", "मोबाइल"],
+                "vi": ["mất", "đánh mất", "điện thoại", "dien thoai"],
+                "my": ["ပျောက်", "ပျောက်ဆုံး", "ဖုန်း"],
+                "ja": ["紛失", "なくし", "携帯", "スマホ", "電話"]
+            },
+            "answers": {
+                "en": "For a lost phone: lock it with Find My iPhone or Android, call your carrier to pause the line, and report to the police. Your carrier shop can reissue the SIM.",
+                "ne": "फोन हराए: Find My iPhone वा Android बाट लक गर्नुहोस्, लाइन रोक्न क्यारियरलाई फोन गर्नुहोस्, अनि प्रहरीमा रिपोर्ट गर्नुहोस्। क्यारियर पसलबाट सिम फेरि निकाल्न सकिन्छ।",
+                "vi": "Nếu mất điện thoại: khóa máy bằng Find My iPhone hoặc Android, gọi nhà mạng để tạm khóa, rồi báo cảnh sát. Cửa hàng nhà mạng có thể cấp lại SIM.",
+                "my": "ဖုန်းပျောက်ပါက Find My iPhone သို့မဟုတ် Android ဖြင့် လော့ခ်ချပြီး လိုင်းရပ်ရန် အော်ပရေတာကို ဖုန်းဆက်ကာ ရဲစခန်းတွင် တိုင်ကြားပါ။ အော်ပရေတာဆိုင်တွင် ဆင်းမ်ကတ် ပြန်ထုတ်နိုင်ပါတယ်။"
+            }
+        },
+        {
+            "id": "lost-wallet",
+            "links": ["emergency.html", "money.html"],
+            "keys": {
+                "en": ["lost", "lose", "missing", "stolen", "wallet", "my wallet", "purse", "bank card", "cash card"],
+                "ne": ["हरायो", "हराएको", "चोरी", "वालेट", "पर्स", "बैंक कार्ड"],
+                "vi": ["mất", "đánh mất", "ví", "vi", "thẻ ngân hàng"],
+                "my": ["ပျောက်", "ပျောက်ဆုံး", "ပိုက်ဆံအိတ်", "ဘဏ်ကတ်"],
+                "ja": ["紛失", "なくし", "財布", "キャッシュカード"]
+            },
+            "answers": {
+                "en": "For a lost wallet or bank card: call your bank right away to stop the card, then report to the police. Bring ID to reissue the card.",
+                "ne": "वालेट वा बैंक कार्ड हराए: कार्ड रोक्न तुरुन्त बैंकलाई फोन गर्नुहोस्, अनि प्रहरीमा रिपोर्ट गर्नुहोस्। कार्ड फेरि बनाउन परिचयपत्र लैजानुहोस्।",
+                "vi": "Nếu mất ví hoặc thẻ ngân hàng: gọi ngay cho ngân hàng để khóa thẻ, rồi báo cảnh sát. Mang giấy tờ để làm lại thẻ.",
+                "my": "ပိုက်ဆံအိတ် သို့မဟုတ် ဘဏ်ကတ် ပျောက်ပါက ကတ်ပိတ်ရန် ဘဏ်ကို ချက်ချင်းဖုန်းဆက်ပြီး ရဲစခန်းတွင် တိုင်ကြားပါ။ ကတ်ပြန်ထုတ်ရန် မှတ်ပုံတင် ယူသွားပါ။"
             }
         },
         {
@@ -243,7 +362,9 @@
         try {
             if (typeof value.normalize === "function") value = value.normalize("NFKC");
         } catch (e) { /* keep raw */ }
-        return " " + value.toLowerCase().replace(/\s+/g, " ").trim() + " ";
+        // Punctuation becomes spaces, so "phone." still matches "phone".
+        var noPunct = value.toLowerCase().replace(/[.,!?;:()\[\]"「」、。！？・]/g, " ");
+        return " " + noPunct.replace(/\s+/g, " ").trim() + " ";
     }
 
     function findBest(input) {
@@ -258,9 +379,18 @@
             for (var lang in groups) {
                 if (!Object.prototype.hasOwnProperty.call(groups, lang)) continue;
                 var words = groups[lang] || [];
+                // Latin-script keywords match whole words only, so "ga"
+                // does not match inside "garbage". Other scripts keep
+                // substring matching, since they don't use spaces.
+                var wholeWords = (lang === "en" || lang === "vi");
                 for (var w = 0; w < words.length; w++) {
                     var word = normalize(words[w]).replace(/^\s+|\s+$/g, "");
-                    if (word && text.indexOf(word) !== -1) score++;
+                    if (!word) continue;
+                    if (wholeWords) {
+                        if (text.indexOf(" " + word + " ") !== -1) score++;
+                    } else if (text.indexOf(word) !== -1) {
+                        score++;
+                    }
                 }
             }
             if (score > bestScore) {

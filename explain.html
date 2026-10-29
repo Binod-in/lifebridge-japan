@@ -3,6 +3,18 @@
 
 <head>
     <meta charset="UTF-8">
+    <script>
+        // Apply the saved theme before first paint (avoids a light-theme flash).
+        (function () {
+            var theme = "light";
+            try {
+                var saved = localStorage.getItem("lb_theme");
+                if (saved === "light" || saved === "dark") { theme = saved; }
+                else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) { theme = "dark"; }
+            } catch (e) { /* keep light */ }
+            document.documentElement.setAttribute("data-theme", theme);
+        })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title data-i18n="explain.title">LifeBridge Lens</title>
     <link rel="stylesheet" href="style.css">
@@ -524,16 +536,13 @@
         photoInput.addEventListener("change", () => {
             const file = photoInput.files[0];
             if (!file) return;
-            preview.src = URL.createObjectURL(file);
-            preview.style.display = "block";
-            lastPhotoMime = file.type || "image/jpeg";
-            const reader = new FileReader();
-            reader.onload = () => {
-                const url = String(reader.result || "");
-                const i = url.indexOf(",");
-                lastPhotoB64 = i >= 0 ? url.slice(i + 1) : "";
-            };
-            reader.readAsDataURL(file);
+            // Show the preview from the resized image, so it is the
+            // same photo that gets uploaded.
+            shrinkPhoto(file).then((small) => {
+                if (photoInput.files[0] !== file) return;
+                preview.src = URL.createObjectURL(small);
+                preview.style.display = "block";
+            });
         });
 
         function splitSections(text) {
@@ -553,6 +562,109 @@
             return out;
         }
 
+        // Shrink a photo so follow-up questions stay small too.
+        // If the longest side is over 1600px, redraw it on a canvas
+        // as JPEG (quality 0.85). Smaller photos are kept as they are,
+        // so small text stays sharp.
+        function shrinkPhoto(file) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => {
+                    try {
+                        const longest = Math.max(img.width, img.height);
+                        if (longest <= 1600) { resolve(file); return; }
+                        const scale = 1600 / longest;
+                        const canvas = document.createElement("canvas");
+                        canvas.width = Math.round(img.width * scale);
+                        canvas.height = Math.round(img.height * scale);
+                        const ctx = canvas.getContext("2d");
+                        ctx.fillStyle = "#ffffff";
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        canvas.toBlob((blob) => resolve(blob || file), "image/jpeg", 0.85);
+                    } catch (e) { resolve(file); }
+                };
+                img.onerror = () => resolve(file);
+                img.src = URL.createObjectURL(file);
+            });
+        }
+
+        function blobToB64(blob) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const url = String(reader.result || "");
+                    const i = url.indexOf(",");
+                    resolve(i >= 0 ? url.slice(i + 1) : "");
+                };
+                reader.onerror = () => resolve("");
+                reader.readAsDataURL(blob);
+            });
+        }
+
+        // Remove markdown leftovers like **bold**, ## headers and * bullets.
+        // Lists become numbered lines, objects become one value per line.
+        function cleanText(value) {
+            if (Array.isArray(value)) {
+                const lines = [];
+                for (let i = 0; i < value.length; i++) {
+                    lines.push((i + 1) + ". " + cleanText(value[i]));
+                }
+                return lines.join("\n");
+            }
+            if (value !== null && typeof value === "object") {
+                const lines = [];
+                for (const key of Object.keys(value)) {
+                    lines.push(cleanText(value[key]));
+                }
+                return lines.join("\n");
+            }
+            return String(value || "")
+                .replace(/\*\*/g, "")
+                .replace(/^#+\s?/gm, "")
+                .replace(/^\s*\*\s?/gm, "")
+                .trim();
+        }
+
+        // Parse the AI reply: JSON first, old headers next, raw text last.
+        // Returns { elementId: text } for the six result cards.
+        function parseExplainReply(text) {
+            const raw = String(text || "").trim();
+            if (!raw) return {};
+            const keys = { what: "result-what", why: "result-why", importance: "result-importance", next_steps: "result-next", deadline: "result-deadline", check: "result-check" };
+            const fenced = raw.replace(/^```[a-zA-Z]*/, "").replace(/```\s*$/, "").trim();
+            let data = null;
+            try {
+                data = JSON.parse(fenced);
+            } catch (e) {
+                // Maybe the model added words around the JSON.
+                // Try again with only the text between the first { and the last }.
+                const first = fenced.indexOf("{");
+                const last = fenced.lastIndexOf("}");
+                if (first >= 0 && last > first) {
+                    try {
+                        data = JSON.parse(fenced.slice(first, last + 1));
+                    } catch (e2) { data = null; }
+                }
+            }
+            if (data !== null && typeof data === "object") {
+                const out = {};
+                for (const key of Object.keys(keys)) {
+                    const value = cleanText(data[key]);
+                    if (value) out[keys[key]] = value;
+                }
+                if (Object.keys(out).length > 0) return out;
+            }
+            const found = splitSections(raw);
+            const cleaned = {};
+            for (const id of Object.keys(found)) {
+                const value = cleanText(found[id]);
+                if (value) cleaned[id] = value;
+            }
+            if (Object.keys(cleaned).length > 0) return cleaned;
+            return { "result-what": cleanText(raw) || raw };
+        }
+
         form.addEventListener("submit", async (e) => {
             e.preventDefault();
             if (typeof navigator !== "undefined" && navigator.onLine === false) {
@@ -567,14 +679,17 @@
             const originalBtnText = btn.textContent;
             btn.textContent = t("explain.explaining", "Reading your notice...");
             setStatus("explain.reading", "Reading your notice... this can take a few seconds.");
+            const smallPhoto = await shrinkPhoto(photoInput.files[0]);
+            lastPhotoB64 = await blobToB64(smallPhoto);
+            lastPhotoMime = smallPhoto.type || "image/jpeg";
             const data = new FormData();
-            data.append("photo", photoInput.files[0]);
+            data.append("photo", smallPhoto, photoInput.files[0].name || "photo.jpg");
             data.append("language", document.getElementById("language").value);
             try {
                 const res = await fetch("/explain", { method: "POST", body: data, headers: lbTokenHeaders() });
                 const json = await res.json();
                 if (!res.ok || json.error) throw new Error(json.error || "Something went wrong");
-                const sections = splitSections(json.text || "");
+                const sections = parseExplainReply(json.text || "");
                 if (Object.keys(sections).length === 0) {
                     setStatus("explain.badFormat", "The reply was unclear. Please try again with a clearer photo of the whole notice.");
                     return;

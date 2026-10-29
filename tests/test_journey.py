@@ -98,6 +98,34 @@ class HomeTrackerPromoTest(unittest.TestCase):
                 self.assertNotIn("start.html", nav.group(1),
                                  os.path.basename(path))
 
+    def test_home_quick_add_form_present(self):
+        html = _read("index.html")
+        for element_id in ("home-entry-form", "home-type", "home-amount",
+                           "home-note", "home-goal-pick", "home-goal-select",
+                           "home-form-status"):
+            self.assertIn('id="%s"' % element_id, html)
+        for key in ("tracker.addEntry", "tracker.type", "tracker.amount",
+                    "tracker.noteLabel", "tracker.savingFor",
+                    "tracker.addEntryBtn"):
+            self.assertIn('data-i18n="%s"' % key, html)
+
+    def test_home_goal_recent_and_art_present(self):
+        html = _read("index.html")
+        for element_id in ("home-goal-row", "home-goal-name",
+                           "home-goal-text", "home-goal-bar", "home-goal-fill",
+                           "home-recent-list"):
+            self.assertIn('id="%s"' % element_id, html)
+        self.assertIn('data-i18n="idx.trackerRecent"', html)
+        self.assertIn('src="images/money.webp"', html)
+        self.assertTrue(os.path.isfile(os.path.join(ROOT, "images",
+                                                    "money.webp")))
+
+    def test_home_tracker_keys_all_languages(self):
+        src = _read("i18n.js")
+        for key in ("idx.trackerTitle", "idx.trackerDesc",
+                    "idx.trackerRecent", "idx.trackerEmpty"):
+            self.assertEqual(src.count('"%s":' % key), len(LANGS), key)
+
 
 if __name__ == "__main__":
     unittest.main()

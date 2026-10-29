@@ -3,6 +3,18 @@
 
 <head>
     <meta charset="UTF-8">
+    <script>
+        // Apply the saved theme before first paint (avoids a light-theme flash).
+        (function () {
+            var theme = "light";
+            try {
+                var saved = localStorage.getItem("lb_theme");
+                if (saved === "light" || saved === "dark") { theme = saved; }
+                else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) { theme = "dark"; }
+            } catch (e) { /* keep light */ }
+            document.documentElement.setAttribute("data-theme", theme);
+        })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title data-i18n="tracker.title">Money Tracker | LifeBridge Japan</title>
     <link rel="stylesheet" href="style.css"><link rel="manifest" href="site.webmanifest"><meta name="theme-color" content="#1261ff">
@@ -171,16 +183,40 @@
             try { return JSON.parse(localStorage.getItem(key)) || fallback; }
             catch { return fallback; }
         };
-        const save = (key, value) => localStorage.setItem(key, JSON.stringify(value));
+        // Save to browser storage. Returns false when saving fails
+        // (for example when storage is full or blocked).
+        const save = (key, value) => {
+            try {
+                localStorage.setItem(key, JSON.stringify(value));
+                return true;
+            } catch (err) {
+                return false;
+            }
+        };
         const yen = n => "¥" + Number(n || 0).toLocaleString("ja-JP"); function t(key, fallback) { try { if (window.LBT && typeof window.LBT.t === "function") { var v = window.LBT.t(key); if (typeof v === "string" && v !== "" && v !== key) return v; } } catch (e) {} return fallback; }
 
-        let entries = load(ENTRIES_KEY, []);
+        // Skip broken entries (missing date, amount or type) so one bad
+        // record cannot break the whole page.
+        function cleanEntries(list) {
+            if (!Array.isArray(list)) return [];
+            return list.filter(e => e && e.date && typeof e.amount === "number" && (e.type === "income" || e.type === "expense" || e.type === "saving"));
+        }
+
+        let entries = cleanEntries(load(ENTRIES_KEY, []));
         let goals = load(GOALS_KEY, []);
 
         const monthInput = document.getElementById("month");
+        // Local date as YYYY-MM-DD (toISOString uses UTC, which is
+        // yesterday in Japan before 9 AM).
+        function localDateStr(when) {
+            const y = when.getFullYear();
+            const m = String(when.getMonth() + 1).padStart(2, "0");
+            const d = String(when.getDate()).padStart(2, "0");
+            return y + "-" + m + "-" + d;
+        }
         const today = new Date();
-        monthInput.value = today.toISOString().slice(0, 7);
-        document.getElementById("date").value = today.toISOString().slice(0, 10);
+        monthInput.value = localDateStr(new Date()).slice(0, 7);
+        document.getElementById("date").value = localDateStr(new Date());
 
         const typeSelect = document.getElementById("type");
         const goalRow = document.getElementById("goal-row");
@@ -225,6 +261,18 @@
                 wrap.innerHTML = `<strong></strong> — ` + t("tracker.goalProgress", "{saved} of {target} ({pct}%)").replace("{saved}", yen(savedAmt)).replace("{target}", yen(g.target)).replace("{pct}", pct) + `
                     <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pct}"><div style="width:${pct}%"></div></div>`;
                 wrap.querySelector("strong").textContent = g.name; wrap.querySelector(".progress").setAttribute("aria-label", g.name);
+                const delGoal = document.createElement("button");
+                delGoal.className = "del-btn";
+                delGoal.textContent = t("tracker.deleteGoal", "Delete goal");
+                delGoal.addEventListener("click", () => {
+                    if (!confirm(t("tracker.deleteGoalConfirm", "Delete this goal? Your savings entries will stay."))) return;
+                    goals = goals.filter(x => x.id !== g.id);
+                    if (!save(GOALS_KEY, goals)) {
+                        document.getElementById("goal-status").textContent = t("tracker.saveFailed", "Could not save. Your browser storage may be full or blocked.");
+                    }
+                    render();
+                });
+                wrap.appendChild(delGoal);
                 goalsList.appendChild(wrap);
             }
 
@@ -237,14 +285,20 @@
                 const label = { income: t("tracker.tagIncome", "Income"), expense: t("tracker.tagExpense", "Expense"), saving: t("tracker.tagSaving", "Saving") }[e.type];
                 row.innerHTML = `<span class="tag tag-${e.type}">${label}</span>
                     <div class="grow"><strong>${yen(e.amount)}</strong> <span class="entry-note"></span>
-                    <small>${e.date}${goal ? t("tracker.forGoal", " · For: {name}").replace("{name}", goal.name) : ""}</small></div>`;
+                    <small><span class="entry-date"></span><span class="entry-goal"></span></small></div>`;
+                row.querySelector(".entry-date").textContent = e.date;
+                if (goal) {
+                    row.querySelector(".entry-goal").textContent = t("tracker.forGoal", " · For: {name}").replace("{name}", goal.name);
+                }
                 row.querySelector(".entry-note").textContent = e.note || "";
                 const del = document.createElement("button");
                 del.className = "del-btn";
                 del.textContent = t("tracker.delete", "Delete");
                 del.addEventListener("click", () => {
                     if (!confirm(t("tracker.deleteConfirm", "Delete this entry?"))) return; entries = entries.filter(x => x.id !== e.id);
-                    save(ENTRIES_KEY, entries);
+                    if (!save(ENTRIES_KEY, entries)) {
+                        document.getElementById("form-status").textContent = t("tracker.saveFailed", "Could not save. Your browser storage may be full or blocked.");
+                    }
                     render();
                 });
                 row.appendChild(del);
@@ -265,7 +319,11 @@
                 goalId: typeSelect.value === "saving" ? goalSelect.value : "",
                 date: document.getElementById("date").value
             });
-            save(ENTRIES_KEY, entries);
+            if (!save(ENTRIES_KEY, entries)) {
+                entries.pop(); // Storage failed, so undo the in-memory add too.
+                document.getElementById("form-status").textContent = t("tracker.saveFailed", "Could not save. Your browser storage may be full or blocked.");
+                return;
+            }
             document.getElementById("amount").value = "";
             document.getElementById("note").value = "";
             document.getElementById("form-status").textContent = t("tracker.added", "Added ✔");
@@ -278,7 +336,11 @@
             const target = parseInt(document.getElementById("goal-target").value, 10);
             const goalStatus = document.getElementById("goal-status"); if (!name || !target || target <= 0) { goalStatus.textContent = t("tracker.goalError", "Please enter a goal name and a target amount."); return; }
             goals.push({ id: Date.now().toString(), name, target });
-            save(GOALS_KEY, goals);
+            if (!save(GOALS_KEY, goals)) {
+                goals.pop(); // Storage failed, so undo the in-memory add too.
+                document.getElementById("goal-status").textContent = t("tracker.saveFailed", "Could not save. Your browser storage may be full or blocked.");
+                return;
+            }
             document.getElementById("goal-name").value = "";
             document.getElementById("goal-target").value = ""; goalStatus.textContent = "";
             render();

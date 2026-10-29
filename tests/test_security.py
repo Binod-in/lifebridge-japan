@@ -339,6 +339,12 @@ class RateLimitTest(unittest.TestCase):
             res = self.client.post("/ask", json={"question": "Where?", "language": "en"})
             self.assertEqual(res.status_code, 429)
 
+    def test_empty_bucket_key_removed(self):
+        # A bucket whose hits all expired must not stay in memory.
+        server._rate_hits["old-ip"] = [-1000000.0]
+        server._rate_limited("old-ip", 0)
+        self.assertNotIn("old-ip", server._rate_hits)
+
 
 if __name__ == "__main__":
     unittest.main()

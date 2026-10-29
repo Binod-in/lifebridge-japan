@@ -82,13 +82,17 @@ def _reset_rate_limits():
 
 def _rate_limited(bucket, limit):
     now = time.monotonic()
-    hits = _rate_hits.setdefault(bucket, [])
+    hits = _rate_hits.get(bucket, [])
     cutoff = now - RATE_WINDOW
     while hits and hits[0] <= cutoff:
         hits.pop(0)
+    if not hits:
+        # No hits left in this bucket, so forget the key entirely.
+        _rate_hits.pop(bucket, None)
     if len(hits) >= limit:
         return True
     hits.append(now)
+    _rate_hits[bucket] = hits
     return False
 
 
@@ -160,15 +164,6 @@ def _call_meta_api(payload):
         app.logger.warning("Meta API request failed: %s", e)
         return False, "Could not reach the AI service. Please try again."
 
-
-HEADERS = [
-    "What is this?",
-    "Why did you get it?",
-    "How important is it?",
-    "What to do next",
-    "Deadline",
-    "Things to check",
-]
 
 LANG_NAMES = {"ne": "Nepali", "en": "English", "ja": "Japanese", "vi": "Vietnamese", "my": "Burmese"}
 
@@ -274,19 +269,24 @@ def explain():
     img_b64 = base64.b64encode(raw).decode("ascii")
     data_uri = f"data:{kind};base64,{img_b64}"
 
-    header_list = "\n".join(f"{h}" for h in HEADERS)
     prompt = (
         "You are helping a newcomer in Japan understand an official Japanese notice "
         "shown in the photo. Explain it in simple, friendly words.\n\n"
-        f"Write the content in {lang_name}.\n"
-        "Use EXACTLY these section headers in English, in this order, each on its own line:\n"
-        f"{header_list}\n\n"
+        f"Write the values in {lang_name}.\n"
+        "Reply with ONLY a JSON object (no other text) with exactly these keys:\n"
+        '{"what": "...", "why": "...", "importance": "...", '
+        '"next_steps": "...", "deadline": "...", "check": "..."}\n\n'
         "Rules:\n"
-        "- Under 'What to do next', give clear steps in order.\n"
-        "- Under 'Deadline', write the exact date/amount from the notice if shown.\n"
-        "- If any detail in the photo is unclear or unreadable, say so under "
-        "'Things to check' instead of guessing. Never invent amounts, dates, or names.\n"
-        "- Keep each section short. No text before the first header."
+        "- 'what': what kind of notice this is.\n"
+        "- 'why': why the person got it.\n"
+        "- 'importance': how important or urgent it is.\n"
+        "- 'next_steps': clear steps in order.\n"
+        "- 'deadline': the exact date or amount from the notice if shown.\n"
+        "- 'check': things to double-check. If any detail is unclear or "
+        "unreadable, say so here instead of guessing. "
+        "Never invent amounts, dates, or names.\n"
+        "- Keep each value short. Do not use markdown. "
+        "No text outside the JSON object."
     )
 
     payload = {
