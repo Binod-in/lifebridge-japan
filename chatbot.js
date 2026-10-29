@@ -241,10 +241,10 @@
                 "ja": ["電車", "バス"]
             },
             "answers": {
-                "en": "Get an IC card (Suica or Pasmo) at station ticket machines (the card name differs by region, e.g. Suica, PASMO, ICOCA). Tap it on trains and buses.",
-                "ne": "स्टेसनका टिकट मेसिनबाट आईसी कार्ड (Suica वा Pasmo) लिनुहोस् (क्षेत्रअनुसार कार्डको नाम फरक हुन्छ, जस्तै Suica, PASMO, ICOCA)। रेल र बसमा ट्याप गर्नुहोस्।",
-                "vi": "Mua thẻ IC (Suica hoặc Pasmo) tại các máy bán vé ở ga (tên thẻ khác nhau tùy vùng, ví dụ Suica, PASMO, ICOCA). Quẹt thẻ khi đi tàu và xe buýt.",
-                "my": "ဘူတာလက်မှတ်စက်များတွင် IC ကတ် (Suica သို့မဟုတ် Pasmo) ဝယ်ပါ (ဒေသအလိုက် ကတ်အမည် မတူပါ၊ ဥပမာ Suica, PASMO, ICOCA)။ ရထားနှင့် ဘတ်စ်ကားတွင် တို့သုံးပါ။"
+                "en": "Get an IC card at station ticket machines. The card name differs by region (Suica, PASMO, ICOCA and others). Tap it on trains and buses.",
+                "ne": "स्टेसनका टिकट मेसिनबाट आईसी कार्ड लिनुहोस्। क्षेत्रअनुसार कार्डको नाम फरक हुन्छ (Suica, PASMO, ICOCA र अन्य)। रेल र बसमा ट्याप गर्नुहोस्।",
+                "vi": "Mua thẻ IC tại các máy bán vé ở ga. Tên thẻ khác nhau tùy vùng (Suica, PASMO, ICOCA và các loại khác). Quẹt thẻ khi đi tàu và xe buýt.",
+                "my": "ဘူတာလက်မှတ်စက်များတွင် IC ကတ် ဝယ်ပါ။ ဒေသအလိုက် ကတ်အမည် မတူပါ (Suica, PASMO, ICOCA နှင့် အခြား)။ ရထားနှင့် ဘတ်စ်ကားတွင် တို့သုံးပါ။"
             }
         },
         {

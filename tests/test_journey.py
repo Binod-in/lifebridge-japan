@@ -105,6 +105,14 @@ class HomeTrackerPromoTest(unittest.TestCase):
                      "thị thực", "ဗီဇာ", "rác", "အမှိုက်"]:
             self.assertIn(word, src)
 
+    def test_garbage_keywords_live_on_housing(self):
+        src = _read("guide-data.js")
+        housing = src.split('id: "jobs"')[0]
+        documents = src.split('id: "documents"')[1].split('id: "money"')[0]
+        for word in ["garbage", "gomi", "ごみ", "फोहोर", "rác", "rac", "အမှိုက်"]:
+            self.assertIn(word, housing)
+            self.assertNotIn(word, documents)
+
     def test_search_lead_mentions_all_languages(self):
         src = _read("i18n.js")
         self.assertIn('"search.lead": "Search topics in English, Japanese, '

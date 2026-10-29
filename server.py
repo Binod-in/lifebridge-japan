@@ -385,11 +385,15 @@ def ask():
     if not isinstance(history, list) or len(history) > 10:
         return jsonify({"error": "History must be a list of at most 10 turns."}), 400
     for turn in history:
-        if (not isinstance(turn, dict)
-                or turn.get("role") not in ("user", "assistant")
-                or not isinstance(turn.get("content"), str)
-                or len(turn.get("content")) > MAX_QUESTION_CHARS):
-            return jsonify({"error": "Each history turn needs role user/assistant and short text."}), 400
+        if not isinstance(turn, dict) or turn.get("role") not in ("user", "assistant"):
+            return jsonify({"error": "Each history turn needs role user or assistant."}), 400
+        content = turn.get("content")
+        if turn.get("role") == "assistant":
+            limit = MAX_EXPLANATION_CHARS
+        else:
+            limit = MAX_QUESTION_CHARS
+        if not isinstance(content, str) or len(content) > limit:
+            return jsonify({"error": "A history turn is too long."}), 400
     if image:
         match = ASK_IMAGE_RE.match(image.strip())
         if not match:

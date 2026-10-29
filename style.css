@@ -2038,12 +2038,6 @@ html[data-theme="dark"] details {
     color: #e6ecf7;
 }
 
-html[data-theme="dark"] .tracker-promo .summary-box span {
-    color: #c3cede;
-}
-html[data-theme="dark"] .tracker-promo .summary-box strong {
-    color: #ffffff;
-}
 html[data-theme="dark"] .tracker-promo .tracker-quick-form input,
 html[data-theme="dark"] .tracker-promo .tracker-quick-form select {
     background-color: #101d3d;
@@ -2490,4 +2484,78 @@ html[data-theme="dark"] .chat-chips .chip {
     color: #e6ecf7;
     background-color: #1d2f5c;
     border-color: #33456e;
+}
+
+/* ---------- Dark theme: extra surfaces (readability pass) ---------- */
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3 {
+    color: #e6ecf7;
+}
+
+html[data-theme="dark"] .stage-card,
+html[data-theme="dark"] .japanese-helper,
+html[data-theme="dark"] .emergency-help,
+html[data-theme="dark"] .faq-section {
+    background-color: #16244a;
+    border-color: #26355c;
+    color: #e6ecf7;
+}
+
+html[data-theme="dark"] .page-lead,
+html[data-theme="dark"] .topics-desc,
+html[data-theme="dark"] .topic-card p,
+html[data-theme="dark"] .stage-text p,
+html[data-theme="dark"] .helper-desc,
+html[data-theme="dark"] .phrase-reading,
+html[data-theme="dark"] .faq-heading p,
+html[data-theme="dark"] .footer-brand p,
+html[data-theme="dark"] .footer-bottom,
+html[data-theme="dark"] .logo-tag {
+    color: #c3cede;
+}
+
+html[data-theme="dark"] .topic-card a,
+html[data-theme="dark"] .stage-link,
+html[data-theme="dark"] .footer-links a,
+html[data-theme="dark"] .footer-bottom a,
+html[data-theme="dark"] .content-page a:not(.btn):not(.saved-back) {
+    color: #9dbcff;
+}
+
+html[data-theme="dark"] .summary-box span {
+    color: #c3cede;
+}
+html[data-theme="dark"] .summary-box strong {
+    color: #ffffff;
+}
+
+html[data-theme="dark"] .form-grid input,
+html[data-theme="dark"] .form-grid select {
+    background-color: #101d3d;
+    border-color: #33456e;
+    color: #e6ecf7;
+}
+
+html[data-theme="dark"] .del-btn {
+    background-color: #101d3d;
+    border-color: #5c2630;
+    color: #ff8f9d;
+}
+
+html[data-theme="dark"] .progress {
+    background-color: #26355c;
+}
+
+html[data-theme="dark"] #journey-progress-bar::-webkit-progress-bar {
+    background-color: #26355c;
+}
+
+html[data-theme="dark"] .phrase-categories button {
+    background-color: transparent;
+}
+
+html[data-theme="dark"] .skip-link {
+    background-color: #16244a;
+    color: #9dbcff;
 }

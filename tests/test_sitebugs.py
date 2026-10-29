@@ -118,12 +118,32 @@ class TrackerContrastTest(unittest.TestCase):
     def test_dark_tracker_tile_text_is_light(self):
         self.assertRegex(
             self.css,
-            r'html\[data-theme="dark"\] \.tracker-promo \.summary-box span \{\s*'
+            r'html\[data-theme="dark"\] \.summary-box span \{\s*'
             r'color: #c3cede;')
         self.assertRegex(
             self.css,
-            r'html\[data-theme="dark"\] \.tracker-promo \.summary-box strong \{\s*'
+            r'html\[data-theme="dark"\] \.summary-box strong \{\s*'
             r'color: #ffffff;')
+
+    def test_dark_extra_surfaces_at_end(self):
+        marker = "Dark theme: extra surfaces"
+        self.assertIn(marker, self.css)
+        tail = self.css.split(marker)[1]
+        for selector in ('html[data-theme="dark"] h1',
+                         'html[data-theme="dark"] .stage-card',
+                         'html[data-theme="dark"] .japanese-helper',
+                         'html[data-theme="dark"] .emergency-help',
+                         'html[data-theme="dark"] .faq-section',
+                         'html[data-theme="dark"] .page-lead',
+                         'html[data-theme="dark"] .topic-card a',
+                         'html[data-theme="dark"] .content-page'
+                         ' a:not(.btn):not(.saved-back)',
+                         'html[data-theme="dark"] .del-btn',
+                         'html[data-theme="dark"] .progress',
+                         'html[data-theme="dark"] #journey-progress-bar'
+                         '::-webkit-progress-bar',
+                         'html[data-theme="dark"] .skip-link'):
+            self.assertIn(selector, tail)
 
     def test_dark_tracker_inputs_usable(self):
         self.assertRegex(

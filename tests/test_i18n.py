@@ -77,6 +77,13 @@ class KeyParityTest(unittest.TestCase):
                         "explain.dateExists", "explain.viewDates"):
                 self.assertIn(key, self.keys[lang], lang)
 
+    def test_sample_text_keys_present(self):
+        for lang in LANGS:
+            for key in ("explain.sample.what", "explain.sample.why",
+                        "explain.sample.importance", "explain.sample.next",
+                        "explain.sample.deadline", "explain.sample.check"):
+                self.assertIn(key, self.keys[lang], lang)
+
 
 class KeyUsageTest(unittest.TestCase):
     @classmethod

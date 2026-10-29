@@ -133,7 +133,8 @@ class ExplainPageScriptTest(unittest.TestCase):
         self.assertIn("let chatHistory = [];", self.page)
         self.assertIn('chatHistory.push({role: "user", content: question});',
                       self.page)
-        self.assertIn('chatHistory.push({role: "assistant", content: answer});',
+        self.assertIn('chatHistory.push({role: "assistant", '
+                      'content: answer.slice(0, 8000)});',
                       self.page)
         self.assertIn("history: chatHistory.slice(-10)", self.page)
 
@@ -151,13 +152,19 @@ class ExplainPageScriptTest(unittest.TestCase):
         self.assertIn("important-dates.html", self.page)
         self.assertIn("/^\\d{4}-\\d{2}-\\d{2}$/", self.page)
 
+    def test_save_deadline_validates_date(self):
+        self.assertIn("function isRealDate(text)", self.page)
+        self.assertIn("isRealDate(lastDeadlineDate)", self.page)
+        self.assertIn('t("tracker.saveFailed"', self.page)
+
     def test_sample_button_fills_cards(self):
         self.assertIn("Try a sample notice", self.page)
-        self.assertIn("SAMPLE_NOTICE", self.page)
-        self.assertIn("2027-03-31", self.page)
+        self.assertIn("fillSampleCards()", self.page)
+        self.assertIn("2027-02-01", self.page)
         self.assertIn('id="sample-tag"', self.page)
         self.assertIn('"explain.sampleTag"', self.page)
-        self.assertNotIn("sample-notice.png", self.page)
+        self.assertIn('"explain.sample.what"', self.page)
+        self.assertIn("if (sampleShowing) fillSampleCards();", self.page)
         self.assertNotIn("requestSubmit", self.page)
 
     def test_scan_state_updates_atomically(self):

@@ -14,7 +14,7 @@ const guideData = [
         icon: "icons/home.svg",
         image: "images/housing.webp",
         description: "Apartments, moving and utilities",
-        keywords: "house home apartment move moving rent room utilities घर कोठा भाडा 住居 引越し thuê nhà thue nha căn hộ can ho phòng phong tiền cọc tien coc အိမ် အခန်း ငှားခ တိုက်ခန်း စပေါ်",
+        keywords: "house home apartment move moving rent room utilities घर कोठा भाडा 住居 引越し thuê nhà thue nha căn hộ can ho phòng phong tiền cọc tien coc အိမ် အခန်း ငှားခ တိုက်ခန်း စပေါ် garbage gomi ごみ फोहोर rác rac အမှိုက်",
         i18n: { titleKey: "topic.housing.title", descKey: "topic.housing.sub" }
     },
     {
@@ -32,7 +32,7 @@ const guideData = [
         icon: "icons/document.svg",
         image: "images/documents.webp",
         description: "Organize your residence and address paperwork",
-        keywords: "residence card address register document documents कागजात ठेगाना 在留カード 住所 giấy tờ giay to thẻ cư trú the cu tru địa chỉ dia chi visa thị thực thi thuc rác rac စာရွက်စာတမ်း နေထိုင်ခွင့်ကတ် လိပ်စာ ဗီဇာ အမှိုက်",
+        keywords: "residence card address register document documents कागजात ठेगाना 在留カード 住所 giấy tờ giay to thẻ cư trú the cu tru địa chỉ dia chi visa thị thực thi thuc စာရွက်စာတမ်း နေထိုင်ခွင့်ကတ် လိပ်စာ ဗီဇာ",
         i18n: { titleKey: "topic.documents.title", descKey: "gd.documents.desc" }
     },
     {

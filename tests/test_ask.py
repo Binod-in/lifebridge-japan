@@ -156,6 +156,15 @@ class AskHistoryTest(unittest.TestCase):
         })
         self.assertEqual(res.status_code, 400)
 
+    def test_long_assistant_turn_allowed(self):
+        payload = self._posted_payload({
+            "question": "And?", "language": "en", "image": "",
+            "explanation": "ctx",
+            "history": [{"role": "user", "content": "q"},
+                        {"role": "assistant", "content": "a" * 2100}],
+        })
+        self.assertEqual(len(payload["messages"]), 1 + 2 + 1)
+
     def test_no_history_still_works(self):
         payload = self._posted_payload({
             "question": "Where?", "language": "ne",

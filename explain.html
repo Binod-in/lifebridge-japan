@@ -510,7 +510,7 @@
             ["Things to check", "result-check"]
         ];
 
-        const form = document.getElementById("explain-form"); if (window.LBT && typeof window.LBT.onChange === "function") { window.LBT.onChange(function () { if (lastStatusKey) setStatus(lastStatusKey, lastStatusFb, lastStatusMsg); }); } else { document.addEventListener("lb:lang", function () { if (lastStatusKey) setStatus(lastStatusKey, lastStatusFb, lastStatusMsg); }); }
+        const form = document.getElementById("explain-form"); if (window.LBT && typeof window.LBT.onChange === "function") { window.LBT.onChange(function () { if (lastStatusKey) setStatus(lastStatusKey, lastStatusFb, lastStatusMsg); if (sampleShowing) fillSampleCards(); }); } else { document.addEventListener("lb:lang", function () { if (lastStatusKey) setStatus(lastStatusKey, lastStatusFb, lastStatusMsg); if (sampleShowing) fillSampleCards(); }); }
         const photoInput = document.getElementById("photo");
         const sampleBtn = document.getElementById("sample-btn");
         const preview = document.getElementById("preview");
@@ -584,6 +584,7 @@
         let lastExplanation = "";
         let chatHistory = [];
         let lastDeadlineDate = "";
+        let sampleShowing = false;
         const askForm = document.getElementById("ask-form");
         const askInput = document.getElementById("ask-input");
         const askBtn = document.getElementById("ask-btn");
@@ -725,10 +726,18 @@
         const saveDateBtn = document.getElementById("save-date-btn");
         const saveDateMsg = document.getElementById("save-date-msg");
 
+        // A real calendar date: 2027-02-30 must fail, not roll over.
+        function isRealDate(text) {
+            const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(text || "");
+            if (!m) return false;
+            const d = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+            return d.getFullYear() === Number(m[1]) && d.getMonth() === Number(m[2]) - 1 && d.getDate() === Number(m[3]);
+        }
+
         // Show the Save button only for a real YYYY-MM-DD date.
         function updateSaveButton() {
             saveDateMsg.replaceChildren();
-            saveDateBtn.style.display = /^\d{4}-\d{2}-\d{2}$/.test(lastDeadlineDate) ? "" : "none";
+            saveDateBtn.style.display = isRealDate(lastDeadlineDate) ? "" : "none";
         }
 
         saveDateBtn.addEventListener("click", () => {
@@ -749,8 +758,13 @@
                 saveDateMsg.textContent = t("explain.dateExists", "Already in Important Dates.");
             } else {
                 items.push({id: Date.now() + "-" + Math.floor(Math.random() * 100000), title: title, date: lastDeadlineDate});
-                try { window.localStorage.setItem("lifego-dates", JSON.stringify(items)); } catch (e) { /* keep message anyway */ }
-                saveDateMsg.textContent = t("explain.dateSaved", "Saved to Important Dates.");
+                let savedOk = true;
+                try { window.localStorage.setItem("lifego-dates", JSON.stringify(items)); } catch (e) { savedOk = false; }
+                if (savedOk) {
+                    saveDateMsg.textContent = t("explain.dateSaved", "Saved to Important Dates.");
+                } else {
+                    saveDateMsg.textContent = t("tracker.saveFailed", "Could not save. Your browser storage may be full or blocked.");
+                }
             }
             saveDateMsg.appendChild(document.createTextNode(" "));
             const link = document.createElement("a");
@@ -797,6 +811,7 @@
                 }
                 document.getElementById("result-card").style.display = "block";
                 document.getElementById("sample-tag").style.display = "none";
+                sampleShowing = false;
                 // The new photo + explanation replace the stored pair only now, on success.
                 lastPhotoB64 = newPhotoB64;
                 lastPhotoMime = newPhotoMime;
@@ -863,7 +878,7 @@
                 const answer = json.answer || "—";
                 addMsg("chat-a", answer);
                 chatHistory.push({role: "user", content: question});
-                chatHistory.push({role: "assistant", content: answer});
+                chatHistory.push({role: "assistant", content: answer.slice(0, 8000)});
             } catch (err) {
                 if (err && err.name === "AbortError") {
                     askStatus.textContent = t("explain.tooSlow", "The AI took too long — please try again.");
@@ -891,32 +906,27 @@
         });
 
         // Demo sample: fills the cards without calling the API.
-        const SAMPLE_NOTICE = {
-            what: "City notice: resident tax (住民税) payment notice",
-            why: "Yearly resident tax bill from the city office.",
-            importance: "High. Pay before the due date to avoid a late fee.",
-            next_steps: "1. Check the amount and due date.\n2. Pay at a bank or convenience store.\n3. Keep the receipt.",
-            deadline: "March 31, 2027",
-            check: "Your name and address. The amount and due date.",
-            deadline_date: "2027-03-31"
-        };
+        function fillSampleCards() {
+            document.getElementById("result-what").textContent = t("explain.sample.what", "City notice: resident tax (住民税) payment notice");
+            document.getElementById("result-why").textContent = t("explain.sample.why", "Yearly resident tax bill from the city office.");
+            document.getElementById("result-importance").textContent = t("explain.sample.importance", "High. Pay before the due date to avoid a late fee.");
+            document.getElementById("result-next").textContent = t("explain.sample.next", "1. Check the amount and due date.\n2. Pay at a bank or convenience store.\n3. Keep the receipt.");
+            document.getElementById("result-deadline").textContent = t("explain.sample.deadline", "February 1, 2027 (4th installment)");
+            document.getElementById("result-check").textContent = t("explain.sample.check", "Your name and address. The amount and due date.");
+        }
 
         sampleBtn.addEventListener("click", () => {
-            document.getElementById("result-what").textContent = SAMPLE_NOTICE.what;
-            document.getElementById("result-why").textContent = SAMPLE_NOTICE.why;
-            document.getElementById("result-importance").textContent = SAMPLE_NOTICE.importance;
-            document.getElementById("result-next").textContent = SAMPLE_NOTICE.next_steps;
-            document.getElementById("result-deadline").textContent = SAMPLE_NOTICE.deadline;
-            document.getElementById("result-check").textContent = SAMPLE_NOTICE.check;
+            fillSampleCards();
             document.getElementById("result-card").style.display = "block";
             document.getElementById("sample-tag").style.display = "";
-            lastDeadlineDate = SAMPLE_NOTICE.deadline_date;
+            lastDeadlineDate = "2027-02-01";
             updateSaveButton();
             // No follow-up chat for the sample.
             lastExplanation = "";
             chatHistory = [];
             thread.innerHTML = "";
             document.getElementById("followup-card").style.display = "none";
+            sampleShowing = true;
             lastStatusKey = null; status.textContent = "";
         });
     </script>
