@@ -517,10 +517,24 @@
         showSuggestions();
     }
 
+    function isOffline() {
+        try {
+            return typeof navigator !== "undefined" && navigator.onLine === false;
+        } catch (e) { return false; }
+    }
+
+    function updateStatus() {
+        if (isOffline()) {
+            statusEl.textContent = chatT("chat.offline", "Offline — saved answers only");
+        } else {
+            statusEl.textContent = chatT("chat.online", "Online");
+        }
+    }
+
     function refreshChrome() {
         fab.setAttribute("aria-label", chatT("chat.open", "Open chat"));
         titleEl.textContent = chatT("chat.title", "Ask LifeBridge");
-        statusEl.textContent = chatT("chat.online", "Online");
+        updateStatus();
         closeBtn.setAttribute("aria-label", chatT("chat.close", "Close chat"));
         var ph = chatT("chat.placeholder", "Type your question...");
         input.setAttribute("placeholder", ph);
@@ -637,6 +651,8 @@
             }
         });
         document.addEventListener("lb:lang", refreshChrome);
+        window.addEventListener("online", updateStatus);
+        window.addEventListener("offline", updateStatus);
 
         refreshChrome();
     }

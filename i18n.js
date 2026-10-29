@@ -610,6 +610,7 @@
             "chat.open": "Open chat",
             "chat.close": "Close chat",
             "chat.online": "Online",
+            "chat.offline": "Offline — saved answers only",
             "net.banner": "You are offline. Saved guides and chat still work."
         },
         ne: {
@@ -1207,6 +1208,7 @@
             "chat.open": "च्याट खोल्नुहोस्",
             "chat.close": "च्याट बन्द गर्नुहोस्",
             "chat.online": "अनलाइन",
+            "chat.offline": "अफलाइन — सेभ गरिएका जवाफ मात्र",
             "net.banner": "तपाईं अफलाइन हुनुहुन्छ। सेभ गरिएका गाइड र च्याट चल्छन्।"
         },
         vi: {
@@ -1804,6 +1806,7 @@
             "chat.open": "Mở trò chuyện",
             "chat.close": "Đóng trò chuyện",
             "chat.online": "Trực tuyến",
+            "chat.offline": "Ngoại tuyến — chỉ câu trả lời đã lưu",
             "net.banner": "Bạn đang ngoại tuyến. Hướng dẫn đã lưu và trò chuyện vẫn dùng được."
         },
         my: {
@@ -2401,6 +2404,7 @@
             "chat.open": "စကားပြောဖွင့်ပါ",
             "chat.close": "စကားပြောပိတ်ပါ",
             "chat.online": "အွန်လိုင်း",
+            "chat.offline": "အော့ဖ်လိုင်း — သိမ်းထားသော အဖြေများသာ",
             "net.banner": "အင်တာနက် ပြတ်နေပါသည်။ သိမ်းထားသော လမ်းညွှန်များနှင့် စကားပြော ရနေပါသည်။"
         }
     };

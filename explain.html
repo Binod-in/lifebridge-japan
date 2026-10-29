@@ -516,6 +516,20 @@
             document.getElementById("language").value = "ne";
         }
 
+        // Follow later site-language changes too; the selector stays manually changeable.
+        document.addEventListener("lb:lang", function (event) {
+            var lang = null;
+            try {
+                if (event && event.detail && event.detail.lang) lang = event.detail.lang;
+            } catch (e) { /* fall through to storage */ }
+            try {
+                if (!lang) lang = window.localStorage.getItem("lb_lang");
+            } catch (e) { /* keep unset */ }
+            if (lang === "en" || lang === "ne" || lang === "vi" || lang === "my") {
+                document.getElementById("language").value = lang;
+            }
+        });
+
         function lbTokenHeaders(extra) {
             var headers = extra || {};
             try {

@@ -61,6 +61,11 @@ class KeyParityTest(unittest.TestCase):
             for key in required:
                 self.assertIn(key, self.keys[lang], lang)
 
+    def test_lens_status_keys_present(self):
+        for lang in LANGS:
+            self.assertIn("explain.tooSlow", self.keys[lang], lang)
+            self.assertIn("explain.serverError", self.keys[lang], lang)
+
 
 class KeyUsageTest(unittest.TestCase):
     @classmethod

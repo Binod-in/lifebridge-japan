@@ -103,6 +103,31 @@ class ExplainPageScriptTest(unittest.TestCase):
         self.assertIn('fillStyle = "#ffffff"', self.page)
         self.assertIn("fillRect(0, 0, canvas.width, canvas.height)", self.page)
 
+    def test_ai_fetches_use_timeout(self):
+        self.assertIn("AI_TIMEOUT_MS = 45000", self.page)
+        self.assertIn("new AbortController()", self.page)
+        self.assertIn('fetchWithTimeout("/explain"', self.page)
+        self.assertIn('fetchWithTimeout("/ask"', self.page)
+        self.assertIn("AbortError", self.page)
+        self.assertIn('"explain.tooSlow"', self.page)
+
+    def test_api_replies_checked_before_json(self):
+        self.assertIn("application/json", self.page)
+        self.assertIn("lbServerError", self.page)
+        self.assertIn('"explain.serverError"', self.page)
+        self.assertEqual(self.page.count("readApiJson(res)"), 2)
+        # Exactly one res.json() call site, inside the guarded helper.
+        self.assertEqual(self.page.count("res.json()"), 1)
+
+    def test_photo_always_reencoded(self):
+        self.assertIn("Math.min(1, 1600 / longest)", self.page)
+        self.assertNotIn("longest <= 1600", self.page)
+
+    def test_same_photo_sent_to_explain_and_ask(self):
+        self.assertIn("await shrinkPhoto(photoInput.files[0])", self.page)
+        self.assertIn('"data:" + lastPhotoMime + ";base64," + lastPhotoB64',
+                       self.page)
+
 
 if __name__ == "__main__":
     unittest.main()
