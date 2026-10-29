@@ -69,7 +69,13 @@ class KeyParityTest(unittest.TestCase):
     def test_sample_keys_present(self):
         for lang in LANGS:
             self.assertIn("explain.sampleBtn", self.keys[lang], lang)
-            self.assertIn("explain.noSample", self.keys[lang], lang)
+            self.assertIn("explain.sampleTag", self.keys[lang], lang)
+
+    def test_save_date_keys_present(self):
+        for lang in LANGS:
+            for key in ("explain.saveDate", "explain.dateSaved",
+                        "explain.dateExists", "explain.viewDates"):
+                self.assertIn(key, self.keys[lang], lang)
 
 
 class KeyUsageTest(unittest.TestCase):

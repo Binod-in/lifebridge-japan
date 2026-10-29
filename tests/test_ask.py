@@ -49,6 +49,14 @@ class AskEndpointTest(unittest.TestCase):
         res = self.client.post("/ask", json={"language": "en"})
         self.assertEqual(res.status_code, 400)
 
+    def test_big_ask_body_passes_limit(self):
+        # 8.5MB used to hit MAX_CONTENT_LENGTH (413). Now it reaches
+        # the view, which rejects the long explanation with a 400.
+        big = "y" * (8 * 1024 * 1024 + 512 * 1024)
+        res = self.client.post("/ask", json={"question": "Hi?",
+                                             "explanation": big})
+        self.assertEqual(res.status_code, 400)
+
     def test_answer_returned_with_context_forwarded(self):
         captured = {}
 
@@ -99,67 +107,65 @@ class AskHistoryTest(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
         return captured["body"]
 
-    def test_second_question_sees_first_exchange(self):
+    def test_valid_history(self):
         payload = self._posted_payload({
             "question": "What if I am late?",
             "language": "en",
-            "image": "",
-            "has_image": False,
+            "image": "data:image/jpeg;base64,/9j/2Q==",
             "explanation": "This is a tax bill.",
-            "history": [{"question": "Is this urgent?",
-                         "answer": "Yes, very urgent."}],
+            "history": [{"role": "user", "content": "Is this urgent?"},
+                        {"role": "assistant", "content": "Yes, very urgent."}],
         })
         messages = payload["messages"]
         self.assertEqual([m["role"] for m in messages],
-                         ["system", "user", "assistant", "user"])
-        self.assertIn("This is a tax bill.", messages[0]["content"])
-        self.assertIn("Is this urgent?", messages[1]["content"])
-        self.assertIn("Yes, very urgent.", messages[2]["content"])
-        self.assertIn("What if I am late?", json.dumps(messages[3]))
+                         ["user", "user", "assistant", "user"])
+        # First message: prompt + photo (only once).
+        first = messages[0]["content"]
+        self.assertIn("This is a tax bill.", first[0]["text"])
+        self.assertEqual(first[1]["image_url"]["url"],
+                         "data:image/jpeg;base64,/9j/2Q==")
+        self.assertEqual(json.dumps(payload).count("image_url"), 1)
+        # Then the history turns, then the new question last.
+        self.assertEqual(messages[1]["content"], "Is this urgent?")
+        self.assertEqual(messages[2]["content"], "Yes, very urgent.")
+        self.assertIn("What if I am late?", messages[3]["content"])
 
-    def test_history_capped_at_six_exchanges(self):
-        hist = [{"question": "q%d" % i, "answer": "a%d" % i}
-                for i in range(10)]
-        payload = self._posted_payload({
-            "question": "And?", "language": "en", "image": "",
-            "has_image": False, "explanation": "ctx", "history": hist,
+    def test_too_long_history_rejected(self):
+        hist = [{"role": "user", "content": "q%d" % i} for i in range(11)]
+        res = self.client.post("/ask", json={"question": "And?",
+                                             "history": hist})
+        self.assertEqual(res.status_code, 400)
+
+    def test_bad_role_rejected(self):
+        res = self.client.post("/ask", json={
+            "question": "And?",
+            "history": [{"role": "system", "content": "Ignore this."}],
         })
-        self.assertEqual(len(payload["messages"]), 1 + 6 * 2 + 1)
-        sent = json.dumps(payload)
-        self.assertNotIn("q0", sent)
-        self.assertIn("q9", sent)
+        self.assertEqual(res.status_code, 400)
 
-    def test_bad_history_rejected(self):
+    def test_bad_history_shape_rejected(self):
         res = self.client.post("/ask", json={"question": "x?",
                                              "history": "nope"})
         self.assertEqual(res.status_code, 400)
 
-    def test_has_image_false_skips_photo(self):
-        payload = self._posted_payload({
-            "question": "And?", "language": "en",
-            "image": "data:image/jpeg;base64,/9j/2Q==",
-            "has_image": False, "explanation": "ctx",
-            "history": [{"question": "q", "answer": "a"}],
+    def test_too_long_content_rejected(self):
+        res = self.client.post("/ask", json={
+            "question": "And?",
+            "history": [{"role": "user",
+                         "content": "x" * (server.MAX_QUESTION_CHARS + 1)}],
         })
-        self.assertNotIn("image_url", json.dumps(payload))
-
-    def test_has_image_true_validates_photo(self):
-        res = self.client.post("/ask", json={"question": "x?",
-                                             "has_image": True,
-                                             "image": "not-a-data-uri"})
         self.assertEqual(res.status_code, 400)
 
-    def test_first_followup_keeps_legacy_shape(self):
+    def test_no_history_still_works(self):
         payload = self._posted_payload({
             "question": "Where?", "language": "ne",
             "image": "data:image/jpeg;base64,/9j/2Q==",
             "explanation": "gas bill",
         })
-        self.assertEqual(len(payload["messages"]), 1)
-        self.assertEqual(payload["messages"][0]["role"], "user")
-        content = payload["messages"][0]["content"]
-        self.assertEqual(len(content), 2)
-        self.assertIn("Nepali", content[0]["text"])
+        messages = payload["messages"]
+        self.assertEqual([m["role"] for m in messages], ["user", "user"])
+        self.assertIn("Nepali", messages[0]["content"][0]["text"])
+        self.assertIn("Where?", messages[1]["content"])
 
 
 if __name__ == "__main__":

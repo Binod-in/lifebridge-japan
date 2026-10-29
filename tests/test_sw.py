@@ -32,8 +32,16 @@ class ServiceWorkerFetchTest(unittest.TestCase):
         self.assertIn("caches.match(req, { ignoreSearch: true })", self.sw)
         self.assertEqual(self.sw.count("ignoreSearch"), 1)
 
+    def test_html_fallback_tries_exact_first(self):
+        first = self.sw.index("caches.match(req)")
+        second = self.sw.index("caches.match(req, { ignoreSearch: true })")
+        self.assertLess(first, second)
+
     def test_offline_fallback_page_kept(self):
         self.assertIn('caches.match("offline.html")', self.sw)
+
+    def test_lb_config_bypasses_cache(self):
+        self.assertIn('"/lb-config.js"', self.sw)
 
 
 if __name__ == "__main__":

@@ -31,15 +31,34 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
-from dotenv import load_dotenv
 from flask import Flask, abort, jsonify, request, send_from_directory
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 app = Flask(__name__, static_folder=None)
 
-# A local .env file (see .env.example) fills in the settings below when
-# present. Real environment variables always win over .env values.
-load_dotenv(os.path.join(BASE_DIR, ".env"))
+
+def _load_dotenv(path):
+    # Tiny .env reader (no new dependency): KEY=VALUE lines, skip
+    # blanks and # comments, strip quotes, never override set vars.
+    try:
+        with open(path, encoding="utf-8") as f:
+            lines = f.read().splitlines()
+    except OSError:
+        return
+    for line in lines:
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, _, value = line.partition("=")
+        key = key.strip()
+        value = value.strip()
+        if len(value) >= 2 and value[0] == value[-1] and value[0] in ("'", '"'):
+            value = value[1:-1]
+        if key and key not in os.environ:
+            os.environ[key] = value
+
+
+_load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 API_KEY = os.environ.get("META_API_KEY", "")
 MODEL = os.environ.get("META_MODEL", "muse-spark-1.3")
@@ -61,7 +80,9 @@ ASK_IMAGE_RE = re.compile(r"^data:(image/(?:jpeg|png|webp));base64,([A-Za-z0-9+/
 # Upload limits: Flask rejects bodies over this before the view runs,
 # and the view double-checks the decoded photo size.
 MAX_UPLOAD_BYTES = int(os.environ.get("MAX_UPLOAD_MB", "8")) * 1024 * 1024
-app.config["MAX_CONTENT_LENGTH"] = MAX_UPLOAD_BYTES
+# /ask sends the photo as base64 (about 33% bigger), so the whole-body
+# limit must cover it plus the text fields. Per-photo checks stay.
+app.config["MAX_CONTENT_LENGTH"] = MAX_UPLOAD_BYTES * 4 // 3 + 1024 * 1024
 ALLOWED_IMAGE_TYPES = {"image/jpeg", "image/png", "image/webp"}
 
 # Static files: only public site assets. Backend files (.py), config
@@ -243,6 +264,19 @@ def _too_many_requests():
     return resp
 
 
+# The browser needs the token too (see explain.html lbTokenHeaders).
+# NOTE: this only blocks casual scripts, it is NOT a secret.
+@app.get("/lb-config.js")
+def lb_config():
+    if API_TOKEN:
+        body = "window.LB_API_TOKEN = %s;" % json.dumps(API_TOKEN)
+    else:
+        body = ""
+    resp = app.response_class(body, mimetype="application/javascript")
+    resp.cache_control.no_store = True
+    return resp
+
+
 @app.post("/explain")
 def explain():
     denied = _check_access()
@@ -281,13 +315,16 @@ def explain():
         f"Write the values in {lang_name}.\n"
         "Reply with ONLY a JSON object (no other text) with exactly these keys:\n"
         '{"what": "...", "why": "...", "importance": "...", '
-        '"next_steps": "...", "deadline": "...", "check": "..."}\n\n'
+        '"next_steps": "...", "deadline": "...", "check": "...", '
+        '"deadline_date": "..."}\n\n'
         "Rules:\n"
         "- 'what': what kind of notice this is.\n"
         "- 'why': why the person got it.\n"
         "- 'importance': how important or urgent it is.\n"
         "- 'next_steps': clear steps in order.\n"
         "- 'deadline': the exact date or amount from the notice if shown.\n"
+        "- 'deadline_date': the due date in YYYY-MM-DD format if the notice "
+        "clearly shows one, otherwise an empty string. Never guess a date.\n"
         "- 'check': things to double-check. If any detail is unclear or "
         "unreadable, say so here instead of guessing. "
         "Never invent amounts, dates, or names.\n"
@@ -345,23 +382,14 @@ def ask():
     if len(explanation) > MAX_EXPLANATION_CHARS:
         return jsonify({"error": "That explanation is too long. Please start a new explanation."}), 400
     history = body.get("history") or []
-    if not isinstance(history, list):
-        return jsonify({"error": "That history format is not supported."}), 400
-    turns = []
-    for entry in history:
-        if not isinstance(entry, dict):
-            continue
-        q = entry.get("question") or ""
-        a = entry.get("answer") or ""
-        if not isinstance(q, str) or not isinstance(a, str):
-            continue
-        q, a = q.strip(), a.strip()
-        if not q or not a:
-            continue
-        turns.append((q[:MAX_QUESTION_CHARS], a[:MAX_EXPLANATION_CHARS]))
-    turns = turns[-6:]
-    if body.get("has_image") is False:
-        image = ""
+    if not isinstance(history, list) or len(history) > 10:
+        return jsonify({"error": "History must be a list of at most 10 turns."}), 400
+    for turn in history:
+        if (not isinstance(turn, dict)
+                or turn.get("role") not in ("user", "assistant")
+                or not isinstance(turn.get("content"), str)
+                or len(turn.get("content")) > MAX_QUESTION_CHARS):
+            return jsonify({"error": "Each history turn needs role user/assistant and short text."}), 400
     if image:
         match = ASK_IMAGE_RE.match(image.strip())
         if not match:
@@ -374,46 +402,29 @@ def ask():
             return jsonify({"error": "That photo could not be read."}), 400
         image = f"data:{match.group(1)};base64,{base64.b64encode(image_raw).decode('ascii')}"
 
-    if turns:
-        system = (
-            "You are helping a newcomer in Japan with follow-up questions "
-            "about an official Japanese notice. Answer briefly and simply.\n\n"
-            f"Write the answer in {lang_name}.\n"
-            "Use the earlier explanation below as context, and the earlier "
-            "questions and answers in this conversation.\n\n"
-            f"Earlier explanation:\n{explanation}\n\n"
-            "Rules:\n"
-            "- Answer only about this notice. Keep it short and simple.\n"
-            "- If the notice does not contain the answer, honestly say it is "
-            "not written in the notice instead of guessing.\n"
-            "- Never invent amounts, dates, or names."
-        )
-        messages = [{"role": "system", "content": system}]
-        for prev_q, prev_a in turns:
-            messages.append({"role": "user", "content": prev_q})
-            messages.append({"role": "assistant", "content": prev_a})
-        user_content = [{"type": "text", "text": f"Question: {question}"}]
-        if image:
-            user_content.append({"type": "image_url", "image_url": {"url": image}})
-        messages.append({"role": "user", "content": user_content})
-    else:
-        prompt = (
-            "You are helping a newcomer in Japan with a follow-up question about "
-            "an official Japanese notice. Answer briefly and simply.\n\n"
-            f"Write the answer in {lang_name}.\n"
-            "Use the earlier explanation below as context, and the photo of the "
-            "notice if it helps.\n\n"
-            f"Earlier explanation:\n{explanation}\n\n"
-            "Rules:\n"
-            "- Answer only about this notice. Keep it short and simple.\n"
-            "- If the notice does not contain the answer, honestly say it is not "
-            "written in the notice instead of guessing.\n"
-            "- Never invent amounts, dates, or names."
-        )
-        content = [{"type": "text", "text": prompt + f"\n\nQuestion: {question}"}]
-        if image:
-            content.append({"type": "image_url", "image_url": {"url": image}})
-        messages = [{"role": "user", "content": content}]
+    prompt = (
+        "You are helping a newcomer in Japan with a follow-up question about "
+        "an official Japanese notice. Answer briefly and simply.\n\n"
+        f"Write the answer in {lang_name}.\n"
+        "Use the earlier explanation below as context, and the photo of the "
+        "notice if it helps.\n\n"
+        f"Earlier explanation:\n{explanation}\n\n"
+        "Rules:\n"
+        "- Answer only about this notice. Keep it short and simple.\n"
+        "- If the notice does not contain the answer, honestly say it is not "
+        "written in the notice instead of guessing.\n"
+        "- Never invent amounts, dates, or names."
+    )
+
+    # First message: prompt + photo (only once). Then the earlier
+    # turns, then the new question last.
+    first = [{"type": "text", "text": prompt}]
+    if image:
+        first.append({"type": "image_url", "image_url": {"url": image}})
+    messages = [{"role": "user", "content": first}]
+    for turn in history:
+        messages.append({"role": turn["role"], "content": turn["content"]})
+    messages.append({"role": "user", "content": "Question: " + question})
 
     payload = {
         "model": MODEL,

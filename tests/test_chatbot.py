@@ -111,6 +111,19 @@ class ChatbotIntentTest(unittest.TestCase):
     def test_banking_app(self):
         self.assertEqual(self._intent_id("banking app"), "bank")
 
+    def test_salary_luong_is_bank(self):
+        self.assertEqual(self._intent_id("luong"), "bank")
+
+    def test_get_residence_card_is_not_lost(self):
+        self.assertNotEqual(self._intent_id("Where do I get a residence card"),
+                            "lost-residence")
+
+    def test_apartment_rent_is_housing(self):
+        self.assertEqual(self._intent_id("apartment rent"), "housing")
+
+    def test_earthquake_is_earthquake(self):
+        self.assertEqual(self._intent_id("earthquake"), "earthquake")
+
 
 if __name__ == "__main__":
     unittest.main()

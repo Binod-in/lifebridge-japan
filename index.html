@@ -637,7 +637,7 @@
                 if (!amount || amount <= 0) return;
                 var entries = load(ENTRIES_KEY);
                 entries.push({ id: Date.now().toString(), type: typeSelect.value, amount: amount, note: document.getElementById("home-note").value.trim(), goalId: typeSelect.value === "saving" ? goalSelect.value : "", date: localDateStr(new Date()) });
-                try { localStorage.setItem(ENTRIES_KEY, JSON.stringify(entries)); } catch (e2) { return; }
+                try { localStorage.setItem(ENTRIES_KEY, JSON.stringify(entries)); } catch (e2) { document.getElementById("home-form-status").textContent = t("tracker.saveFailed", "Could not save. Your browser storage may be full or blocked."); return; }
                 document.getElementById("home-amount").value = "";
                 document.getElementById("home-note").value = "";
                 document.getElementById("home-form-status").textContent = t("tracker.added", "Added ✔");

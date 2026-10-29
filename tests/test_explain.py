@@ -13,7 +13,8 @@ import server
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-JSON_KEYS = ("what", "why", "importance", "next_steps", "deadline", "check")
+JSON_KEYS = ("what", "why", "importance", "next_steps", "deadline", "check",
+             "deadline_date")
 
 
 def _image_file(name="notice.jpg", size=1024):
@@ -129,21 +130,34 @@ class ExplainPageScriptTest(unittest.TestCase):
                        self.page)
 
     def test_followup_keeps_history(self):
-        self.assertIn("let askHistory = [];", self.page)
-        self.assertIn("askHistory.push({question: question, answer: answer})",
+        self.assertIn("let chatHistory = [];", self.page)
+        self.assertIn('chatHistory.push({role: "user", content: question});',
                       self.page)
-        self.assertIn("history: askHistory.slice(-6)", self.page)
-        self.assertIn("has_image", self.page)
+        self.assertIn('chatHistory.push({role: "assistant", content: answer});',
+                      self.page)
+        self.assertIn("history: chatHistory.slice(-10)", self.page)
 
     def test_new_explanation_clears_history(self):
-        self.assertEqual(self.page.count("askHistory = [];"), 2)
+        self.assertEqual(self.page.count("chatHistory = [];"), 2)
 
-    def test_sample_button_uses_normal_flow(self):
+    def test_lb_config_script_loaded(self):
+        self.assertIn('<script src="lb-config.js"></script>', self.page)
+
+    def test_save_deadline_button(self):
+        self.assertIn('id="save-date-btn"', self.page)
+        self.assertIn('"explain.saveDate"', self.page)
+        self.assertIn("lifego-dates", self.page)
+        self.assertIn("important-dates.html", self.page)
+        self.assertIn("/^\\d{4}-\\d{2}-\\d{2}$/", self.page)
+
+    def test_sample_button_fills_cards(self):
         self.assertIn("Try a sample notice", self.page)
-        self.assertIn("sample-notice.png", self.page)
-        self.assertIn("DataTransfer", self.page)
-        self.assertIn("form.requestSubmit()", self.page)
-        self.assertIn('"explain.noSample"', self.page)
+        self.assertIn("SAMPLE_NOTICE", self.page)
+        self.assertIn("2027-03-31", self.page)
+        self.assertIn('id="sample-tag"', self.page)
+        self.assertIn('"explain.sampleTag"', self.page)
+        self.assertNotIn("sample-notice.png", self.page)
+        self.assertNotIn("requestSubmit", self.page)
 
     def test_scan_state_updates_atomically(self):
         # The new photo must wait in locals until the reply succeeds, so a

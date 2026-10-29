@@ -41,6 +41,9 @@ else (guides, phrases, tracker, settings) works without it. See
 `TRUST_PROXY`, rate limits). For production, serve with waitress or gunicorn
 instead of the Flask dev server (see `server.py`).
 
+Note: `LB_API_TOKEN` only blocks casual scripts, it is NOT a secret.
+The browser needs it to call the AI endpoints, so anyone can read it.
+
 Run the test suite:
 
 ```bat

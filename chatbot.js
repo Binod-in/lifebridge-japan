@@ -30,7 +30,7 @@
             "id": "lost-residence",
             "links": ["emergency.html"],
             "keys": {
-                "en": ["residence card", "zairyu", "zairyu card", "reissue"],
+                "en": ["lost residence card", "lost my residence card", "zairyu", "zairyu card", "reissue"],
                 "ne": ["निवास कार्ड", "रेसिडेन्स"],
                 "vi": ["thẻ cư trú", "the cu tru"],
                 "my": ["နေထိုင်ခွင့်ကတ်"],
@@ -95,20 +95,37 @@
             }
         },
         {
+            "id": "pension",
+            "links": ["money.html"],
+            "keys": {
+                "en": ["pension", "nenkin", "retirement"],
+                "ne": ["पेन्सन", "निवृत्तिभरण", "नेन्किन"],
+                "vi": ["lương hưu", "luong huu", "nenkin", "hưu trí", "huu tri"],
+                "my": ["ပင်စင်", "နန်ကင်း"],
+                "ja": ["年金"]
+            },
+            "answers": {
+                "en": "Almost everyone must join the pension system (nenkin). Employees pay through their company; others pay at the ward office or convenience store. Students can apply for the student payment deferral (学生納付特例) at the ward office or pension office.",
+                "ne": "लगभग सबैजना पेन्सन प्रणाली (नेन्किन) मा जोडिनुपर्छ। कर्मचारीले कम्पनीमार्फत तिर्छन्; अरूले वार्ड कार्यालय वा सुविधा पसलमा तिर्छन्। विद्यार्थीले विद्यार्थी भुक्तानी स्थगन (学生納付特例) का लागि वार्ड कार्यालय वा पेन्सन कार्यालयमा आवेदन दिन सक्छन्।",
+                "vi": "Hầu như ai cũng phải tham gia bảo hiểm hưu trí (nenkin). Người đi làm đóng qua công ty; các trường hợp khác đóng ở văn phòng quận hoặc cửa hàng tiện lợi. Sinh viên có thể xin hoãn đóng theo diện sinh viên (学生納付特例) tại văn phòng quận hoặc văn phòng hưu trí.",
+                "my": "လူတိုင်းနီးပါး ပင်စင်စနစ် (နန်ကင်း) တွင် ပါဝင်ရပါတယ်။ ဝန်ထမ်းများ ကုမ္ပဏီမှတစ်ဆင့် ပေးပြီး ကျန်သူများ ရပ်ကွက်ရုံး သို့မဟုတ် ကွန်ဘိနိတွင် ပေးပါတယ်။ ကျောင်းသားများက ကျောင်းသားပေးချေမှုရွှေ့ဆိုင်းရေး (学生納付特例) ကို ရပ်ကွက်ရုံး သို့မဟုတ် ပင်စင်ရုံးတွင် လျှောက်ထားနိုင်ပါတယ်။"
+            }
+        },
+        {
             "id": "bank",
             "links": ["money.html"],
             "keys": {
                 "en": ["bank", "banking", "bank app", "open account", "bank account", "salary", "remittance"],
                 "ne": ["बैंक", "खाता", "तलब"],
-                "vi": ["ngân hàng", "ngan hang", "tài khoản", "tai khoan", "lương"],
+                "vi": ["ngân hàng", "ngan hang", "tài khoản", "tai khoan", "lương", "luong"],
                 "my": ["ဘဏ်", "အကောင့်", "လစာ"],
                 "ja": ["銀行", "口座"]
             },
             "answers": {
-                "en": "Choose a bank and open an account with your residence card and address proof. Ask about fees and language support.",
-                "ne": "बैंक छान्नुहोस् र निवास कार्ड र ठेगाना प्रमाणसहित खाता खोल्नुहोस्। शुल्क र भाषा सहयोगबारे सोध्नुहोस्।",
-                "vi": "Chọn ngân hàng và mở tài khoản bằng thẻ cư trú và giấy tờ địa chỉ. Hỏi về phí và hỗ trợ ngôn ngữ.",
-                "my": "ဘဏ်ရွေးပြီး နေထိုင်ခွင့်ကတ်နှင့် လိပ်စာအထောက်အထားဖြင့် အကောင့်ဖွင့်ပါ။ အခကြေးငွေနှင့် ဘာသာစကား အကူအညီအကြောင်း မေးပါ။"
+                "en": "Choose a bank and open an account with your residence card and address proof. Ask about fees and language support. Some banks limit accounts for people who have lived in Japan for less than 6 months, so ask the bank first.",
+                "ne": "बैंक छान्नुहोस् र निवास कार्ड र ठेगाना प्रमाणसहित खाता खोल्नुहोस्। शुल्क र भाषा सहयोगबारे सोध्नुहोस्। जापानमा 6 महिनाभन्दा कम बसेकालाई केही बैंकले खातामा सीमा लगाउँछन्, त्यसैले पहिले बैंकसँग सोध्नुहोस्।",
+                "vi": "Chọn ngân hàng và mở tài khoản bằng thẻ cư trú và giấy tờ địa chỉ. Hỏi về phí và hỗ trợ ngôn ngữ. Một số ngân hàng hạn chế tài khoản đối với người sống ở Nhật dưới 6 tháng, vì vậy hãy hỏi ngân hàng trước.",
+                "my": "ဘဏ်ရွေးပြီး နေထိုင်ခွင့်ကတ်နှင့် လိပ်စာအထောက်အထားဖြင့် အကောင့်ဖွင့်ပါ။ အခကြေးငွေနှင့် ဘာသာစကား အကူအညီအကြောင်း မေးပါ။ ဂျပန်တွင် ၆ လအောက် နေထိုင်သူများကို ဘဏ်အချို့က အကောင့်ကန့်သတ်ထားသဖြင့် ဦးစွာ ဘဏ်ကို မေးပါ။"
             }
         },
         {
@@ -146,23 +163,6 @@
             }
         },
         {
-            "id": "pension",
-            "links": ["money.html"],
-            "keys": {
-                "en": ["pension", "nenkin", "retirement"],
-                "ne": ["पेन्सन", "निवृत्तिभरण", "नेन्किन"],
-                "vi": ["lương", "luong", "lương hưu", "luong huu", "nenkin", "hưu trí", "huu tri"],
-                "my": ["ပင်စင်", "နန်ကင်း"],
-                "ja": ["年金"]
-            },
-            "answers": {
-                "en": "Almost everyone must join the pension system (nenkin). Employees pay through their company; others pay at the ward office or convenience store.",
-                "ne": "लगभग सबैजना पेन्सन प्रणाली (नेन्किन) मा जोडिनुपर्छ। कर्मचारीले कम्पनीमार्फत तिर्छन्; अरूले वार्ड कार्यालय वा सुविधा पसलमा तिर्छन्।",
-                "vi": "Hầu như ai cũng phải tham gia bảo hiểm hưu trí (nenkin). Người đi làm đóng qua công ty; các trường hợp khác đóng ở văn phòng quận hoặc cửa hàng tiện lợi.",
-                "my": "လူတိုင်းနီးပါး ပင်စင်စနစ် (နန်ကင်း) တွင် ပါဝင်ရပါတယ်။ ဝန်ထမ်းများ ကုမ္ပဏီမှတစ်ဆင့် ပေးပြီး ကျန်သူများ ရပ်ကွက်ရုံး သို့မဟုတ် ကွန်ဘိနိတွင် ပေးပါတယ်။"
-            }
-        },
-        {
             "id": "visa",
             "links": [],
             "keys": {
@@ -173,10 +173,10 @@
                 "ja": ["ビザ", "在留期間", "在留資格", "在留カード", "更新", "入国管理局"]
             },
             "answers": {
-                "en": "Apply to renew your visa at the immigration office before it expires. Bring your residence card, passport, and the application form.",
-                "ne": "भिसा सकिनुअघि अध्यागमन कार्यालयमा नवीकरणका लागि आवेदन दिनुहोस्। निवास कार्ड, राहदानी र आवेदन फारम लैजानुहोस्।",
-                "vi": "Hãy xin gia hạn visa tại cục xuất nhập cảnh trước khi hết hạn. Mang thẻ cư trú, hộ chiếu và đơn xin gia hạn.",
-                "my": "ဗီဇာမကုန်မီ လူဝင်မှုရုံးတွင် သက်တမ်းတိုးလျှောက်ပါ။ နေထိုင်ခွင့်ကတ်၊ နိုင်ငံကူးလက်မှတ်နှင့် လျှောက်လွှာပုံစံ ယူသွားပါ။"
+                "en": "You can apply from about 3 months before your period of stay expires. Apply to renew your visa at the immigration office before it expires. Bring your residence card, passport, a photo, and the application form.",
+                "ne": "बसाइँ अवधि सकिनुभन्दा करिब ३ महिनाअघिदेखि आवेदन दिन पाइन्छ। भिसा सकिनुअघि अध्यागमन कार्यालयमा नवीकरणका लागि आवेदन दिनुहोस्। निवास कार्ड, राहदानी, फोटो र आवेदन फारम लैजानुहोस्।",
+                "vi": "Bạn có thể nộp đơn từ khoảng 3 tháng trước khi thời gian lưu trú hết hạn. Hãy xin gia hạn visa tại cục xuất nhập cảnh trước khi hết hạn. Mang thẻ cư trú, hộ chiếu, một ảnh thẻ và đơn xin gia hạn.",
+                "my": "နေထိုင်ခွင့်ကာလ မကုန်မီ ၃ လခန့်အလိုမှစ၍ လျှောက်ထားနိုင်ပါတယ်။ ဗီဇာမကုန်မီ လူဝင်မှုရုံးတွင် သက်တမ်းတိုးလျှောက်ပါ။ နေထိုင်ခွင့်ကတ်၊ နိုင်ငံကူးလက်မှတ်၊ ဓာတ်ပုံနှင့် လျှောက်လွှာပုံစံ ယူသွားပါ။"
             }
         },
         {
@@ -190,10 +190,10 @@
                 "ja": ["マイナンバー", "個人番号"]
             },
             "answers": {
-                "en": "My Number is your personal ID number in Japan. You need the card or notification for jobs, tax, and health insurance procedures.",
-                "ne": "माई नम्बर जापानमा तपाईंको व्यक्तिगत परिचय नम्बर हो। काम, कर र स्वास्थ्य बीमाका कामका लागि कार्ड वा सूचना पत्र चाहिन्छ।",
-                "vi": "My Number là mã số định danh cá nhân của bạn ở Nhật. Bạn cần thẻ hoặc giấy báo mã số khi làm thủ tục việc làm, thuế và bảo hiểm y tế.",
-                "my": "မိုင်နမ်ဘာသည် ဂျပန်တွင် သင့်ကိုယ်ပိုင်မှတ်ပုံတင်နံပါတ် ဖြစ်ပါတယ်။ အလုပ်၊ အခွန်နှင့် ကျန်းမာရေးအာမခံ ကိစ္စများအတွက် ကတ် သို့မဟုတ် အကြောင်းကြားစာ လိုပါတယ်။"
+                "en": "My Number is your personal ID number in Japan. Use your My Number card. If you do not have one, ask the office or employer which proof they accept (for example a residence certificate 住民票 that shows your number). The paper notice 個人番号通知書 is not accepted as proof of your number.",
+                "ne": "माई नम्बर जापानमा तपाईंको व्यक्तिगत परिचय नम्बर हो। आफ्नो माई नम्बर कार्ड प्रयोग गर्नुहोस्। कार्ड छैन भने कुन प्रमाणपत्र चाहिन्छ भनेर कार्यालय वा रोजगारदातालाई सोध्नुहोस् (जस्तै नम्बर देखिने住民票 निवास प्रमाणपत्र)। कागजको सूचना 個人番号通知書 लाई नम्बरको प्रमाण मानिँदैन।",
+                "vi": "My Number là mã số định danh cá nhân của bạn ở Nhật. Hãy dùng thẻ My Number của bạn. Nếu chưa có, hãy hỏi cơ quan hoặc công ty xem họ chấp nhận giấy tờ nào (ví dụ giấy chứng nhận cư trú 住民票 có ghi mã số). Tờ giấy báo 個人番号通知書 không được chấp nhận làm bằng chứng mã số.",
+                "my": "မိုင်နမ်ဘာသည် ဂျပန်တွင် သင့်ကိုယ်ပိုင်မှတ်ပုံတင်နံပါတ် ဖြစ်ပါတယ်။ သင့် My Number ကတ် အသုံးပြုပါ။ ကတ်မရှိသေးပါက မည်သည့်အထောက်အထားကို လက်ခံသည်ကို ရုံး သို့မဟုတ် အလုပ်ရှင်အား မေးပါ (ဥပမာ နံပါတ်ပါသော 住民票 နေထိုင်မှုအထောက်အထားစာရွက်)။ စက္ကူအကြောင်းကြားစာ 個人番号通知書 ကို နံပါတ်အထောက်အထားအဖြစ် လက်မခံပါ။"
             }
         },
         {
@@ -207,10 +207,10 @@
                 "ja": ["仕事", "アルバイト", "許可"]
             },
             "answers": {
-                "en": "Students need work permission before starting. During school terms the limit is 28 hours a week. Check with your school.",
-                "ne": "विद्यार्थीले काम सुरु गर्नुअघि अनुमति चाहिन्छ। पढाइ चल्दा हप्तामा २८ घण्टाको सीमा छ। विद्यालयसँग बुझ्नुहोस्।",
-                "vi": "Du học sinh cần giấy phép trước khi làm việc. Trong học kỳ, giới hạn là 28 giờ mỗi tuần. Hãy hỏi trường của bạn.",
-                "my": "ကျောင်းသားများ အလုပ်မစမီ ခွင့်ပြုချက် လိုပါတယ်။ ကျောင်းဖွင့်ချိန်တွင် တစ်ပတ် ၂၈ နာရီ ကန့်သတ်ထားပါတယ်။ ကျောင်းနှင့် မေးပါ။"
+                "en": "Students need work permission before starting. During school terms the limit is 28 hours a week in total for all part-time jobs combined. During long school holidays set by the school, students can work up to 8 hours a day (40 hours a week). Check with your school.",
+                "ne": "विद्यार्थीले काम सुरु गर्नुअघि अनुमति चाहिन्छ। पढाइ चल्दा सबै पार्ट-टाइम काम जोडेर हप्तामा जम्मा २८ घण्टाको सीमा छ। विद्यालयले तोकेको लामो बिदामा दिनमा ८ घण्टासम्म (हप्तामा ४० घण्टा) काम गर्न पाइन्छ। विद्यालयसँग बुझ्नुहोस्।",
+                "vi": "Du học sinh cần giấy phép trước khi làm việc. Trong học kỳ, giới hạn là tổng cộng 28 giờ mỗi tuần cho mọi việc làm thêm cộng lại. Trong các kỳ nghỉ dài do trường quy định, sinh viên có thể làm tới 8 giờ mỗi ngày (40 giờ mỗi tuần). Hãy hỏi trường của bạn.",
+                "my": "ကျောင်းသားများ အလုပ်မစမီ ခွင့်ပြုချက် လိုပါတယ်။ ကျောင်းဖွင့်ချိန်တွင် အချိန်ပိုင်းအလုပ်အားလုံးပေါင်း တစ်ပတ် စုစုပေါင်း ၂၈ နာရီ ကန့်သတ်ထားပါတယ်။ ကျောင်းသတ်မှတ်သည့် ပိတ်ရက်ရှည်များတွင် တစ်ရက် ၈ နာရီအထိ (တစ်ပတ် ၄၀ နာရီ) လုပ်နိုင်ပါတယ်။ ကျောင်းနှင့် မေးပါ။"
             }
         },
         {
@@ -241,10 +241,10 @@
                 "ja": ["電車", "バス"]
             },
             "answers": {
-                "en": "Get an IC card (Suica or Pasmo) at any station ticket machine. Tap it on trains and buses.",
-                "ne": "कुनै पनि स्टेसनको टिकट मेसिनबाट आईसी कार्ड (Suica वा Pasmo) लिनुहोस्। रेल र बसमा ट्याप गर्नुहोस्।",
-                "vi": "Mua thẻ IC (Suica hoặc Pasmo) tại máy bán vé ở ga. Quẹt thẻ khi đi tàu và xe buýt.",
-                "my": "ဘူတာလက်မှတ်စက်တိုင်းတွင် IC ကတ် (Suica သို့မဟုတ် Pasmo) ဝယ်ပါ။ ရထားနှင့် ဘတ်စ်ကားတွင် တို့သုံးပါ။"
+                "en": "Get an IC card (Suica or Pasmo) at station ticket machines (the card name differs by region, e.g. Suica, PASMO, ICOCA). Tap it on trains and buses.",
+                "ne": "स्टेसनका टिकट मेसिनबाट आईसी कार्ड (Suica वा Pasmo) लिनुहोस् (क्षेत्रअनुसार कार्डको नाम फरक हुन्छ, जस्तै Suica, PASMO, ICOCA)। रेल र बसमा ट्याप गर्नुहोस्।",
+                "vi": "Mua thẻ IC (Suica hoặc Pasmo) tại các máy bán vé ở ga (tên thẻ khác nhau tùy vùng, ví dụ Suica, PASMO, ICOCA). Quẹt thẻ khi đi tàu và xe buýt.",
+                "my": "ဘူတာလက်မှတ်စက်များတွင် IC ကတ် (Suica သို့မဟုတ် Pasmo) ဝယ်ပါ (ဒေသအလိုက် ကတ်အမည် မတူပါ၊ ဥပမာ Suica, PASMO, ICOCA)။ ရထားနှင့် ဘတ်စ်ကားတွင် တို့သုံးပါ။"
             }
         },
         {
@@ -330,6 +330,40 @@
                 "ne": "तपाईंलाई स्वागत छ! जुनसुकै बेला सोध्नुहोस्।",
                 "vi": "Không có gì! Hãy hỏi bất cứ lúc nào.",
                 "my": "ရပါတယ်! အချိန်မရွေး မေးပါ။"
+            }
+        },
+        {
+            "id": "housing",
+            "links": ["housing.html"],
+            "keys": {
+                "en": ["rent", "apartment", "room", "deposit", "key money"],
+                "ne": ["भाडा", "कोठा", "अपार्टमेन्ट", "धरौटी"],
+                "vi": ["thuê nhà", "thue nha", "căn hộ", "can ho", "phòng", "phong", "tiền cọc", "tien coc"],
+                "my": ["ငှားခ", "အခန်း", "တိုက်ခန်း", "စပေါ်"],
+                "ja": ["賃貸", "アパート", "部屋", "敷金", "礼金"]
+            },
+            "answers": {
+                "en": "Decide your budget first: initial costs often equal 4 to 6 months of rent (deposit 敷金, key money 礼金, agent fee). Visit rooms in person, and register your new address at the ward office within 14 days of moving.",
+                "ne": "पहिले बजेट तय गर्नुहोस्: सुरुका खर्च प्रायः ४ देखि ६ महिनाको भाडा बराबर हुन्छन् (धरौटी 敷金, key money 礼金, एजेन्ट शुल्क)। कोठा आफैं गएर हेर्नुहोस्, र सरेको १४ दिनभित्र वार्ड कार्यालयमा ठेगाना दर्ता गर्नुहोस्।",
+                "vi": "Hãy quyết định ngân sách trước: chi phí ban đầu thường bằng 4 đến 6 tháng tiền thuê (tiền cọc 敷金, tiền lễ 礼金, phí môi giới). Đến xem phòng trực tiếp, và đăng ký địa chỉ mới tại văn phòng quận trong 14 ngày sau khi chuyển đến.",
+                "my": "အရင်ဦးဆုံး ဘတ်ဂျက်သတ်မှတ်ပါ - အစပိုင်းကုန်ကျစရိတ်များသည် ပုံမှန်အားဖြင့် လခ ၄ လမှ ၆ လစာခန့် ရှိတတ်ပါသည် (စပေါ် 敷金၊ key money 礼金၊ ပွဲစားခ)။ အခန်းကို ကိုယ်တိုင်သွားကြည့်ပြီး ပြောင်းပြီး ၁၄ ရက်အတွင်း ရပ်ကွက်ရုံးတွင် လိပ်စာအသစ် မှတ်ပုံတင်ပါ။"
+            }
+        },
+        {
+            "id": "earthquake",
+            "links": ["emergency.html"],
+            "keys": {
+                "en": ["earthquake", "disaster", "typhoon", "tsunami", "quake"],
+                "ne": ["भूकम्प"],
+                "vi": ["động đất", "dong dat"],
+                "my": ["ငလျင်"],
+                "ja": ["地震", "台風"]
+            },
+            "answers": {
+                "en": "In an earthquake, protect your head and move to a safe place first. Call 119 for fire or ambulance. Say your location clearly and follow official instructions.",
+                "ne": "भूकम्प जाँदा पहिले टाउको जोगाउनुहोस् र सुरक्षित ठाउँमा जानुहोस्। दमकल वा एम्बुलेन्सका लागि 119 मा फोन गर्नुहोस्। ठेगाना स्पष्ट भन्नुहोस् र आधिकारिक निर्देशन पालना गर्नुहोस्।",
+                "vi": "Khi động đất, trước tiên hãy bảo vệ đầu và di chuyển đến nơi an toàn. Gọi 119 cho cứu hỏa hoặc cấp cứu. Nói rõ vị trí của bạn và làm theo hướng dẫn chính thức.",
+                "my": "ငလျင်လှုပ်လျှင် အရင် ဦးခေါင်းကာကွယ်ပြီး လုံခြုံသောနေရာသို့ရွှေ့ပါ။ မီးသတ်နှင့် လူနာတင်ယာဉ်အတွက် 119 ကိုခေါ်ပါ။ တည်နေရာကို ရှင်းလင်းစွာပြောပြီး တရားဝင်ညွှန်ကြားချက်များ လိုက်နာပါ။"
             }
         },
         {

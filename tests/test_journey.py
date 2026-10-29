@@ -98,6 +98,23 @@ class HomeTrackerPromoTest(unittest.TestCase):
                 self.assertNotIn("start.html", nav.group(1),
                                  os.path.basename(path))
 
+    def test_guide_keywords_cover_vietnamese_and_burmese(self):
+        src = _read("guide-data.js")
+        for word in ["ngân hàng", "ဘဏ်", "việc làm", "အလုပ်",
+                     "bệnh viện", "ဆေးရုံ", "thuế", "အခွန်",
+                     "thị thực", "ဗီဇာ", "rác", "အမှိုက်"]:
+            self.assertIn(word, src)
+
+    def test_search_lead_mentions_all_languages(self):
+        src = _read("i18n.js")
+        self.assertIn('"search.lead": "Search topics in English, Japanese, '
+                      'Nepali, Vietnamese or Burmese."', src)
+
+    def test_home_save_failure_shows_message(self):
+        html = _read("index.html")
+        self.assertIn('catch (e2) { document.getElementById("home-form-status")'
+                      '.textContent = t("tracker.saveFailed"', html)
+
     def test_home_quick_add_form_present(self):
         html = _read("index.html")
         for element_id in ("home-entry-form", "home-type", "home-amount",

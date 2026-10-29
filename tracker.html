@@ -203,8 +203,14 @@
             return list.filter(e => e && e.date && typeof e.amount === "number" && (e.type === "income" || e.type === "expense" || e.type === "saving"));
         }
 
+        // Skip broken goals the same way, so one bad goal cannot break the page.
+        function cleanGoals(list) {
+            if (!Array.isArray(list)) return [];
+            return list.filter(g => g && typeof g.id === "string" && typeof g.name === "string" && typeof g.target === "number" && g.target > 0);
+        }
+
         let entries = cleanEntries(load(ENTRIES_KEY, []));
-        let goals = load(GOALS_KEY, []);
+        let goals = cleanGoals(load(GOALS_KEY, []));
 
         const monthInput = document.getElementById("month");
         // Local date as YYYY-MM-DD (toISOString uses UTC, which is

@@ -212,6 +212,27 @@ class AccessControlTest(unittest.TestCase):
                                    headers={"X-LB-Token": "s3cret"})
         self.assertEqual(res.status_code, 200)
 
+    def test_lb_config_serves_token(self):
+        server.API_TOKEN = "s3cret"
+        res = self.client.get("/lb-config.js")
+        self.assertEqual(res.status_code, 200)
+        self.assertIn("application/javascript",
+                      res.headers.get("Content-Type", ""))
+        self.assertIn("no-store", res.headers.get("Cache-Control", ""))
+        self.assertEqual(res.get_data(as_text=True),
+                         'window.LB_API_TOKEN = "s3cret";')
+
+    def test_lb_config_empty_without_token(self):
+        res = self.client.get("/lb-config.js")
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.get_data(as_text=True), "")
+
+    def test_lb_config_escapes_token(self):
+        server.API_TOKEN = 'a"b\\c'
+        res = self.client.get("/lb-config.js")
+        self.assertEqual(res.get_data(as_text=True),
+                         'window.LB_API_TOKEN = "a\\"b\\\\c";')
+
 
 class ProxyRateLimitTest(unittest.TestCase):
     def setUp(self):

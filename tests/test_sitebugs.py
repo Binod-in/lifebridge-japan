@@ -33,6 +33,10 @@ class TrackerSafetyTest(unittest.TestCase):
         self.assertIn("function cleanEntries(list)", self.page)
         self.assertIn("cleanEntries(load(ENTRIES_KEY, []))", self.page)
 
+    def test_broken_goals_skipped_on_load(self):
+        self.assertIn("function cleanGoals(list)", self.page)
+        self.assertIn("cleanGoals(load(GOALS_KEY, []))", self.page)
+
     def test_goal_name_uses_text_content(self):
         self.assertIn('row.querySelector(".entry-goal").textContent', self.page)
         self.assertNotIn('goal.name) : ""}</small>', self.page)

@@ -417,7 +417,7 @@
         </section>
 
         <section class="card" id="result-card" style="display:none;">
-            <h2 data-i18n="explain.resultTitle">Your explanation</h2>
+            <h2><span data-i18n="explain.resultTitle">Your explanation</span> <span id="sample-tag" data-i18n="explain.sampleTag" style="display:none;">Sample</span></h2>
             <div class="result-grid">
                 <article class="result-card">
                     <h3 data-i18n="explain.hWhat">What is this?</h3>
@@ -438,6 +438,8 @@
                 <article class="result-card">
                     <h3 data-i18n="explain.hDeadline">Deadline</h3>
                     <p id="result-deadline"></p>
+                    <button type="button" id="save-date-btn" class="btn" data-i18n="explain.saveDate" style="display:none;">Save to Important Dates</button>
+                    <p id="save-date-msg" role="status"></p>
                 </article>
                 <article class="result-card">
                     <h3 data-i18n="explain.hCheck">Things to check</h3>
@@ -497,6 +499,7 @@
         </div>
     </footer>
     <script src="i18n.js" defer></script>
+    <script src="lb-config.js"></script>
     <script>
         const HEADERS = [
             ["What is this?", "result-what"],
@@ -579,7 +582,8 @@
         let lastPhotoB64 = "";
         let lastPhotoMime = "image/jpeg";
         let lastExplanation = "";
-        let askHistory = [];
+        let chatHistory = [];
+        let lastDeadlineDate = "";
         const askForm = document.getElementById("ask-form");
         const askInput = document.getElementById("ask-input");
         const askBtn = document.getElementById("ask-btn");
@@ -718,6 +722,43 @@
             return { "result-what": cleanText(raw) || raw };
         }
 
+        const saveDateBtn = document.getElementById("save-date-btn");
+        const saveDateMsg = document.getElementById("save-date-msg");
+
+        // Show the Save button only for a real YYYY-MM-DD date.
+        function updateSaveButton() {
+            saveDateMsg.replaceChildren();
+            saveDateBtn.style.display = /^\d{4}-\d{2}-\d{2}$/.test(lastDeadlineDate) ? "" : "none";
+        }
+
+        saveDateBtn.addEventListener("click", () => {
+            const title = (document.getElementById("result-what").textContent || "").trim().slice(0, 60);
+            let items = [];
+            try {
+                const saved = JSON.parse(window.localStorage.getItem("lifego-dates") || "[]");
+                if (Array.isArray(saved)) items = saved;
+            } catch (e) { items = []; }
+            // Keep only valid items, same as app.js readDates().
+            items = items.filter(function (d) {
+                return d && typeof d.id === "string" && typeof d.title === "string" &&
+                    /^\d{4}-\d{2}-\d{2}$/.test(d.date);
+            });
+            const dup = items.some(function (d) { return d.title === title && d.date === lastDeadlineDate; });
+            saveDateMsg.replaceChildren();
+            if (dup) {
+                saveDateMsg.textContent = t("explain.dateExists", "Already in Important Dates.");
+            } else {
+                items.push({id: Date.now() + "-" + Math.floor(Math.random() * 100000), title: title, date: lastDeadlineDate});
+                try { window.localStorage.setItem("lifego-dates", JSON.stringify(items)); } catch (e) { /* keep message anyway */ }
+                saveDateMsg.textContent = t("explain.dateSaved", "Saved to Important Dates.");
+            }
+            saveDateMsg.appendChild(document.createTextNode(" "));
+            const link = document.createElement("a");
+            link.href = "important-dates.html";
+            link.textContent = t("explain.viewDates", "View Important Dates");
+            saveDateMsg.appendChild(link);
+        });
+
         form.addEventListener("submit", async (e) => {
             e.preventDefault();
             if (typeof navigator !== "undefined" && navigator.onLine === false) {
@@ -755,11 +796,16 @@
                     document.getElementById(id).textContent = sections[id] || "—";
                 }
                 document.getElementById("result-card").style.display = "block";
+                document.getElementById("sample-tag").style.display = "none";
                 // The new photo + explanation replace the stored pair only now, on success.
                 lastPhotoB64 = newPhotoB64;
                 lastPhotoMime = newPhotoMime;
                 lastExplanation = json.text || "";
-                askHistory = [];
+                chatHistory = [];
+                lastDeadlineDate = "";
+                const dateHit = /"deadline_date"\s*:\s*"([^"]*)"/.exec(json.text || "");
+                if (dateHit) lastDeadlineDate = dateHit[1];
+                updateSaveButton();
                 thread.innerHTML = "";
                 askStatus.textContent = "";
                 document.getElementById("followup-card").style.display = "block";
@@ -800,7 +846,6 @@
             document.querySelectorAll(".chip").forEach((c) => { c.disabled = true; });
             askStatus.textContent = "";
             addMsg("chat-q", question);
-            const sendImage = askHistory.length === 0 && !!lastPhotoB64;
             try {
                 const res = await fetchWithTimeout("/ask", {
                     method: "POST",
@@ -808,17 +853,17 @@
                     body: JSON.stringify({
                         question: question,
                         language: document.getElementById("language").value,
-                        image: sendImage ? ("data:" + lastPhotoMime + ";base64," + lastPhotoB64) : "",
-                        has_image: sendImage,
+                        image: lastPhotoB64 ? ("data:" + lastPhotoMime + ";base64," + lastPhotoB64) : "",
                         explanation: lastExplanation,
-                        history: askHistory.slice(-6)
+                        history: chatHistory.slice(-10)
                     })
                 });
                 const json = await readApiJson(res);
                 if (!res.ok || json.error) throw new Error(json.error || "Something went wrong");
                 const answer = json.answer || "—";
                 addMsg("chat-a", answer);
-                askHistory.push({question: question, answer: answer});
+                chatHistory.push({role: "user", content: question});
+                chatHistory.push({role: "assistant", content: answer});
             } catch (err) {
                 if (err && err.name === "AbortError") {
                     askStatus.textContent = t("explain.tooSlow", "The AI took too long — please try again.");
@@ -845,24 +890,34 @@
             chip.addEventListener("click", () => askQuestion(chip.textContent));
         });
 
-        sampleBtn.addEventListener("click", async () => {
-            if (typeof navigator !== "undefined" && navigator.onLine === false) {
-                form.requestSubmit();
-                return;
-            }
-            try {
-                const res = await fetch("images/sample-notice.png");
-                if (!res.ok) throw new Error("missing");
-                const blob = await res.blob();
-                const file = new File([blob], "sample-notice.png", { type: blob.type || "image/png" });
-                const dt = new DataTransfer();
-                dt.items.add(file);
-                photoInput.files = dt.files;
-                photoInput.dispatchEvent(new Event("change"));
-                form.requestSubmit();
-            } catch (e) {
-                setStatus("explain.noSample", "Sample notice is not available.");
-            }
+        // Demo sample: fills the cards without calling the API.
+        const SAMPLE_NOTICE = {
+            what: "City notice: resident tax (住民税) payment notice",
+            why: "Yearly resident tax bill from the city office.",
+            importance: "High. Pay before the due date to avoid a late fee.",
+            next_steps: "1. Check the amount and due date.\n2. Pay at a bank or convenience store.\n3. Keep the receipt.",
+            deadline: "March 31, 2027",
+            check: "Your name and address. The amount and due date.",
+            deadline_date: "2027-03-31"
+        };
+
+        sampleBtn.addEventListener("click", () => {
+            document.getElementById("result-what").textContent = SAMPLE_NOTICE.what;
+            document.getElementById("result-why").textContent = SAMPLE_NOTICE.why;
+            document.getElementById("result-importance").textContent = SAMPLE_NOTICE.importance;
+            document.getElementById("result-next").textContent = SAMPLE_NOTICE.next_steps;
+            document.getElementById("result-deadline").textContent = SAMPLE_NOTICE.deadline;
+            document.getElementById("result-check").textContent = SAMPLE_NOTICE.check;
+            document.getElementById("result-card").style.display = "block";
+            document.getElementById("sample-tag").style.display = "";
+            lastDeadlineDate = SAMPLE_NOTICE.deadline_date;
+            updateSaveButton();
+            // No follow-up chat for the sample.
+            lastExplanation = "";
+            chatHistory = [];
+            thread.innerHTML = "";
+            document.getElementById("followup-card").style.display = "none";
+            lastStatusKey = null; status.textContent = "";
         });
     </script>
 </body>
