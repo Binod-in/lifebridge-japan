@@ -187,12 +187,39 @@ class ExplainPageScriptTest(unittest.TestCase):
     def test_sample_button_fills_cards(self):
         self.assertIn("Try a sample notice", self.page)
         self.assertIn("fillSampleCards()", self.page)
-        self.assertIn("2026-11-30", self.page)
+        self.assertIn("2027-02-01", self.page)
         self.assertIn('id="sample-tag"', self.page)
         self.assertIn('"explain.sampleTag"', self.page)
         self.assertIn('"explain.sample.what"', self.page)
         self.assertIn("if (sampleShowing) fillSampleCards();", self.page)
         self.assertNotIn("requestSubmit", self.page)
+
+    def test_sample_deadline_locked(self):
+        # 4th resident-tax installment: Jan 31, 2027 is a Sunday, so Feb 1.
+        self.assertIn('lastDeadlineDate = "2027-02-01";', self.page)
+        with open(os.path.join(ROOT, "i18n.js"), encoding="utf-8") as f:
+            i18n = f.read()
+        for text in ("February 1, 2027 (4th installment)",
+                     "फेब्रुअरी 1, 2027 (चौथो किस्ता)",
+                     "Ngày 1 tháng 2 năm 2027 (đợt 4)",
+                     "၂၀၂၇ ဖေဖော်ဝါရီ ၁ (စတုတ္ထအရစ်ကျ)"):
+            self.assertIn(text, i18n)
+
+    def test_save_date_asks_to_confirm(self):
+        self.assertIn('id="save-date-confirm"', self.page)
+        self.assertIn('id="save-date-input"', self.page)
+        self.assertIn('type="date"', self.page)
+        self.assertIn('"explain.checkDate"', self.page)
+        self.assertIn('"explain.confirmSave"', self.page)
+        self.assertIn("saveDateInput.value = lastDeadlineDate", self.page)
+        self.assertIn("isRealDate(picked)", self.page)
+
+    def test_privacy_hint_shown(self):
+        self.assertIn('"explain.privacyHint"', self.page)
+        with open(os.path.join(ROOT, "privacy.html"), encoding="utf-8") as f:
+            privacy = f.read()
+        self.assertIn("privacy.item5", privacy)
+        self.assertIn("residence card number", privacy)
 
     def test_scan_state_updates_atomically(self):
         # The new photo must wait in locals until the reply succeeds, so a

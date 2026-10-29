@@ -98,6 +98,14 @@ class HomeTrackerPromoTest(unittest.TestCase):
                 self.assertNotIn("start.html", nav.group(1),
                                  os.path.basename(path))
 
+    def test_documents_mentions_visa_renewal_fee(self):
+        html = _read("documents.html")
+        self.assertIn("doc.item5", html)
+        self.assertIn("33,000", html)
+        self.assertIn("doc.link3", html)
+        self.assertIn("https://www.moj.go.jp/isa/applications/procedures/16-3.html",
+                      html)
+
     def test_guide_keywords_cover_vietnamese_and_burmese(self):
         src = _read("guide-data.js")
         for word in ["ngân hàng", "ဘဏ်", "việc làm", "အလုပ်",

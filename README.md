@@ -21,11 +21,29 @@ The prototype focuses on the most common notices newcomers receive:
 - 🏫 School letters (学校)
 - 💡 Utility bills — water, electricity, gas (水道・電気・ガス)
 
+## Features
+
+- 🔍 Lens: photograph a Japanese notice and get a plain-language explanation
+- 💬 Follow-up chat: ask questions about the same notice, with memory of earlier questions
+- 📅 Save deadline: check the due date and add it to Important Dates in one tap
+- 📴 Offline guides + offline chatbot: saved guides and keyword answers work without internet
+- 💰 Money tracker: income, spending and savings goals, stored in your browser
+- 🌐 4-language UI: English, Nepali, Vietnamese and Burmese
+- 🌙 Dark mode
+
 ## How it works
 
 - **Frontend:** a simple, mobile-friendly web page (HTML, CSS, JavaScript)
 - **Backend:** a small Python server
 - **AI:** Meta models via the **Meta Model API** read the notice photo, understand the Japanese text, and explain it in the user's language with steps and deadlines
+
+## How LifeBridge uses Meta AI
+
+- The **muse-spark-1.3** vision model reads the notice photo and its Japanese text.
+- The model must reply in strict JSON with 7 fields (`what`, `why`, `importance`, `next_steps`, `deadline`, `check`, `deadline_date`) — the due date always comes back as `YYYY-MM-DD`.
+- Follow-up chat sends the photo again with the explanation and the earlier questions, so every question stays about the same notice.
+- The prompt forbids guessing: unclear amounts and dates come back empty with a note to check, never invented.
+- Answers come in 5 languages: English, Nepali, Vietnamese, Burmese and Japanese.
 
 ## Run locally
 
@@ -58,6 +76,7 @@ Japan's foreign-resident community keeps growing, and language is still the bigg
 
 🚧 Prototype built for the **Meta Global AI Developer Hackathon** (Indie track, "Build for Your World"). Development: Oct 27 – Nov 4, 2026.
 
+- Screenshots: *coming soon*
 - Demo video: *coming soon*
 - Live demo: *coming soon*
 

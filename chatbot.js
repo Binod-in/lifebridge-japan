@@ -173,10 +173,10 @@
                 "ja": ["ビザ", "在留期間", "在留資格", "在留カード", "更新", "入国管理局"]
             },
             "answers": {
-                "en": "You can apply from about 3 months before your period of stay expires. Apply to renew your visa at the immigration office before it expires. Bring your residence card, passport, a photo, and the application form.",
-                "ne": "बसाइँ अवधि सकिनुभन्दा करिब ३ महिनाअघिदेखि आवेदन दिन पाइन्छ। भिसा सकिनुअघि अध्यागमन कार्यालयमा नवीकरणका लागि आवेदन दिनुहोस्। निवास कार्ड, राहदानी, फोटो र आवेदन फारम लैजानुहोस्।",
-                "vi": "Bạn có thể nộp đơn từ khoảng 3 tháng trước khi thời gian lưu trú hết hạn. Hãy xin gia hạn visa tại cục xuất nhập cảnh trước khi hết hạn. Mang thẻ cư trú, hộ chiếu, một ảnh thẻ và đơn xin gia hạn.",
-                "my": "နေထိုင်ခွင့်ကာလ မကုန်မီ ၃ လခန့်အလိုမှစ၍ လျှောက်ထားနိုင်ပါတယ်။ ဗီဇာမကုန်မီ လူဝင်မှုရုံးတွင် သက်တမ်းတိုးလျှောက်ပါ။ နေထိုင်ခွင့်ကတ်၊ နိုင်ငံကူးလက်မှတ်၊ ဓာတ်ပုံနှင့် လျှောက်လွှာပုံစံ ယူသွားပါ။"
+                "en": "You can apply from about 3 months before your period of stay expires. Apply to renew your visa at the immigration office before it expires. Bring your residence card, passport, a photo, and the application form. From October 1, 2026 the renewal fee depends on the period you get, for example ¥33,000 for 1 year (¥6,000 if you applied by September 30, 2026). Check the official ISA page for your case.",
+                "ne": "बसाइँ अवधि सकिनुभन्दा करिब ३ महिनाअघिदेखि आवेदन दिन पाइन्छ। भिसा सकिनुअघि अध्यागमन कार्यालयमा नवीकरणका लागि आवेदन दिनुहोस्। निवास कार्ड, राहदानी, फोटो र आवेदन फारम लैजानुहोस्। अक्टोबर 1, 2026 देखि नवीकरण शुल्क पाउने अवधिअनुसार फरक हुन्छ, जस्तै 1 वर्षका लागि ¥33,000 (सेप्टेम्बर 30, 2026 सम्म आवेदन दिएको भए ¥6,000)। आफ्नो हकमा आधिकारिक ISA पृष्ठ हेर्नुहोस्।",
+                "vi": "Bạn có thể nộp đơn từ khoảng 3 tháng trước khi thời gian lưu trú hết hạn. Hãy xin gia hạn visa tại cục xuất nhập cảnh trước khi hết hạn. Mang thẻ cư trú, hộ chiếu, một ảnh thẻ và đơn xin gia hạn. Từ ngày 1 tháng 10 năm 2026, lệ phí gia hạn tùy theo thời hạn bạn được cấp, ví dụ ¥33.000 cho 1 năm (¥6.000 nếu bạn nộp đơn trước ngày 30 tháng 9 năm 2026). Hãy xem trang ISA chính thức cho trường hợp của bạn.",
+                "my": "နေထိုင်ခွင့်ကာလ မကုန်မီ ၃ လခန့်အလိုမှစ၍ လျှောက်ထားနိုင်ပါတယ်။ ဗီဇာမကုန်မီ လူဝင်မှုရုံးတွင် သက်တမ်းတိုးလျှောက်ပါ။ နေထိုင်ခွင့်ကတ်၊ နိုင်ငံကူးလက်မှတ်၊ ဓာတ်ပုံနှင့် လျှောက်လွှာပုံစံ ယူသွားပါ။ ၂၀၂၆ အောက်တိုဘာ ၁ ရက်မှစ၍ သက်တမ်းတိုးခက ရရှိသောကာလအလိုက် ကွဲပြားပြီး ဥပမာ ၁ နှစ်အတွက် ¥33,000 (၂၀၂၆ စက်တင်ဘာ ၃၀ ရက်မတိုင်မီ လျှောက်ထားပါက ¥6,000) ဖြစ်ပါတယ်။ သင့်အခြေအနေအတွက် တရားဝင် ISA စာမျက်နှာ ကြည့်ပါ။"
             }
         },
         {

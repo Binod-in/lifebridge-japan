@@ -1,7 +1,7 @@
 /* LifeBridge Japan service worker: offline guides + offline fallback page.
  * Registered on every page by i18n.js. Version the CACHE name to update.
  */
-const CACHE = "lifebridge-v10";
+const CACHE = "lifebridge-v11";
 const CORE = [
     "/",
     "offline.html",

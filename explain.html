@@ -405,6 +405,7 @@
                         <span class="upload-hint" data-i18n="explain.uploadHint">A clear photo of the whole notice works best</span>
                         <input type="file" id="photo" name="photo" accept="image/jpeg,image/png,image/webp" capture="environment" required>
                     </label>
+                    <p class="upload-privacy" data-i18n="explain.privacyHint">Your photo is sent to Meta AI. Cover details you don't need, like your residence card number.</p>
                     <button type="button" id="sample-btn" class="btn" data-i18n="explain.sampleBtn">Try a sample notice</button>
                     <img id="preview" alt="" style="display:none;">
                 </div>
@@ -451,6 +452,11 @@
                     <p id="result-deadline"></p>
                     <button type="button" id="save-date-btn" class="btn" data-i18n="explain.saveDate" style="display:none;">Save to Important Dates</button>
                     <p id="save-date-msg" role="status"></p>
+                    <div id="save-date-confirm" style="display:none;">
+                        <p data-i18n="explain.checkDate">Check this date against the letter before saving.</p>
+                        <input type="date" id="save-date-input" data-i18n-aria-label="explain.saveDateLabel" aria-label="Date to save">
+                        <button type="button" id="save-date-confirm-btn" class="btn" data-i18n="explain.confirmSave">Confirm</button>
+                    </div>
                 </article>
                 <article class="result-card">
                     <h3 data-i18n="explain.hCheck">Things to check</h3>
@@ -741,6 +747,9 @@
 
         const saveDateBtn = document.getElementById("save-date-btn");
         const saveDateMsg = document.getElementById("save-date-msg");
+        const saveDateConfirm = document.getElementById("save-date-confirm");
+        const saveDateInput = document.getElementById("save-date-input");
+        const saveDateConfirmBtn = document.getElementById("save-date-confirm-btn");
 
         // A real calendar date: 2027-02-30 must fail, not roll over.
         function isRealDate(text) {
@@ -754,6 +763,7 @@
         function updateSaveButton() {
             saveDateState = "";
             saveDateMsg.replaceChildren();
+            saveDateConfirm.style.display = "none";
             saveDateBtn.style.display = isRealDate(lastDeadlineDate) ? "" : "none";
         }
 
@@ -778,6 +788,20 @@
         }
 
         saveDateBtn.addEventListener("click", () => {
+            // Ask the user to check the date before anything is saved.
+            saveDateState = "";
+            saveDateMsg.replaceChildren();
+            saveDateInput.value = lastDeadlineDate;
+            saveDateBtn.style.display = "none";
+            saveDateConfirm.style.display = "";
+        });
+
+        saveDateConfirmBtn.addEventListener("click", () => {
+            const picked = saveDateInput.value;
+            if (!isRealDate(picked)) {
+                saveDateMsg.textContent = t("explain.badDate", "Please pick a real date from the calendar.");
+                return;
+            }
             const title = (document.getElementById("result-what").textContent || "").trim().slice(0, 60);
             let items = [];
             try {
@@ -789,14 +813,16 @@
                 return d && typeof d.id === "string" && typeof d.title === "string" &&
                     /^\d{4}-\d{2}-\d{2}$/.test(d.date);
             });
-            const dup = items.some(function (d) { return d.title === title && d.date === lastDeadlineDate; });
+            const dup = items.some(function (d) { return d.title === title && d.date === picked; });
             if (dup) {
                 saveDateState = "exists";
             } else {
-                items.push({id: Date.now() + "-" + Math.floor(Math.random() * 100000), title: title, date: lastDeadlineDate});
+                items.push({id: Date.now() + "-" + Math.floor(Math.random() * 100000), title: title, date: picked});
                 saveDateState = "saved";
                 try { window.localStorage.setItem("lifego-dates", JSON.stringify(items)); } catch (e) { saveDateState = "failed"; }
             }
+            saveDateConfirm.style.display = "none";
+            saveDateBtn.style.display = "";
             renderSaveDateMsg();
         });
 
@@ -943,7 +969,7 @@
             document.getElementById("result-why").textContent = t("explain.sample.why", "Yearly resident tax bill from the city office.");
             document.getElementById("result-importance").textContent = t("explain.sample.importance", "High. Pay before the due date to avoid a late fee.");
             document.getElementById("result-next").textContent = t("explain.sample.next", "1. Check the amount and due date.\n2. Pay at a bank or convenience store.\n3. Keep the receipt.");
-            document.getElementById("result-deadline").textContent = t("explain.sample.deadline", "November 30, 2026");
+            document.getElementById("result-deadline").textContent = t("explain.sample.deadline", "February 1, 2027 (4th installment)");
             document.getElementById("result-check").textContent = t("explain.sample.check", "Your name and address. The amount and due date.");
         }
 
@@ -951,7 +977,7 @@
             fillSampleCards();
             document.getElementById("result-card").style.display = "block";
             document.getElementById("sample-tag").style.display = "";
-            lastDeadlineDate = "2026-11-30";
+            lastDeadlineDate = "2027-02-01";
             updateSaveButton();
             // No follow-up chat for the sample.
             lastExplanation = "";

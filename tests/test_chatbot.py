@@ -142,6 +142,13 @@ class ChatbotIntentTest(unittest.TestCase):
         self.assertEqual(self._intent_id("ကျွန်တော့် နေထိုင်ခွင့်ကတ် ပျောက်သွားတယ်"),
                          "lost-residence")
 
+    def test_visa_answer_mentions_renewal_fee(self):
+        visa = next(i for i in self.kb if i.get("id") == "visa")
+        for lang in ("en", "ne", "vi", "my"):
+            answer = visa["answers"][lang]
+            self.assertIn("ISA", answer, lang)
+            self.assertIn("33", answer, lang)
+
     def test_apartment_rent_is_housing(self):
         self.assertEqual(self._intent_id("apartment rent"), "housing")
 
