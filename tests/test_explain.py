@@ -128,6 +128,23 @@ class ExplainPageScriptTest(unittest.TestCase):
         self.assertIn('"data:" + lastPhotoMime + ";base64," + lastPhotoB64',
                        self.page)
 
+    def test_followup_keeps_history(self):
+        self.assertIn("let askHistory = [];", self.page)
+        self.assertIn("askHistory.push({question: question, answer: answer})",
+                      self.page)
+        self.assertIn("history: askHistory.slice(-6)", self.page)
+        self.assertIn("has_image", self.page)
+
+    def test_new_explanation_clears_history(self):
+        self.assertEqual(self.page.count("askHistory = [];"), 2)
+
+    def test_sample_button_uses_normal_flow(self):
+        self.assertIn("Try a sample notice", self.page)
+        self.assertIn("sample-notice.png", self.page)
+        self.assertIn("DataTransfer", self.page)
+        self.assertIn("form.requestSubmit()", self.page)
+        self.assertIn('"explain.noSample"', self.page)
+
     def test_scan_state_updates_atomically(self):
         # The new photo must wait in locals until the reply succeeds, so a
         # failed scan keeps the previous photo + explanation pair untouched.

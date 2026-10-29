@@ -150,6 +150,10 @@
             background-color: #f5f9ff;
         }
 
+        #sample-btn {
+            margin-top: 12px;
+        }
+
         #language {
             width: 100%;
             min-height: 52px;
@@ -390,6 +394,7 @@
                         <span class="upload-hint" data-i18n="explain.uploadHint">A clear photo of the whole notice works best</span>
                         <input type="file" id="photo" name="photo" accept="image/jpeg,image/png,image/webp" capture="environment" required>
                     </label>
+                    <button type="button" id="sample-btn" class="btn" data-i18n="explain.sampleBtn">Try a sample notice</button>
                     <img id="preview" alt="" style="display:none;">
                 </div>
 
@@ -504,6 +509,7 @@
 
         const form = document.getElementById("explain-form"); if (window.LBT && typeof window.LBT.onChange === "function") { window.LBT.onChange(function () { if (lastStatusKey) setStatus(lastStatusKey, lastStatusFb, lastStatusMsg); }); } else { document.addEventListener("lb:lang", function () { if (lastStatusKey) setStatus(lastStatusKey, lastStatusFb, lastStatusMsg); }); }
         const photoInput = document.getElementById("photo");
+        const sampleBtn = document.getElementById("sample-btn");
         const preview = document.getElementById("preview");
         const status = document.getElementById("status");
         const btn = document.getElementById("explain-btn"); function t(key, fallback) { try { if (window.LBT && typeof window.LBT.t === "function") { var v = window.LBT.t(key); if (typeof v === "string" && v !== "" && v !== key) return v; } } catch (e) {} return fallback; } var lastStatusKey = null, lastStatusFb = "", lastStatusMsg = ""; function setStatus(key, fb, msg) { lastStatusKey = key; lastStatusFb = fb; lastStatusMsg = msg || ""; status.textContent = t(key, fb).replace("{msg}", lastStatusMsg); }
@@ -573,6 +579,7 @@
         let lastPhotoB64 = "";
         let lastPhotoMime = "image/jpeg";
         let lastExplanation = "";
+        let askHistory = [];
         const askForm = document.getElementById("ask-form");
         const askInput = document.getElementById("ask-input");
         const askBtn = document.getElementById("ask-btn");
@@ -722,6 +729,7 @@
                 return;
             }
             btn.disabled = true;
+            sampleBtn.disabled = true;
             askInput.disabled = true;
             askBtn.disabled = true;
             document.querySelectorAll(".chip").forEach((c) => { c.disabled = true; });
@@ -751,6 +759,7 @@
                 lastPhotoB64 = newPhotoB64;
                 lastPhotoMime = newPhotoMime;
                 lastExplanation = json.text || "";
+                askHistory = [];
                 thread.innerHTML = "";
                 askStatus.textContent = "";
                 document.getElementById("followup-card").style.display = "block";
@@ -766,6 +775,7 @@
             } finally {
                 btn.textContent = originalBtnText;
                 btn.disabled = false;
+                sampleBtn.disabled = false;
                 askInput.disabled = false;
                 askBtn.disabled = false;
                 document.querySelectorAll(".chip").forEach((c) => { c.disabled = false; });
@@ -790,6 +800,7 @@
             document.querySelectorAll(".chip").forEach((c) => { c.disabled = true; });
             askStatus.textContent = "";
             addMsg("chat-q", question);
+            const sendImage = askHistory.length === 0 && !!lastPhotoB64;
             try {
                 const res = await fetchWithTimeout("/ask", {
                     method: "POST",
@@ -797,13 +808,17 @@
                     body: JSON.stringify({
                         question: question,
                         language: document.getElementById("language").value,
-                        image: lastPhotoB64 ? ("data:" + lastPhotoMime + ";base64," + lastPhotoB64) : "",
-                        explanation: lastExplanation
+                        image: sendImage ? ("data:" + lastPhotoMime + ";base64," + lastPhotoB64) : "",
+                        has_image: sendImage,
+                        explanation: lastExplanation,
+                        history: askHistory.slice(-6)
                     })
                 });
                 const json = await readApiJson(res);
                 if (!res.ok || json.error) throw new Error(json.error || "Something went wrong");
-                addMsg("chat-a", json.answer || "—");
+                const answer = json.answer || "—";
+                addMsg("chat-a", answer);
+                askHistory.push({question: question, answer: answer});
             } catch (err) {
                 if (err && err.name === "AbortError") {
                     askStatus.textContent = t("explain.tooSlow", "The AI took too long — please try again.");
@@ -828,6 +843,26 @@
 
         document.querySelectorAll(".chip").forEach((chip) => {
             chip.addEventListener("click", () => askQuestion(chip.textContent));
+        });
+
+        sampleBtn.addEventListener("click", async () => {
+            if (typeof navigator !== "undefined" && navigator.onLine === false) {
+                form.requestSubmit();
+                return;
+            }
+            try {
+                const res = await fetch("images/sample-notice.png");
+                if (!res.ok) throw new Error("missing");
+                const blob = await res.blob();
+                const file = new File([blob], "sample-notice.png", { type: blob.type || "image/png" });
+                const dt = new DataTransfer();
+                dt.items.add(file);
+                photoInput.files = dt.files;
+                photoInput.dispatchEvent(new Event("change"));
+                form.requestSubmit();
+            } catch (e) {
+                setStatus("explain.noSample", "Sample notice is not available.");
+            }
         });
     </script>
 </body>

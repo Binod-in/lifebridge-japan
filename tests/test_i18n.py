@@ -66,6 +66,11 @@ class KeyParityTest(unittest.TestCase):
             self.assertIn("explain.tooSlow", self.keys[lang], lang)
             self.assertIn("explain.serverError", self.keys[lang], lang)
 
+    def test_sample_keys_present(self):
+        for lang in LANGS:
+            self.assertIn("explain.sampleBtn", self.keys[lang], lang)
+            self.assertIn("explain.noSample", self.keys[lang], lang)
+
 
 class KeyUsageTest(unittest.TestCase):
     @classmethod

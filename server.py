@@ -344,6 +344,24 @@ def ask():
     explanation = body.get("explanation") or ""
     if len(explanation) > MAX_EXPLANATION_CHARS:
         return jsonify({"error": "That explanation is too long. Please start a new explanation."}), 400
+    history = body.get("history") or []
+    if not isinstance(history, list):
+        return jsonify({"error": "That history format is not supported."}), 400
+    turns = []
+    for entry in history:
+        if not isinstance(entry, dict):
+            continue
+        q = entry.get("question") or ""
+        a = entry.get("answer") or ""
+        if not isinstance(q, str) or not isinstance(a, str):
+            continue
+        q, a = q.strip(), a.strip()
+        if not q or not a:
+            continue
+        turns.append((q[:MAX_QUESTION_CHARS], a[:MAX_EXPLANATION_CHARS]))
+    turns = turns[-6:]
+    if body.get("has_image") is False:
+        image = ""
     if image:
         match = ASK_IMAGE_RE.match(image.strip())
         if not match:
@@ -356,27 +374,50 @@ def ask():
             return jsonify({"error": "That photo could not be read."}), 400
         image = f"data:{match.group(1)};base64,{base64.b64encode(image_raw).decode('ascii')}"
 
-    prompt = (
-        "You are helping a newcomer in Japan with a follow-up question about "
-        "an official Japanese notice. Answer briefly and simply.\n\n"
-        f"Write the answer in {lang_name}.\n"
-        "Use the earlier explanation below as context, and the photo of the "
-        "notice if it helps.\n\n"
-        f"Earlier explanation:\n{explanation}\n\n"
-        "Rules:\n"
-        "- Answer only about this notice. Keep it short and simple.\n"
-        "- If the notice does not contain the answer, honestly say it is not "
-        "written in the notice instead of guessing.\n"
-        "- Never invent amounts, dates, or names."
-    )
-
-    content = [{"type": "text", "text": prompt + f"\n\nQuestion: {question}"}]
-    if image:
-        content.append({"type": "image_url", "image_url": {"url": image}})
+    if turns:
+        system = (
+            "You are helping a newcomer in Japan with follow-up questions "
+            "about an official Japanese notice. Answer briefly and simply.\n\n"
+            f"Write the answer in {lang_name}.\n"
+            "Use the earlier explanation below as context, and the earlier "
+            "questions and answers in this conversation.\n\n"
+            f"Earlier explanation:\n{explanation}\n\n"
+            "Rules:\n"
+            "- Answer only about this notice. Keep it short and simple.\n"
+            "- If the notice does not contain the answer, honestly say it is "
+            "not written in the notice instead of guessing.\n"
+            "- Never invent amounts, dates, or names."
+        )
+        messages = [{"role": "system", "content": system}]
+        for prev_q, prev_a in turns:
+            messages.append({"role": "user", "content": prev_q})
+            messages.append({"role": "assistant", "content": prev_a})
+        user_content = [{"type": "text", "text": f"Question: {question}"}]
+        if image:
+            user_content.append({"type": "image_url", "image_url": {"url": image}})
+        messages.append({"role": "user", "content": user_content})
+    else:
+        prompt = (
+            "You are helping a newcomer in Japan with a follow-up question about "
+            "an official Japanese notice. Answer briefly and simply.\n\n"
+            f"Write the answer in {lang_name}.\n"
+            "Use the earlier explanation below as context, and the photo of the "
+            "notice if it helps.\n\n"
+            f"Earlier explanation:\n{explanation}\n\n"
+            "Rules:\n"
+            "- Answer only about this notice. Keep it short and simple.\n"
+            "- If the notice does not contain the answer, honestly say it is not "
+            "written in the notice instead of guessing.\n"
+            "- Never invent amounts, dates, or names."
+        )
+        content = [{"type": "text", "text": prompt + f"\n\nQuestion: {question}"}]
+        if image:
+            content.append({"type": "image_url", "image_url": {"url": image}})
+        messages = [{"role": "user", "content": content}]
 
     payload = {
         "model": MODEL,
-        "messages": [{"role": "user", "content": content}],
+        "messages": messages,
     }
 
     ok, data = _call_meta_api(payload)
