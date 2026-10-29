@@ -154,6 +154,17 @@
             margin-top: 12px;
         }
 
+        #sample-tag {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            background: #BE123C;
+            color: #fff;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
         #language {
             width: 100%;
             min-height: 52px;
@@ -510,7 +521,7 @@
             ["Things to check", "result-check"]
         ];
 
-        const form = document.getElementById("explain-form"); if (window.LBT && typeof window.LBT.onChange === "function") { window.LBT.onChange(function () { if (lastStatusKey) setStatus(lastStatusKey, lastStatusFb, lastStatusMsg); if (sampleShowing) fillSampleCards(); }); } else { document.addEventListener("lb:lang", function () { if (lastStatusKey) setStatus(lastStatusKey, lastStatusFb, lastStatusMsg); if (sampleShowing) fillSampleCards(); }); }
+        const form = document.getElementById("explain-form"); if (window.LBT && typeof window.LBT.onChange === "function") { window.LBT.onChange(function () { if (lastStatusKey) setStatus(lastStatusKey, lastStatusFb, lastStatusMsg); if (sampleShowing) fillSampleCards(); if (saveDateState) renderSaveDateMsg(); }); } else { document.addEventListener("lb:lang", function () { if (lastStatusKey) setStatus(lastStatusKey, lastStatusFb, lastStatusMsg); if (sampleShowing) fillSampleCards(); if (saveDateState) renderSaveDateMsg(); }); }
         const photoInput = document.getElementById("photo");
         const sampleBtn = document.getElementById("sample-btn");
         const preview = document.getElementById("preview");
@@ -585,6 +596,7 @@
         let chatHistory = [];
         let lastDeadlineDate = "";
         let sampleShowing = false;
+        let saveDateState = "";
         const askForm = document.getElementById("ask-form");
         const askInput = document.getElementById("ask-input");
         const askBtn = document.getElementById("ask-btn");
@@ -736,8 +748,29 @@
 
         // Show the Save button only for a real YYYY-MM-DD date.
         function updateSaveButton() {
+            saveDateState = "";
             saveDateMsg.replaceChildren();
             saveDateBtn.style.display = isRealDate(lastDeadlineDate) ? "" : "none";
+        }
+
+        // Draw the save message again (used after clicks and language changes).
+        function renderSaveDateMsg() {
+            saveDateMsg.replaceChildren();
+            if (saveDateState === "saved") {
+                saveDateMsg.textContent = t("explain.dateSaved", "Saved to Important Dates.");
+            } else if (saveDateState === "exists") {
+                saveDateMsg.textContent = t("explain.dateExists", "Already in Important Dates.");
+            } else if (saveDateState === "failed") {
+                saveDateMsg.textContent = t("tracker.saveFailed", "Could not save. Your browser storage may be full or blocked.");
+                return;
+            } else {
+                return;
+            }
+            saveDateMsg.appendChild(document.createTextNode(" "));
+            const link = document.createElement("a");
+            link.href = "important-dates.html";
+            link.textContent = t("explain.viewDates", "View Important Dates");
+            saveDateMsg.appendChild(link);
         }
 
         saveDateBtn.addEventListener("click", () => {
@@ -753,24 +786,14 @@
                     /^\d{4}-\d{2}-\d{2}$/.test(d.date);
             });
             const dup = items.some(function (d) { return d.title === title && d.date === lastDeadlineDate; });
-            saveDateMsg.replaceChildren();
             if (dup) {
-                saveDateMsg.textContent = t("explain.dateExists", "Already in Important Dates.");
+                saveDateState = "exists";
             } else {
                 items.push({id: Date.now() + "-" + Math.floor(Math.random() * 100000), title: title, date: lastDeadlineDate});
-                let savedOk = true;
-                try { window.localStorage.setItem("lifego-dates", JSON.stringify(items)); } catch (e) { savedOk = false; }
-                if (savedOk) {
-                    saveDateMsg.textContent = t("explain.dateSaved", "Saved to Important Dates.");
-                } else {
-                    saveDateMsg.textContent = t("tracker.saveFailed", "Could not save. Your browser storage may be full or blocked.");
-                }
+                saveDateState = "saved";
+                try { window.localStorage.setItem("lifego-dates", JSON.stringify(items)); } catch (e) { saveDateState = "failed"; }
             }
-            saveDateMsg.appendChild(document.createTextNode(" "));
-            const link = document.createElement("a");
-            link.href = "important-dates.html";
-            link.textContent = t("explain.viewDates", "View Important Dates");
-            saveDateMsg.appendChild(link);
+            renderSaveDateMsg();
         });
 
         form.addEventListener("submit", async (e) => {

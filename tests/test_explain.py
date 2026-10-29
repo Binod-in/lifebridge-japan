@@ -157,6 +157,16 @@ class ExplainPageScriptTest(unittest.TestCase):
         self.assertIn("isRealDate(lastDeadlineDate)", self.page)
         self.assertIn('t("tracker.saveFailed"', self.page)
 
+    def test_sample_tag_is_styled_pill(self):
+        self.assertRegex(self.page,
+                         r'#sample-tag\s*\{[^}]*?background: #BE123C;')
+        self.assertRegex(self.page,
+                         r'#sample-tag\s*\{[^}]*?border-radius: 999px;')
+
+    def test_save_date_message_rerenders_on_lang_change(self):
+        self.assertIn("function renderSaveDateMsg()", self.page)
+        self.assertIn("if (saveDateState) renderSaveDateMsg();", self.page)
+
     def test_sample_button_fills_cards(self):
         self.assertIn("Try a sample notice", self.page)
         self.assertIn("fillSampleCards()", self.page)

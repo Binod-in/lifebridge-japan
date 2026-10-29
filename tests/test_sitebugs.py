@@ -145,6 +145,19 @@ class TrackerContrastTest(unittest.TestCase):
                          'html[data-theme="dark"] .skip-link'):
             self.assertIn(selector, tail)
 
+    def test_dark_polish_at_end(self):
+        marker = "Dark theme: polish pass"
+        self.assertIn(marker, self.css)
+        tail = self.css.split(marker)[1]
+        for selector in ('html[data-theme="dark"] .footer-project p',
+                         'html[data-theme="dark"] .footer-links a',
+                         'html[data-theme="dark"] #saved-empty',
+                         'html[data-theme="dark"] #journey-progress-bar,',
+                         'html[data-theme="dark"] .bottom-nav a.bottom-nav-main',
+                         'html[data-theme="dark"] .emergency-desc',
+                         'html[data-theme="dark"] .journey-note'):
+            self.assertIn(selector, tail)
+
     def test_dark_tracker_inputs_usable(self):
         self.assertRegex(
             self.css,

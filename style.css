@@ -2559,3 +2559,28 @@ html[data-theme="dark"] .skip-link {
     background-color: #16244a;
     color: #9dbcff;
 }
+
+/* ---------- Dark theme: polish pass ---------- */
+html[data-theme="dark"] .footer-project p,
+html[data-theme="dark"] .footer-links a,
+html[data-theme="dark"] .footer-bottom,
+html[data-theme="dark"] .footer-bottom a,
+html[data-theme="dark"] .emergency-desc,
+html[data-theme="dark"] .journey-note {
+    color: #c3cede;
+}
+
+html[data-theme="dark"] #saved-empty {
+    background-color: #16244a;
+    color: #e6ecf7;
+}
+
+html[data-theme="dark"] #journey-progress-bar,
+html[data-theme="dark"] #journey-progress-bar::-webkit-progress-bar {
+    background-color: #26355c;
+}
+
+html[data-theme="dark"] .bottom-nav a.bottom-nav-main,
+html[data-theme="dark"] .bottom-nav a.bottom-nav-main[aria-current="page"] {
+    color: #ffffff;
+}
