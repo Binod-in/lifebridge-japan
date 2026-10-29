@@ -138,7 +138,8 @@ class ExplainPageScriptTest(unittest.TestCase):
         self.assertIn("history: chatHistory.slice(-10)", self.page)
 
     def test_new_explanation_clears_history(self):
-        self.assertEqual(self.page.count("chatHistory = [];"), 2)
+        # Declaration + clear on real scan + clear on sample fill.
+        self.assertEqual(self.page.count("chatHistory = [];"), 3)
 
     def test_lb_config_script_loaded(self):
         self.assertIn('<script src="lb-config.js"></script>', self.page)

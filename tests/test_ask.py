@@ -124,7 +124,7 @@ class AskHistoryTest(unittest.TestCase):
         self.assertIn("This is a tax bill.", first[0]["text"])
         self.assertEqual(first[1]["image_url"]["url"],
                          "data:image/jpeg;base64,/9j/2Q==")
-        self.assertEqual(json.dumps(payload).count("image_url"), 1)
+        self.assertEqual(json.dumps(payload).count('"image_url": {"url"'), 1)
         # Then the history turns, then the new question last.
         self.assertEqual(messages[1]["content"], "Is this urgent?")
         self.assertEqual(messages[2]["content"], "Yes, very urgent.")
