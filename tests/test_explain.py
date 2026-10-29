@@ -115,7 +115,7 @@ class ExplainPageScriptTest(unittest.TestCase):
         self.assertIn("application/json", self.page)
         self.assertIn("lbServerError", self.page)
         self.assertIn('"explain.serverError"', self.page)
-        self.assertEqual(self.page.count("readApiJson(res)"), 2)
+        self.assertEqual(self.page.count("await readApiJson(res)"), 2)
         # Exactly one res.json() call site, inside the guarded helper.
         self.assertEqual(self.page.count("res.json()"), 1)
 

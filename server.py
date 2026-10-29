@@ -11,7 +11,8 @@ Run (production): serve behind waitress or gunicorn, e.g.
     waitress-serve --listen=127.0.0.1:5000 server:app
 
 The API key is read only from the META_API_KEY environment variable.
-It never belongs in frontend code.
+It never belongs in frontend code. A local .env file (see .env.example)
+is loaded when present; real environment variables take precedence.
 
 Optional hardening (see .env.example): LB_API_TOKEN requires browsers to
 send an X-LB-Token header; TRUST_PROXY=1 honours X-Forwarded-For for rate
@@ -30,10 +31,15 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
+from dotenv import load_dotenv
 from flask import Flask, abort, jsonify, request, send_from_directory
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 app = Flask(__name__, static_folder=None)
+
+# A local .env file (see .env.example) fills in the settings below when
+# present. Real environment variables always win over .env values.
+load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 API_KEY = os.environ.get("META_API_KEY", "")
 MODEL = os.environ.get("META_MODEL", "muse-spark-1.3")
