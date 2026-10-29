@@ -722,12 +722,15 @@
                 return;
             }
             btn.disabled = true;
+            askInput.disabled = true;
+            askBtn.disabled = true;
+            document.querySelectorAll(".chip").forEach((c) => { c.disabled = true; });
             const originalBtnText = btn.textContent;
             btn.textContent = t("explain.explaining", "Reading your notice...");
             setStatus("explain.reading", "Reading your notice... this can take a few seconds.");
             const smallPhoto = await shrinkPhoto(photoInput.files[0]);
-            lastPhotoB64 = await blobToB64(smallPhoto);
-            lastPhotoMime = smallPhoto.type || "image/jpeg";
+            const newPhotoB64 = await blobToB64(smallPhoto);
+            const newPhotoMime = smallPhoto.type || "image/jpeg";
             const data = new FormData();
             data.append("photo", smallPhoto, photoInput.files[0].name || "photo.jpg");
             data.append("language", document.getElementById("language").value);
@@ -744,6 +747,9 @@
                     document.getElementById(id).textContent = sections[id] || "—";
                 }
                 document.getElementById("result-card").style.display = "block";
+                // The new photo + explanation replace the stored pair only now, on success.
+                lastPhotoB64 = newPhotoB64;
+                lastPhotoMime = newPhotoMime;
                 lastExplanation = json.text || "";
                 thread.innerHTML = "";
                 askStatus.textContent = "";
@@ -760,6 +766,9 @@
             } finally {
                 btn.textContent = originalBtnText;
                 btn.disabled = false;
+                askInput.disabled = false;
+                askBtn.disabled = false;
+                document.querySelectorAll(".chip").forEach((c) => { c.disabled = false; });
             }
         });
 

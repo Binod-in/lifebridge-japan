@@ -128,6 +128,30 @@ class ExplainPageScriptTest(unittest.TestCase):
         self.assertIn('"data:" + lastPhotoMime + ";base64," + lastPhotoB64',
                        self.page)
 
+    def test_scan_state_updates_atomically(self):
+        # The new photo must wait in locals until the reply succeeds, so a
+        # failed scan keeps the previous photo + explanation pair untouched.
+        self.assertIn("const newPhotoB64 = await blobToB64(smallPhoto);",
+                      self.page)
+        self.assertIn("const newPhotoMime = smallPhoto.type", self.page)
+        self.assertIn("lastPhotoB64 = newPhotoB64;", self.page)
+        self.assertIn("lastPhotoMime = newPhotoMime;", self.page)
+        self.assertNotIn("lastPhotoB64 = await", self.page)
+        self.assertNotIn("lastPhotoMime = smallPhoto", self.page)
+        self.assertLess(self.page.index("parseExplainReply(json.text"),
+                        self.page.index("lastPhotoB64 = newPhotoB64;"))
+
+    def test_scan_disables_followup_ui(self):
+        # The question box, Ask button and chips are all disabled while a
+        # scan is in flight (askQuestion already disables the latter two,
+        # so each appears twice) and re-enabled when it finishes.
+        self.assertIn("askInput.disabled = true;", self.page)
+        self.assertIn("askInput.disabled = false;", self.page)
+        self.assertEqual(self.page.count("askBtn.disabled = true;"), 2)
+        self.assertEqual(self.page.count("askBtn.disabled = false;"), 2)
+        self.assertEqual(self.page.count("c.disabled = true;"), 2)
+        self.assertEqual(self.page.count("c.disabled = false;"), 2)
+
 
 if __name__ == "__main__":
     unittest.main()
