@@ -71,5 +71,94 @@ class ThemeScriptTest(unittest.TestCase):
         self.assertEqual(missing, [])
 
 
+class HeaderProfileTest(unittest.TestCase):
+    """No Demo Profile button is injected into the shared header."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.src = _read("i18n.js")
+
+    def test_no_profile_link_injected(self):
+        self.assertNotIn("addProfileLink", self.src)
+
+    def test_menu_and_bottom_nav_builders_kept(self):
+        self.assertIn("addMenuButton", self.src)
+        self.assertIn("addBottomNav", self.src)
+
+
+class HeroContrastTest(unittest.TestCase):
+    """Dark-theme hero text must read over the darkened photo."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.css = _read("style.css")
+
+    def test_dark_hero_headline_is_light(self):
+        self.assertRegex(self.css,
+                         r'html\[data-theme="dark"\] \.hero h1 \{\s*'
+                         r'color: #ffffff;')
+
+    def test_dark_hero_subtext_is_light(self):
+        self.assertRegex(self.css,
+                         r'html\[data-theme="dark"\] \.hero-desc \{\s*'
+                         r'color: #c3cede;')
+
+
+class TrackerContrastTest(unittest.TestCase):
+    """Dark-theme tracker tiles and search card must stay readable."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.css = _read("style.css")
+
+    def test_dark_tracker_tile_text_is_light(self):
+        self.assertRegex(
+            self.css,
+            r'html\[data-theme="dark"\] \.tracker-promo \.summary-box span \{\s*'
+            r'color: #c3cede;')
+        self.assertRegex(
+            self.css,
+            r'html\[data-theme="dark"\] \.tracker-promo \.summary-box strong \{\s*'
+            r'color: #ffffff;')
+
+    def test_dark_tracker_inputs_usable(self):
+        self.assertRegex(
+            self.css,
+            r'html\[data-theme="dark"\] \.tracker-promo \.tracker-quick-form input,'
+            r'\s*html\[data-theme="dark"\] \.tracker-promo \.tracker-quick-form select \{\s*'
+            r'background-color: #101d3d;')
+
+    def test_dark_search_card_has_dark_surface(self):
+        self.assertIn('html[data-theme="dark"] .search-section', self.css)
+
+    def test_dark_search_links_stay_readable(self):
+        self.assertRegex(self.css,
+                         r'html\[data-theme="dark"\] \.search-popular a \{\s*'
+                         r'color: #9dbcff;')
+
+
+class ChatScrollTest(unittest.TestCase):
+    """Open chat locks page scroll; messages contain overscroll."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.css = _read("style.css")
+        cls.js = _read("chatbot.js")
+
+    def test_message_area_contains_overscroll(self):
+        self.assertRegex(self.css,
+                         r'\.chat-msgs\s*\{[^}]*?overscroll-behavior: contain;')
+
+    def test_open_chat_fixes_body(self):
+        self.assertRegex(self.css,
+                         r'html\.chat-open body \{\s*position: fixed;')
+
+    def test_toggle_saves_and_restores_scroll(self):
+        self.assertIn("document.body.style.top", self.js)
+        self.assertIn("window.scrollTo", self.js)
+        self.assertIn('classList.add("chat-open")', self.js)
+        self.assertIn('classList.remove("chat-open")', self.js)
+
+
 if __name__ == "__main__":
     unittest.main()

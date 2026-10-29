@@ -548,8 +548,15 @@
         panel.hidden = !show;
         backdrop.hidden = !show;
         try {
-            if (show) document.documentElement.classList.add("chat-open");
-            else document.documentElement.classList.remove("chat-open");
+            if (show) {
+                document.body.style.top = (0 - (window.scrollY || 0)) + "px";
+                document.documentElement.classList.add("chat-open");
+            } else {
+                document.documentElement.classList.remove("chat-open");
+                var savedTop = document.body.style.top || "";
+                document.body.style.top = "";
+                if (savedTop) window.scrollTo(0, 0 - (parseInt(savedTop, 10) || 0));
+            }
         } catch (e) { /* ignore */ }
         fab.setAttribute("aria-expanded", String(show));
         if (show && !greeted) {

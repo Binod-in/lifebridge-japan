@@ -2568,17 +2568,6 @@
         header.insertBefore(btn, nav);
     }
 
-    function addProfileLink() {
-        var box = document.querySelector(".header-act");
-        if (!box || box.querySelector('a[href="login.html"]')) return;
-        var link = document.createElement("a");
-        link.href = "login.html";
-        link.className = "profile-link";
-        link.setAttribute("data-i18n", "nav.profile");
-        link.textContent = "Demo Profile";
-        box.appendChild(link);
-    }
-
     function addBottomNav(page) {
         if (document.querySelector(".bottom-nav")) return;
         var nav = document.createElement("nav");
@@ -2681,7 +2670,6 @@
         var page = currentPageName();
         try { markCurrentNav(page); } catch (e) { /* ignore */ }
         try { addMenuButton(); } catch (e) { /* ignore */ }
-        try { addProfileLink(); } catch (e) { /* ignore */ }
         try { addBottomNav(page); } catch (e) { /* ignore */ }
         try { addOfflineBanner(); } catch (e) { /* ignore */ }
         try { applyTheme(); } catch (e) { /* ignore */ }

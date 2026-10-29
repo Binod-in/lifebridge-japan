@@ -2031,10 +2031,27 @@ html[data-theme="dark"] .hero-example,
 html[data-theme="dark"] .bottom-nav,
 html[data-theme="dark"] .page-hero,
 html[data-theme="dark"] .card,
+html[data-theme="dark"] .search-section,
 html[data-theme="dark"] details {
     background-color: #16244a;
     border-color: #26355c;
     color: #e6ecf7;
+}
+
+html[data-theme="dark"] .tracker-promo .summary-box span {
+    color: #c3cede;
+}
+html[data-theme="dark"] .tracker-promo .summary-box strong {
+    color: #ffffff;
+}
+html[data-theme="dark"] .tracker-promo .tracker-quick-form input,
+html[data-theme="dark"] .tracker-promo .tracker-quick-form select {
+    background-color: #101d3d;
+    border-color: #33456e;
+    color: #e6ecf7;
+}
+html[data-theme="dark"] .search-popular a {
+    color: #9dbcff;
 }
 
 html[data-theme="dark"] .hero {
@@ -2049,6 +2066,13 @@ html[data-theme="dark"] .hero {
             linear-gradient(rgba(15, 26, 51, 0.93), rgba(15, 26, 51, 0.86)),
             url("images/hero-mobile.jpg");
     }
+}
+
+html[data-theme="dark"] .hero h1 {
+    color: #ffffff;
+}
+html[data-theme="dark"] .hero-desc {
+    color: #c3cede;
 }
 
 html[data-theme="dark"] .detail-card p,
@@ -2201,6 +2225,11 @@ html.chat-open,
 html.chat-open body {
     overflow: hidden;
 }
+html.chat-open body {
+    position: fixed;
+    left: 0;
+    right: 0;
+}
 
 .chat-panel {
     position: fixed;
@@ -2306,6 +2335,7 @@ html.chat-open body {
 .chat-msgs {
     flex: 1;
     overflow-y: auto;
+    overscroll-behavior: contain;
     padding: 12px;
     display: flex;
     flex-direction: column;
