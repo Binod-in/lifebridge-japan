@@ -212,6 +212,12 @@ class AccessControlTest(unittest.TestCase):
                                    headers={"X-LB-Token": "s3cret"})
         self.assertEqual(res.status_code, 200)
 
+    def test_non_ascii_token_rejected_not_crash(self):
+        server.API_TOKEN = "s3cret"
+        res = self.client.post("/ask", json={"question": "Hi?", "language": "en"},
+                               headers={"X-LB-Token": "sécret"})
+        self.assertEqual(res.status_code, 401)
+
     def test_lb_config_serves_token(self):
         server.API_TOKEN = "s3cret"
         res = self.client.get("/lb-config.js")
@@ -268,6 +274,11 @@ class ProxyRateLimitTest(unittest.TestCase):
         server.TRUST_PROXY = False
         self.assertEqual(self._ask("1.2.3.4").status_code, 200)
         self.assertEqual(self._ask("5.6.7.8").status_code, 429)
+
+    def test_rate_buckets_are_capped(self):
+        for i in range(5005):
+            server._rate_limited(("ask", "10.0.0.%d" % i), 30)
+        self.assertLess(len(server._rate_hits), 5005)
 
 
 class AskValidationTest(unittest.TestCase):

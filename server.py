@@ -118,6 +118,10 @@ def _rate_limited(bucket, limit):
         _rate_hits.pop(bucket, None)
     if len(hits) >= limit:
         return True
+    if bucket not in _rate_hits and len(_rate_hits) >= 5000:
+        # Too many one-time visitors: forget old buckets instead of
+        # growing memory forever. Limits restart from zero.
+        _rate_hits.clear()
     hits.append(now)
     _rate_hits[bucket] = hits
     return False
@@ -140,10 +144,16 @@ def _check_access():
 
     Returns a Flask response when the request must be rejected, else None.
     """
-    if API_TOKEN and not secrets.compare_digest(
-        request.headers.get("X-LB-Token", ""), API_TOKEN
-    ):
-        return jsonify({"error": "Not authorized."}), 401
+    if API_TOKEN:
+        try:
+            token_ok = secrets.compare_digest(
+                request.headers.get("X-LB-Token", ""), API_TOKEN
+            )
+        except TypeError:
+            # Non-ASCII header value: a wrong token, not a crash.
+            token_ok = False
+        if not token_ok:
+            return jsonify({"error": "Not authorized."}), 401
     origin = request.headers.get("Origin") or request.headers.get("Referer", "")
     if origin:
         try:
@@ -328,6 +338,8 @@ def explain():
         "- 'check': things to double-check. If any detail is unclear or "
         "unreadable, say so here instead of guessing. "
         "Never invent amounts, dates, or names.\n"
+        "- If the reader must pay, apply, or visit an office, remind them to "
+        "confirm the details with the issuing office.\n"
         "- Keep each value short. Do not use markdown. "
         "No text outside the JSON object."
     )

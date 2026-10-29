@@ -74,6 +74,10 @@ class ExplainPromptTest(unittest.TestCase):
         prompt = self._posted_prompt("en")
         self.assertIn("Never invent amounts, dates, or names.", prompt)
 
+    def test_prompt_reminds_to_confirm_with_office(self):
+        prompt = self._posted_prompt("en")
+        self.assertIn("confirm the details with the issuing office", prompt)
+
     def test_explain_returns_model_text_unchanged(self):
         reply = json.dumps({key: "line %s" % key for key in JSON_KEYS})
         with mock.patch.object(server.urllib.request, "urlopen",
