@@ -280,6 +280,19 @@ class ProxyRateLimitTest(unittest.TestCase):
             server._rate_limited(("ask", "10.0.0.%d" % i), 30)
         self.assertLess(len(server._rate_hits), 5005)
 
+    def test_full_table_evicts_oldest_not_all(self):
+        for i in range(server.RATE_BUCKET_CAP):
+            server._rate_limited(("ask", "ip-%d" % i), 100)
+        victim = ("ask", "ip-%d" % (server.RATE_BUCKET_CAP - 1))
+        for _ in range(99):
+            self.assertFalse(server._rate_limited(victim, 100))
+        self.assertTrue(server._rate_limited(victim, 100))
+        # A new visitor triggers eviction of the oldest bucket only.
+        server._rate_limited(("ask", "newcomer"), 100)
+        self.assertLessEqual(len(server._rate_hits), server.RATE_BUCKET_CAP)
+        self.assertNotIn(("ask", "ip-0"), server._rate_hits)
+        self.assertTrue(server._rate_limited(victim, 100))
+
 
 class AskValidationTest(unittest.TestCase):
     def setUp(self):

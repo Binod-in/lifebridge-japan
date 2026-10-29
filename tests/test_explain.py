@@ -78,6 +78,41 @@ class ExplainPromptTest(unittest.TestCase):
         prompt = self._posted_prompt("en")
         self.assertIn("confirm the details with the issuing office", prompt)
 
+    def _raw_reply(self, body):
+        """Fake urlopen context manager returning raw bytes."""
+        resp = mock.MagicMock()
+        resp.read.return_value = body
+        ctx = mock.MagicMock()
+        ctx.__enter__.return_value = resp
+        ctx.__exit__.return_value = False
+        return ctx
+
+    def _post_photo(self):
+        data = {"photo": _image_file(), "language": "en"}
+        return self.client.post("/explain", data=data,
+                               content_type="multipart/form-data")
+
+    def test_explain_rejects_malformed_provider_reply(self):
+        ctx = self._raw_reply(b"this is not json")
+        with mock.patch.object(server.urllib.request, "urlopen",
+                               side_effect=lambda req, timeout=120: ctx):
+            res = self._post_photo()
+        self.assertEqual(res.status_code, 502)
+
+    def test_explain_rejects_reply_without_choices(self):
+        ctx = self._raw_reply(b'{"oops": true}')
+        with mock.patch.object(server.urllib.request, "urlopen",
+                               side_effect=lambda req, timeout=120: ctx):
+            res = self._post_photo()
+        self.assertEqual(res.status_code, 502)
+        self.assertIn("error", res.get_json())
+
+    def test_explain_timeout_is_502(self):
+        with mock.patch.object(server.urllib.request, "urlopen",
+                               side_effect=TimeoutError("slow")):
+            res = self._post_photo()
+        self.assertEqual(res.status_code, 502)
+
     def test_explain_returns_model_text_unchanged(self):
         reply = json.dumps({key: "line %s" % key for key in JSON_KEYS})
         with mock.patch.object(server.urllib.request, "urlopen",

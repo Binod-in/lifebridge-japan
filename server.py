@@ -99,6 +99,9 @@ BLOCKED_FIRST_PARTS = {
 RATE_WINDOW = 60
 EXPLAIN_LIMIT = int(os.environ.get("RATE_LIMIT_EXPLAIN", "10"))
 ASK_LIMIT = int(os.environ.get("RATE_LIMIT_ASK", "30"))
+# Max tracked IP+endpoint buckets. Past this, the oldest buckets are
+# forgotten first, so one crowd never clears everybody's history.
+RATE_BUCKET_CAP = 5000
 _rate_hits = {}
 
 
@@ -118,13 +121,29 @@ def _rate_limited(bucket, limit):
         _rate_hits.pop(bucket, None)
     if len(hits) >= limit:
         return True
-    if bucket not in _rate_hits and len(_rate_hits) >= 5000:
-        # Too many one-time visitors: forget old buckets instead of
-        # growing memory forever. Limits restart from zero.
-        _rate_hits.clear()
+    if bucket not in _rate_hits and len(_rate_hits) >= RATE_BUCKET_CAP:
+        _evict_old_buckets(now)
     hits.append(now)
     _rate_hits[bucket] = hits
     return False
+
+
+def _evict_old_buckets(now):
+    """Make room in a full rate-limit table without clearing everyone.
+
+    First drops buckets whose hits all expired, then the oldest
+    active buckets, until the table is back under the cap.
+    """
+    cutoff = now - RATE_WINDOW
+    for key in list(_rate_hits):
+        hits = _rate_hits[key]
+        while hits and hits[0] <= cutoff:
+            hits.pop(0)
+        if not hits:
+            del _rate_hits[key]
+    while len(_rate_hits) >= RATE_BUCKET_CAP:
+        oldest = min(_rate_hits, key=lambda k: _rate_hits[k][0])
+        del _rate_hits[oldest]
 
 
 def _client_ip():

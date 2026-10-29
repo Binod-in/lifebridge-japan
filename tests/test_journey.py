@@ -106,6 +106,26 @@ class HomeTrackerPromoTest(unittest.TestCase):
         self.assertIn("https://www.moj.go.jp/isa/applications/procedures/16-3.html",
                       html)
 
+    def test_footer_explore_links_important_dates(self):
+        for path in sorted(glob.glob(os.path.join(ROOT, "*.html"))):
+            with open(path, encoding="utf-8") as f:
+                html = f.read()
+            navs = re.findall(r'<nav[^>]*class="footer-links"[^>]*>(.*?)</nav>',
+                              html, re.S)
+            if navs:
+                self.assertIn("important-dates.html", navs[0],
+                              os.path.basename(path))
+
+    def test_explain_links_important_dates_page(self):
+        html = _read("explain.html")
+        self.assertEqual(html.count("explain.viewDatesPage"), 1)
+        self.assertIn('id="view-dates-btn"', html)
+        scan_at = html.index('id="explain-btn"')
+        link_at = html.index("explain.viewDatesPage")
+        form_end = html.index("</form>", scan_at)
+        self.assertLess(scan_at, link_at)
+        self.assertLess(link_at, form_end)
+
     def test_guide_keywords_cover_vietnamese_and_burmese(self):
         src = _read("guide-data.js")
         for word in ["ngân hàng", "ဘဏ်", "việc làm", "အလုပ်",
