@@ -4,6 +4,7 @@ Run from the project root (no Flask needed):
     python -m unittest tests.test_i18n -v
 """
 import glob
+import json
 import os
 import re
 import unittest
@@ -50,12 +51,12 @@ class KeyParityTest(unittest.TestCase):
 
     def test_formerly_missing_keys_present(self):
         required = ["guide.stepsTitle", "guide.bringTitle", "guide.linksTitle"]
-        for prefix in ("doc", "jobs"):
+        for prefix in ("doc", "jobs", "housing", "money", "transport", "health", "jap", "emerg"):
             required += ["%s.step%d" % (prefix, i) for i in range(1, 6)]
             required += ["%s.bring%d" % (prefix, i) for i in range(1, 5)]
             required += ["%s.link%d" % (prefix, i) for i in range(1, 3)]
             required.append("%s.source" % prefix)
-        self.assertEqual(len(required), 27)
+        self.assertEqual(len(required), 99)
         for lang in LANGS:
             for key in required:
                 self.assertIn(key, self.keys[lang], lang)
@@ -80,6 +81,68 @@ class KeyUsageTest(unittest.TestCase):
         src = _read("guide-data.js")
         for key in re.findall(r'(?:titleKey|descKey): "([^"]+)"', src):
             self.assertIn(key, self.en_keys, "guide-data.js uses " + key)
+
+
+class ChatbotTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.src = _read("chatbot.js")
+        marker = "var LB_CHAT_KB = "
+        start = cls.src.index(marker) + len(marker)
+        depth = 0
+        in_string = False
+        escape = False
+        end = None
+        for i in range(start, len(cls.src)):
+            ch = cls.src[i]
+            if in_string:
+                if escape:
+                    escape = False
+                elif ch == "\\":
+                    escape = True
+                elif ch == '"':
+                    in_string = False
+            elif ch == '"':
+                in_string = True
+            elif ch == "[":
+                depth += 1
+            elif ch == "]":
+                depth -= 1
+                if depth == 0:
+                    end = i + 1
+                    break
+        cls.kb = json.loads(cls.src[start:end])
+        cls.en_keys = set(_lang_key_list(_read("i18n.js"), "en"))
+
+    def test_intents_complete(self):
+        self.assertGreaterEqual(len(self.kb), 10)
+        ids = [intent["id"] for intent in self.kb]
+        self.assertIn("fallback", ids)
+        self.assertEqual(len(ids), len(set(ids)), "duplicate intent ids")
+        for intent in self.kb:
+            for lang in LANGS:
+                answer = intent["answers"].get(lang, "")
+                self.assertTrue(answer.strip(), intent["id"] + " missing " + lang)
+            for link in intent["links"]:
+                self.assertTrue(re.match(r"^[a-z-]+\.html$", link), link)
+                self.assertTrue(os.path.isfile(os.path.join(ROOT, link)), link)
+
+    def test_chat_keys_exist(self):
+        for key in sorted(set(re.findall(r'"((?:chat|net)\.[a-zA-Z]+)"', self.src))):
+            self.assertIn(key, self.en_keys, "chatbot.js uses " + key)
+
+
+class ServiceWorkerTest(unittest.TestCase):
+    def test_precache_files_exist(self):
+        src = _read("sw.js")
+        match = re.search(r"const CORE = \[(.*?)\];", src, re.S)
+        self.assertTrue(match, "CORE list not found")
+        entries = re.findall(r'"([^"]+)"', match.group(1))
+        self.assertGreater(len(entries), 20)
+        for entry in entries:
+            if entry == "/":
+                continue
+            self.assertTrue(os.path.isfile(os.path.join(ROOT, entry)), entry)
 
 
 if __name__ == "__main__":

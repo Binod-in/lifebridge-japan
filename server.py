@@ -1,4 +1,4 @@
-"""LifeBridge Japan: AI notice explainer backend.
+"""LifeBridge Japan: LifeBridge Lens backend.
 
 Run (development):
     pip install -r requirements.txt

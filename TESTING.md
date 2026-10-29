@@ -18,12 +18,14 @@ Feature checks (all passed):
 - Settings: reset removes `lifego-` data and money records; the language choice is kept. Appearance picker switches light/dark/follow-device.
 - Money Tracker: goal form validates input, deleting an entry asks first, goal progress bars expose their values to screen readers.
 - Mobile: bottom navigation on every page, hamburger menu under 600 px, current page marked in the menu.
-- Offline: core pages load from cache, `offline.html` is shown for uncached pages.
+- Offline: every page, script, image and icon is precached; `offline.html` is shown when nothing cached matches, and a banner appears while offline.
+- Chatbot: floating button on every page; opens Messenger-style (avatar header, online status, message timestamps, pill input), modal with backdrop/page lock/focus trap, mobile bottom sheet, suggestions stay after each answer, keyword answers in the current UI language with guide links, works fully offline.
+- Home: AI-generated hero photos (images/hero-wide.jpg, images/hero-mobile.jpg), larger headline, pill badges, refined card hover. Home emergency numbers are plain text (no direct-dial buttons); the Emergency page keeps its Call buttons.
 
 Automated suite (`python -m unittest discover tests -v`):
 - `tests/test_ask.py`: `/ask` key/question handling and context forwarding.
 - `tests/test_security.py`: static allowlist, upload and magic-byte checks, rate limits, security headers, same-origin/token access, proxy-aware limits, `/ask` validation, `/explain` success path, 404 pages, cache headers.
-- `tests/test_i18n.py`: translation key parity across en/ne/vi/my, every HTML `data-i18n*` key exists, every guide-data key resolves.
+- `tests/test_i18n.py`: translation key parity across en/ne/vi/my, every HTML `data-i18n*` key exists, every guide-data key resolves, chatbot knowledge base is complete (4 languages, valid links), and every service-worker precache file exists.
 
 Not tested automatically:
 - Voice playback depends on installed device voices.

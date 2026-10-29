@@ -19,28 +19,36 @@
             position: relative;
             background-image:
                 linear-gradient(to right, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.82) 42%, rgba(255, 255, 255, 0.15) 75%, rgba(255, 255, 255, 0) 100%),
-                url("images/hero-wide.webp");
+                url("images/hero-wide.jpg");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+        }
+
+        .hero h1 {
+            font-size: clamp(36px, 5vw, 56px);
+            line-height: 1.15;
+            letter-spacing: -0.01em;
+            margin-bottom: 16px;
         }
 
         @media (max-width: 640px) {
             .hero {
                 background-image:
                     linear-gradient(rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.78)),
-                    url("images/hero-mobile.webp");
+                    url("images/hero-mobile.jpg");
             }
         }
 
         /* Extra badge above the headline, same look as the first pill. */
         .hero-lang-badge {
             display: inline-block;
-            padding: 6px 12px;
+            padding: 6px 14px;
             margin: 0 0 18px 8px;
             background-color: #f3f8ff;
             border: 1px solid #d5e5ff;
-            border-radius: 6px;
+            border-radius: 999px;
+            font-weight: 600;
             font-size: 13px;
             color: #13234b;
             vertical-align: top;
@@ -94,28 +102,18 @@
             }
         }
 
-        /* Big emergency dial numbers. */
-        .emergency-dial {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 12px;
+        /* Emergency numbers as plain text (no direct-dial buttons here,
+           so nobody calls by accident from the home page). */
+        .emergency-dial-info {
             margin-top: 16px;
-        }
-
-        .emergency-dial-num {
-            display: block;
-            padding: 12px;
+            padding: 12px 16px;
             text-align: center;
-            font-size: 28px;
-            font-weight: 700;
+            font-size: 15px;
+            font-weight: 600;
             color: #b51f2b;
             background-color: #ffffff;
             border: 1px solid #f0dce0;
             border-radius: 10px;
-        }
-
-        .emergency-dial-num:hover {
-            border-color: #cf2938;
         }
 
         /* Mobile bottom navigation lives in style.css now (added by i18n.js). */
@@ -186,7 +184,7 @@
                 <p class="hero-desc" data-i18n="hero.subtitle">Simple step-by-step guides for documents, housing, jobs, money, Japanese and
                     everyday life in Japan.</p>
                 <div class="hero-actions">
-                    <a class="btn btn-prim" href="explain.html" data-i18n="hero.explain">Explain a notice</a>
+                    <a class="btn btn-prim" href="explain.html" data-i18n="hero.explain">LifeBridge Lens</a>
                     <a class="btn" href="start.html" data-i18n="hero.start">Start My Journey →</a>
                     <a class="btn" href="guide.html" data-i18n="hero.guides">
                         Explore Guides
@@ -423,10 +421,7 @@
                         <h3 data-i18n="emg.residence">Lost Residence Card</h3>
                     </a>
                 </div>
-                <div class="emergency-dial">
-                    <a class="emergency-dial-num" href="tel:110" aria-label="Call police, 110" data-i18n-aria-label="emg.callPolice">110</a>
-                    <a class="emergency-dial-num" href="tel:119" aria-label="Call ambulance or fire, 119" data-i18n-aria-label="emg.callAmbulance">119</a>
-                </div>
+                <p class="emergency-dial-info" data-i18n="emg.dialInfo">Police 110 · Ambulance and fire 119</p>
                 <a class="emergency-button" href="emergency.html" data-i18n="emg.open">
                     Open Emergency Guide
                 </a>

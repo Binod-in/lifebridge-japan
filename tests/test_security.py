@@ -218,7 +218,7 @@ class ProxyRateLimitTest(unittest.TestCase):
         server.app.testing = True
         self.client = server.app.test_client()
         self._key = server.API_KEY
-        self._ask = server.ASK_LIMIT
+        self._ask_limit = server.ASK_LIMIT
         self._proxy = server.TRUST_PROXY
         server.API_KEY = "test-key"
         server.ASK_LIMIT = 1
@@ -226,7 +226,7 @@ class ProxyRateLimitTest(unittest.TestCase):
 
     def tearDown(self):
         server.API_KEY = self._key
-        server.ASK_LIMIT = self._ask
+        server.ASK_LIMIT = self._ask_limit
         server.TRUST_PROXY = self._proxy
         server._reset_rate_limits()
 
