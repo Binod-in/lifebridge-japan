@@ -7,7 +7,7 @@ Moving to Japan is exciting, but everyday life comes with a stack of Japanese pa
 ## What it does
 
 1. **Upload a photo** of any Japanese notice.
-2. **Get a simple explanation** in **Nepali, English, Vietnamese, Burmese, or Japanese** — what the notice is, in plain words.
+2. **Get a simple explanation** in your own language — what the notice is, in plain words. The site UI supports **Nepali, English, Vietnamese and Burmese**; Lens can also answer in **Japanese**.
 3. **See your next steps** — exactly what to do, where to go, and what to bring.
 4. **Never miss a deadline** — payment and submission dates are pulled out and highlighted.
 5. **No guessing** — if a date, amount, or detail in the photo is unclear, the app asks you to confirm it instead of inventing an answer.

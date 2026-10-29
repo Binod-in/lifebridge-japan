@@ -135,7 +135,7 @@ const healthJourneyTasks = [
     { id: "health-enroll", text: "Enroll in health insurance (company or ward office)" },
     { id: "health-clinic", text: "Find a nearby clinic and check hours and languages" },
     { id: "health-notes", text: "Write down symptoms, medicines and questions" },
-    { id: "health-visit", text: "Bring your insurance card and arrive early" },
+    { id: "health-visit", text: "Bring your My Number health insurance card (マイナ保険証) or 資格確認書, and arrive early" },
     { id: "health-receipts", text: "Keep receipts and follow treatment instructions" },
     { id: "health-checkup", text: "Ask about yearly health checkups" }
 ];
@@ -152,7 +152,7 @@ const japaneseJourneyTasks = [
 const emergencyJourneyTasks = [
     { id: "emerg-110", text: "Memorize 110 for police and 119 for fire/ambulance" },
     { id: "emerg-address", text: "Keep your address written in Japanese in your wallet" },
-    { id: "emerg-card", text: "Carry your health insurance card" },
+    { id: "emerg-card", text: "Carry your My Number health insurance card (マイナ保険証) or 資格確認書" },
     { id: "emerg-phone", text: "Keep your phone charged with numbers saved" },
     { id: "emerg-7119", text: "Check if #7119 advice line works in your area" },
     { id: "emerg-contacts", text: "Save family and school contacts for emergencies" }
@@ -386,9 +386,15 @@ if (phraseCard && categoryButtons.length > 0) {
         japaneseText.textContent = example.japanese;
         readingText.textContent = example.reading;
         englishText.textContent = example.english;
-        // नेपाली अर्थ नेपाली UI मा मात्र (vi/my प्रयोगकर्ताका लागि अप्रासङ्गिक)
-        nepaliText.hidden = uiLang() !== "ne";
-        nepaliText.textContent = example.nepali;
+        // UI भाषामा अर्थ (अङ्ग्रेजी सधैं माथि देखिन्छ)
+        const langNow = uiLang();
+        let localMeaning = "";
+        if (langNow === "ne") { localMeaning = example.nepali || ""; }
+        else if (langNow === "vi") { localMeaning = example.vi || ""; }
+        else if (langNow === "my") { localMeaning = example.my || ""; }
+        nepaliText.hidden = !localMeaning;
+        nepaliText.textContent = localMeaning;
+        nepaliText.setAttribute("lang", langNow);
         statusText.textContent = "";
 
         updatePhraseNav(list.length);

@@ -156,7 +156,7 @@ a {
     padding: 70px 24px;
     /* फोटो दायाँ मात्र (फोटोको बायाँ किनारा आफैं सेतोमा मिसिन्छ) */
     background-color: #ffffff;
-    background-image: url("logo/hero.jpg");
+
     background-size: auto 100%;
     background-position: right center;
     background-repeat: no-repeat;

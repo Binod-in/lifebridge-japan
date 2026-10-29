@@ -89,12 +89,23 @@ function showSavedPhrases() {
             meaning.className = "saved-meaning";
             meaning.textContent = info.reading + " · " + info.english;
 
+            // UI भाषामा अर्थ (अङ्ग्रेजी सधैं माथि देखिन्छ)
+            let savedLang = "en";
+            try {
+                if (window.LBT && typeof window.LBT.lang === "function") { savedLang = window.LBT.lang(); }
+                else { savedLang = document.documentElement.getAttribute("lang") || "en"; }
+            } catch (e2) { savedLang = "en"; }
+            let savedMeaning = "";
+            if (savedLang === "ne") { savedMeaning = info.nepali || ""; }
+            else if (savedLang === "vi") { savedMeaning = info.vi || ""; }
+            else if (savedLang === "my") { savedMeaning = info.my || ""; }
             const nepali = document.createElement("p");
-            nepali.lang = "ne";
+            nepali.lang = savedLang;
             nepali.className = "saved-meaning";
-            nepali.textContent = info.nepali;
+            nepali.textContent = savedMeaning;
 
-            textBox.append(meaning, nepali);
+            textBox.append(meaning);
+            if (savedMeaning) { textBox.append(nepali); }
         }
 
         const removeButton = document.createElement("button");

@@ -30,17 +30,34 @@
             "id": "lost-residence",
             "links": ["emergency.html"],
             "keys": {
-                "en": ["lost", "lose", "missing", "stolen", "residence card", "zairyu", "zairyu card", "reissue"],
-                "ne": ["हरायो", "हराएको", "चोरी", "निवास कार्ड", "रेसिडेन्स"],
-                "vi": ["mất", "đánh mất", "thẻ cư trú", "the cu tru"],
-                "my": ["ပျောက်", "ပျောက်ဆုံး", "နေထိုင်ခွင့်ကတ်"],
-                "ja": ["紛失", "なくし", "在留カード", "在留"]
+                "en": ["residence card", "zairyu", "zairyu card", "reissue"],
+                "ne": ["निवास कार्ड", "रेसिडेन्स"],
+                "vi": ["thẻ cư trú", "the cu tru"],
+                "my": ["နေထိုင်ခွင့်ကတ်"],
+                "ja": ["在留カード"]
             },
             "answers": {
-                "en": "For a lost residence card, report to the police first, then visit the immigration office to reissue it. Carry the police report.",
-                "ne": "निवास कार्ड हराए पहिले प्रहरीमा रिपोर्ट गर्नुहोस्, अनि अध्यागमन कार्यालयमा गएर पुनः बनाउनुहोस्। प्रहरी रिपोर्ट साथ लैजानुहोस्।",
-                "vi": "Nếu mất thẻ cư trú, hãy báo cảnh sát trước, sau đó đến cục xuất nhập cảnh để làm lại. Mang theo biên bản báo mất.",
-                "my": "နေထိုင်ခွင့်ကတ် ပျောက်ပါက အရင် ရဲစခန်းတွင် တိုင်ကြားပြီး လူဝင်မှုရုံးတွင် ပြန်လျှောက်ပါ။ ရဲတိုင်စာ ယူသွားပါ။"
+                "en": "For a lost residence card, report to the police first, then apply at the immigration office for reissue within 14 days. Carry the police report.",
+                "ne": "निवास कार्ड हराए पहिले प्रहरीमा रिपोर्ट गर्नुहोस्, अनि १४ दिनभित्र अध्यागमन कार्यालयमा पुनः बनाउन आवेदन दिनुहोस्। प्रहरी रिपोर्ट साथ लैजानुहोस्।",
+                "vi": "Nếu mất thẻ cư trú, hãy báo cảnh sát trước, sau đó nộp đơn làm lại tại cục xuất nhập cảnh trong vòng 14 ngày. Mang theo biên bản báo mất.",
+                "my": "နေထိုင်ခွင့်ကတ် ပျောက်ပါက အရင် ရဲစခန်းတွင် တိုင်ကြားပြီး ၁၄ ရက်အတွင်း လူဝင်မှုရုံးတွင် ပြန်လျှောက်ပါ။ ရဲတိုင်စာ ယူသွားပါ။"
+            }
+        },
+        {
+            "id": "lost-general",
+            "links": ["emergency.html"],
+            "keys": {
+                "en": ["lost", "lose", "missing", "stolen", "lost property", "lost and found", "koban", "police box"],
+                "ne": ["हरायो", "हराएको", "चोरी", "हराएको सामान"],
+                "vi": ["mất", "đánh mất", "đồ thất lạc"],
+                "my": ["ပျောက်", "ပျောက်ဆုံး", "ပျောက်ဆုံးပစ္စည်း"],
+                "ja": ["紛失", "なくし", "落とし物", "交番"]
+            },
+            "answers": {
+                "en": "For lost items, report to the nearest police box (koban) or the station lost-and-found. Bring ID and describe what you lost.",
+                "ne": "सामान हराए नजिकको प्रहरी बाकस (koban) वा स्टेसनको हराएको सामान काउन्टरमा रिपोर्ट गर्नुहोस्। परिचयपत्र लैजानुहोस् र के हरायो बताउनुहोस्।",
+                "vi": "Nếu mất đồ, hãy báo cho đồn cảnh sát (koban) gần nhất hoặc quầy đồ thất lạc ở ga. Mang giấy tờ và mô tả món đồ đã mất.",
+                "my": "ပစ္စည်းပျောက်ပါက အနီးဆုံး ရဲကင်း (koban) သို့မဟုတ် ဘူတာ ပျောက်ဆုံးပစ္စည်းကောင်တာတွင် တိုင်ကြားပါ။ မှတ်ပုံတင် ယူသွားပြီး ပျောက်သောပစ္စည်း ဖော်ပြပါ။"
             }
         },
         {
@@ -54,10 +71,10 @@
                 "ja": ["緊急", "警察", "救急"]
             },
             "answers": {
-                "en": "Police: 110. Ambulance or fire: 119. Medical advice: #7119. Details are in the Emergency guide.",
-                "ne": "प्रहरी: ११०। एम्बुलेन्स वा दमकल: ११९। चिकित्सा सल्लाह: #7119। विवरण Emergency गाइडमा छ।",
-                "vi": "Cảnh sát: 110. Cấp cứu hoặc cứu hỏa: 119. Tư vấn y tế: #7119. Chi tiết trong hướng dẫn Emergency.",
-                "my": "ရဲ - ၁၁၀။ လူနာတင် သို့မဟုတ် မီးသတ် - ၁၁၉။ ဆေးဘက်ဆိုင်ရာ အကြံဉာဏ် - #7119။ အသေးစိတ်ကို Emergency လမ်းညွှန်တွင် ကြည့်ပါ။"
+                "en": "Police: 110. Ambulance or fire: 119. Medical advice: #7119. Foreign residents can call FRESC: 0570-011000 (weekdays). For visa/residence questions: 0570-013904. Details are in the Emergency guide.",
+                "ne": "प्रहरी: ११०। एम्बुलेन्स वा दमकल: ११९। चिकित्सा सल्लाह: #7119। विदेशी बासिन्दाले FRESC मा फोन गर्न सक्छन्: 0570-011000 (हप्ताका दिन)। भिसा/बसोबासका प्रश्नका लागि: 0570-013904। विवरण Emergency गाइडमा छ।",
+                "vi": "Cảnh sát: 110. Cấp cứu hoặc cứu hỏa: 119. Tư vấn y tế: #7119. Người nước ngoài cư trú có thể gọi FRESC: 0570-011000 (các ngày trong tuần). Câu hỏi về visa/cư trú: 0570-013904. Chi tiết trong hướng dẫn Emergency.",
+                "my": "ရဲ - ၁၁၀။ လူနာတင် သို့မဟုတ် မီးသတ် - ၁၁၉။ ဆေးဘက်ဆိုင်ရာ အကြံဉာဏ် - #7119။ နိုင်ငံခြားသား နေထိုင်သူများ FRESC သို့ ဖုန်းဆက်နိုင်ပါတယ် - 0570-011000 (တနင်္လာမှ သောကြာ)။ ဗီဇာ/နေထိုင်ခွင့်မေးခွန်းများ - 0570-013904။ အသေးစိတ်ကို Emergency လမ်းညွှန်တွင် ကြည့်ပါ။"
             }
         },
         {
@@ -81,7 +98,7 @@
             "id": "bank",
             "links": ["money.html"],
             "keys": {
-                "en": ["bank", "open account", "bank account", "salary", "remittance"],
+                "en": ["bank", "banking", "bank app", "open account", "bank account", "salary", "remittance"],
                 "ne": ["बैंक", "खाता", "तलब"],
                 "vi": ["ngân hàng", "ngan hang", "tài khoản", "tai khoan", "lương"],
                 "my": ["ဘဏ်", "အကောင့်", "လစာ"],
@@ -113,7 +130,7 @@
         },
         {
             "id": "tax",
-            "links": [],
+            "links": ["money.html"],
             "keys": {
                 "en": ["tax", "taxes", "resident tax", "income tax", "tax office", "tax return", "nenmatsu", "year-end"],
                 "ne": ["कर", "आयकर", "निवासी कर", "कर कार्यालय", "ट्याक्स"],
@@ -130,7 +147,7 @@
         },
         {
             "id": "pension",
-            "links": [],
+            "links": ["money.html"],
             "keys": {
                 "en": ["pension", "nenkin", "retirement"],
                 "ne": ["पेन्सन", "निवृत्तिभरण", "नेन्किन"],
@@ -149,11 +166,11 @@
             "id": "visa",
             "links": [],
             "keys": {
-                "en": ["visa", "renewal", "renew", "status of residence", "zairyu period", "immigration"],
-                "ne": ["भिसा", "नवीकरण", "अध्यागमन", "भिसा थप्ने"],
+                "en": ["visa", "renewal", "renew", "status of residence", "zairyu", "zairyu period", "zairyu card", "residence card", "immigration"],
+                "ne": ["भिसा", "नवीकरण", "अध्यागमन", "भिसा थप्ने", "निवास कार्ड"],
                 "vi": ["visa", "thị thực", "thi thuc", "gia hạn", "cục xuất nhập cảnh"],
                 "my": ["ဗီဇာ", "သက်တမ်းတိုး", "လူဝင်မှု"],
-                "ja": ["ビザ", "在留期間", "更新", "入国管理局"]
+                "ja": ["ビザ", "在留期間", "在留資格", "在留カード", "更新", "入国管理局"]
             },
             "answers": {
                 "en": "Apply to renew your visa at the immigration office before it expires. Bring your residence card, passport, and the application form.",
@@ -207,10 +224,10 @@
                 "ja": ["保険", "病院", "病気"]
             },
             "answers": {
-                "en": "Join a health insurance plan through your city office, school, or employer. Find a nearby clinic and ask what to bring.",
-                "ne": "सिटी कार्यालय, विद्यालय वा रोजगारदातामार्फत स्वास्थ्य बीमामा जोडिनुहोस्। नजिकको क्लिनिक खोजेर के ल्याउने सोध्नुहोस्।",
-                "vi": "Tham gia bảo hiểm y tế qua văn phòng thành phố, trường học hoặc công ty. Tìm phòng khám gần nhất và hỏi cần mang gì.",
-                "my": "မြို့ရုံး၊ ကျောင်း သို့မဟုတ် အလုပ်ရှင်မှတစ်ဆင့် ကျန်းမာရေးအာမခံတွင် ပါဝင်ပါ။ အနီးဆေးခန်း ရှာပြီး ဘာယူရမလဲ မေးပါ။"
+                "en": "Join a health insurance plan through your city office, school, or employer. Bring your My Number health insurance card (マイナ保険証) or 資格確認書 (eligibility certificate) to the clinic.",
+                "ne": "सिटी कार्यालय, विद्यालय वा रोजगारदातामार्फत स्वास्थ्य बीमामा जोडिनुहोस्। क्लिनिक जाँदा माई नम्बर स्वास्थ्य बीमा कार्ड (マイナ保険証) वा 資格確認書 (योग्यता प्रमाणपत्र) लैजानुहोस्।",
+                "vi": "Tham gia bảo hiểm y tế qua văn phòng thành phố, trường học hoặc công ty. Khi đi khám, mang thẻ bảo hiểm y tế My Number (マイナ保険証) hoặc 資格確認書 (giấy chứng nhận đủ điều kiện).",
+                "my": "မြို့ရုံး၊ ကျောင်း သို့မဟုတ် အလုပ်ရှင်မှတစ်ဆင့် ကျန်းမာရေးအာမခံတွင် ပါဝင်ပါ။ ဆေးခန်းသွားလျှင် My Number ကျန်းမာရေးအာမခံကတ် (マイナ保険証) သို့မဟုတ် 資格確認書 (အရည်အချင်းပြည့်မီရေး လက်မှတ်) ယူသွားပါ။"
             }
         },
         {
