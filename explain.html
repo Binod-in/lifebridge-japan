@@ -769,7 +769,7 @@
             saveDateMsg.appendChild(document.createTextNode(" "));
             const link = document.createElement("a");
             link.href = "important-dates.html";
-            link.textContent = t("explain.viewDates", "View Important Dates");
+            link.textContent = t("explain.viewDates", "View in Important Dates");
             saveDateMsg.appendChild(link);
         }
 
@@ -934,7 +934,7 @@
             document.getElementById("result-why").textContent = t("explain.sample.why", "Yearly resident tax bill from the city office.");
             document.getElementById("result-importance").textContent = t("explain.sample.importance", "High. Pay before the due date to avoid a late fee.");
             document.getElementById("result-next").textContent = t("explain.sample.next", "1. Check the amount and due date.\n2. Pay at a bank or convenience store.\n3. Keep the receipt.");
-            document.getElementById("result-deadline").textContent = t("explain.sample.deadline", "February 1, 2027 (4th installment)");
+            document.getElementById("result-deadline").textContent = t("explain.sample.deadline", "November 30, 2026");
             document.getElementById("result-check").textContent = t("explain.sample.check", "Your name and address. The amount and due date.");
         }
 
@@ -942,7 +942,7 @@
             fillSampleCards();
             document.getElementById("result-card").style.display = "block";
             document.getElementById("sample-tag").style.display = "";
-            lastDeadlineDate = "2027-02-01";
+            lastDeadlineDate = "2026-11-30";
             updateSaveButton();
             // No follow-up chat for the sample.
             lastExplanation = "";

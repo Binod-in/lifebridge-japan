@@ -170,7 +170,7 @@ class ExplainPageScriptTest(unittest.TestCase):
     def test_sample_button_fills_cards(self):
         self.assertIn("Try a sample notice", self.page)
         self.assertIn("fillSampleCards()", self.page)
-        self.assertIn("2027-02-01", self.page)
+        self.assertIn("2026-11-30", self.page)
         self.assertIn('id="sample-tag"', self.page)
         self.assertIn('"explain.sampleTag"', self.page)
         self.assertIn('"explain.sample.what"', self.page)
