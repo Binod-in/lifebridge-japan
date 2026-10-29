@@ -85,7 +85,81 @@ const movingJourneyTasks = [
     { id: "move-update", text: "Update your address on bank and insurance" }
 ];
 
+// Guide page बाट start.html?guide=<id> आए त्यस guide का कामहरू
+const housingJourneyTasks = [
+    { id: "housing-budget", text: "Decide your budget including initial costs" },
+    { id: "housing-visit", text: "Visit rooms and check light, noise and station walk" },
+    { id: "housing-breakdown", text: "Get a written cost breakdown from the agent" },
+    { id: "housing-contract", text: "Sign the contract and arrange utilities and internet" },
+    { id: "housing-register", text: "Register your new address within 14 days" },
+    { id: "housing-update", text: "Update your address with bank, employer and post office" }
+];
+
+const jobsJourneyTasks = [
+    { id: "jobs-permission", text: "Confirm you are allowed to work (students need permission)" },
+    { id: "jobs-search", text: "Search Hello Work and note pay, duties and station" },
+    { id: "jobs-resume", text: "Prepare your résumé and weekly availability" },
+    { id: "jobs-apply", text: "Apply and attend the interview with your residence card" },
+    { id: "jobs-conditions", text: "Read the written employment conditions before day one" },
+    { id: "jobs-bank", text: "Give the employer your bank details for salary" }
+];
+
+const documentsJourneyTasks = [
+    { id: "documents-counter", text: "Find the moving-in counter at your ward office" },
+    { id: "documents-form", text: "Fill in and submit the moving-in form" },
+    { id: "documents-card", text: "Get your new address printed on your residence card" },
+    { id: "documents-insurance", text: "Ask about health insurance and pension enrollment" },
+    { id: "documents-copies", text: "Keep copies of every receipt and letter" },
+    { id: "documents-deadlines", text: "Save your next deadlines in Important Dates" }
+];
+
+const moneyJourneyTasks = [
+    { id: "money-compare", text: "Compare banks for fees, hours and English support" },
+    { id: "money-account", text: "Open an account with ID, seal and phone number" },
+    { id: "money-auto", text: "Set up automatic payments for rent and bills" },
+    { id: "money-budget", text: "Write a monthly budget with the Money Tracker" },
+    { id: "money-folder", text: "Keep tax and pension letters in one folder" },
+    { id: "money-ask", text: "Ask your employer about anything unclear" }
+];
+
+const transportJourneyTasks = [
+    { id: "transport-route", text: "Look up your route and last train time" },
+    { id: "transport-ic", text: "Get an IC card at the station" },
+    { id: "transport-pass", text: "Ask about a commuter pass for daily travel" },
+    { id: "transport-dest", text: "Keep your destination written in Japanese" },
+    { id: "transport-app", text: "Install a route search app for backup" },
+    { id: "transport-ask", text: "Ask station staff when you are lost" }
+];
+
+const healthJourneyTasks = [
+    { id: "health-enroll", text: "Enroll in health insurance (company or ward office)" },
+    { id: "health-clinic", text: "Find a nearby clinic and check hours and languages" },
+    { id: "health-notes", text: "Write down symptoms, medicines and questions" },
+    { id: "health-visit", text: "Bring your insurance card and arrive early" },
+    { id: "health-receipts", text: "Keep receipts and follow treatment instructions" },
+    { id: "health-checkup", text: "Ask about yearly health checkups" }
+];
+
+const japaneseJourneyTasks = [
+    { id: "jap-pick", text: "Pick one phrase category and read today's phrase" },
+    { id: "jap-listen", text: "Listen and repeat until it feels natural" },
+    { id: "jap-copy", text: "Copy a phrase into your message or dictionary app" },
+    { id: "jap-save", text: "Save phrases you will reuse" },
+    { id: "jap-daily", text: "Use one new phrase in a real conversation daily" },
+    { id: "jap-review", text: "Review Saved Phrases before going out" }
+];
+
+const emergencyJourneyTasks = [
+    { id: "emerg-110", text: "Memorize 110 for police and 119 for fire/ambulance" },
+    { id: "emerg-address", text: "Keep your address written in Japanese in your wallet" },
+    { id: "emerg-card", text: "Carry your health insurance card" },
+    { id: "emerg-phone", text: "Keep your phone charged with numbers saved" },
+    { id: "emerg-7119", text: "Check if #7119 advice line works in your area" },
+    { id: "emerg-contacts", text: "Save family and school contacts for emergencies" }
+];
+
 const journeySituation = new URLSearchParams(location.search).get("situation") || "";
+const journeyGuide = new URLSearchParams(location.search).get("guide") || "";
 const journeyTaskLists = {
     "senmon-school": senmonJourneyTasks,
     "university": universityJourneyTasks,
@@ -93,8 +167,18 @@ const journeyTaskLists = {
     "worker": workerJourneyTasks,
     "moving-home": movingJourneyTasks
 };
-// new-arrival र Home page ले default (arrival) सूची पाउँछन्
-const journeyTasks = journeyTaskLists[journeySituation] || defaultJourneyTasks;
+const guideTaskLists = {
+    "housing": housingJourneyTasks,
+    "jobs": jobsJourneyTasks,
+    "documents": documentsJourneyTasks,
+    "money": moneyJourneyTasks,
+    "transport": transportJourneyTasks,
+    "health": healthJourneyTasks,
+    "japanese": japaneseJourneyTasks,
+    "emergency": emergencyJourneyTasks
+};
+// ?guide= आए guide सूची, नत्र ?situation=, नत्र default (arrival) सूची
+const journeyTasks = guideTaskLists[journeyGuide] || journeyTaskLists[journeySituation] || defaultJourneyTasks;
 
 const journeyList = document.querySelector("#journey-list");
 const progressBar = document.querySelector("#journey-progress-bar");

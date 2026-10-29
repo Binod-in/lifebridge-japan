@@ -124,21 +124,25 @@
             line-height: 1.5;
             color: #56647d;
         }
-        /* Journey: single clean checklist panel beside the picker. */
-        .journey > .journey-card {
-            min-width: 0;
-            padding: 20px;
-            background-color: #ffffff;
-            border: 1px solid #dce7f5;
-            border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(19, 35, 75, 0.08);
+        /* Money Tracker promo band (replaces the old home journey panel). */
+        .tracker-promo {
+            padding: 50px 65px;
+            background-color: #eaf4ff;
         }
-
+        .tracker-promo .detail-card {
+            max-width: 640px;
+            margin: 0 auto;
+        }
         @media (max-width: 600px) {
-            .journey > .journey-card {
-                padding: 15px;
+            .tracker-promo {
+                padding: 32px 20px;
             }
         }
+        .tracker-promo .summary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 16px 0; }
+        @media (min-width: 640px) { .tracker-promo .summary-grid { grid-template-columns: repeat(4, 1fr); } }
+        .tracker-promo .summary-box { background: #f2f6ff; border: 1px solid #d7e3ff; border-radius: 12px; padding: 14px; }
+        .tracker-promo .summary-box span { display: block; font-size: 0.85rem; color: #44506b; }
+        .tracker-promo .summary-box strong { font-size: 1.25rem; color: #12224d; }
     </style>
 </head>
 
@@ -156,7 +160,6 @@
             <!-- Main menu -->
             <nav aria-label="Main navigation" class="main-nav" data-i18n-aria-label="doc.mainNavAria">
                 <a aria-current="page" class="active" href="index.html" data-i18n="nav.home">Home</a>
-                <a href="start.html" data-i18n="nav.start">Start Here</a>
                 <a href="guide.html" data-i18n="nav.guides">Guides</a>
                 <a href="jobs.html" data-i18n="nav.jobs">Jobs</a>
                 <a href="japanese.html" data-i18n="nav.japanese">Japanese help</a>
@@ -269,41 +272,19 @@
                 </article>
             </div>
         </section>
-        <!-- My Journey -->
-        <section class="journey">
-                <div class="journey-card" id="journey-checklist">
-                    <h3 data-i18n="journey.card.title">Your Journey</h3>
-                    <p class="journey-note" data-i18n="journey.card.note">Check off the tasks you have completed.</p>
-                    <!-- Checklist को प्रगति -->
-                    <div class="journey-progress">
-                        <label for="journey-progress-bar" data-i18n="journey.progress.label">
-                            Your progress
-                        </label>
-                        <progress id="journey-progress-bar" max="100" value="0">
-                            0%
-                        </progress>
-                        <p id="journey-progress-text" role="status"></p>
-                    </div>
-                    <!-- Checklist का कामहरू main.js बाट आउँछन् -->
-                    <ul class="journey-list" id="journey-list"></ul>
+        <!-- Money Tracker -->
+        <section class="tracker-promo">
+            <article class="detail-card">
+                <h2 data-i18n="idx.trackerTitle">Track your money in Japan</h2>
+                <p data-i18n="idx.trackerDesc">See what you earned, spent and saved this month.</p>
+                <div class="summary-grid">
+                    <div class="summary-box"><span data-i18n="tracker.earned">Earned</span><strong id="home-sum-income">¥0</strong></div>
+                    <div class="summary-box"><span data-i18n="tracker.spent">Spent</span><strong id="home-sum-expense">¥0</strong></div>
+                    <div class="summary-box"><span data-i18n="tracker.saved">Saved</span><strong id="home-sum-saving">¥0</strong></div>
+                    <div class="summary-box"><span data-i18n="tracker.left">Left</span><strong id="home-sum-left">¥0</strong></div>
                 </div>
-            <!-- Choose your situation -->
-            <div class="journey-info">
-                <h2 data-i18n="journey.title">Your Japan journey, step by step.</h2>
-                <p data-i18n="journey.desc">Tell us your situation and explore a suggested checklist for your next steps.</p>
-                <form action="start.html" class="journey-form" method="get">
-                    <label for="journey-status" data-i18n="journey.form.situation">Your situation</label>
-                    <select id="journey-status" name="situation">
-                        <option value="student" data-i18n="journey.opt.student">Studying in Japan</option>
-                        <option value="new-arrival" data-i18n="journey.opt.new">Just Arrived</option>
-                        <option value="worker" data-i18n="journey.opt.work">Starting Work</option>
-                        <option value="moving-home" data-i18n="journey.opt.moving">Moving Home</option>
-                        <option value="senmon-school" data-i18n="journey.opt.senmon">Find vocational schools</option>
-                        <option value="university" data-i18n="journey.opt.university">Find a university</option>
-                    </select>
-                    <button class="btn btn-prim" type="submit" data-i18n="journey.form.submit">Show my plan →</button>
-                </form>
-            </div>
+                <a class="btn btn-prim" href="tracker.html" data-i18n="money.trackerOpen">Open Money Tracker</a>
+            </article>
         </section>
         <!-- Journey stages -->
         <section class="journey-stages">
@@ -503,6 +484,31 @@
     <script src="main.js" defer></script>
     <script src="i18n.js" defer></script>
     <script src="app.js" defer></script>
+    <script>
+        // Home Money Tracker summary — same data and math as tracker.html.
+        (function () {
+            try {
+                var entries = JSON.parse(localStorage.getItem("lb_money_entries")) || [];
+                if (!Array.isArray(entries)) entries = [];
+                var month = new Date().toISOString().slice(0, 7);
+                var income = 0, expense = 0, saving = 0;
+                for (var i = 0; i < entries.length; i++) {
+                    var e = entries[i] || {};
+                    if (typeof e.date !== "string" || e.date.slice(0, 7) !== month) continue;
+                    var amt = Number(e.amount) || 0;
+                    if (e.type === "income") income += amt;
+                    else if (e.type === "expense") expense += amt;
+                    else if (e.type === "saving") saving += amt;
+                }
+                var yen = function (n) { return "¥" + Number(n || 0).toLocaleString("ja-JP"); };
+                var set = function (id, value) { var el = document.getElementById(id); if (el) el.textContent = value; };
+                set("home-sum-income", yen(income));
+                set("home-sum-expense", yen(expense));
+                set("home-sum-saving", yen(saving));
+                set("home-sum-left", yen(income - expense - saving));
+            } catch (err) { /* keep ¥0 fallbacks */ }
+        })();
+    </script>
 </body>
 
 </html>
