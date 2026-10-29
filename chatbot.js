@@ -31,9 +31,9 @@
             "links": ["emergency.html"],
             "keys": {
                 "en": ["lost residence card", "lost my residence card", "zairyu", "zairyu card", "reissue"],
-                "ne": ["निवास कार्ड", "रेसिडेन्स"],
-                "vi": ["thẻ cư trú", "the cu tru"],
-                "my": ["နေထိုင်ခွင့်ကတ်"],
+                "ne": ["निवास कार्ड हरायो", "हराएको निवास कार्ड"],
+                "vi": ["mất thẻ cư trú", "mat the cu tru"],
+                "my": ["နေထိုင်ခွင့်ကတ် ပျောက်"],
                 "ja": ["在留カード"]
             },
             "answers": {
@@ -82,9 +82,9 @@
             "links": ["documents.html"],
             "keys": {
                 "en": ["address", "register", "registration", "move in", "moving in", "moving-in", "tennyu", "ward office", "city office", "residence card"],
-                "ne": ["ठेगाना", "दर्ता", "सर्ने", "वार्ड"],
-                "vi": ["địa chỉ", "dia chi", "đăng ký", "dang ky", "chuyển đến", "chuyển nhà"],
-                "my": ["လိပ်စာ", "မှတ်ပုံ", "ပြောင်းရွှေ့"],
+                "ne": ["ठेगाना", "दर्ता", "सर्ने", "वार्ड", "निवास कार्ड", "रेसिडेन्स"],
+                "vi": ["địa chỉ", "dia chi", "đăng ký", "dang ky", "chuyển đến", "chuyển nhà", "thẻ cư trú", "the cu tru"],
+                "my": ["လိပ်စာ", "မှတ်ပုံ", "ပြောင်းရွှေ့", "နေထိုင်ခွင့်ကတ်"],
                 "ja": ["住所", "転入"]
             },
             "answers": {
@@ -105,10 +105,10 @@
                 "ja": ["年金"]
             },
             "answers": {
-                "en": "Almost everyone must join the pension system (nenkin). Employees pay through their company; others pay at the ward office or convenience store. Students can apply for the student payment deferral (学生納付特例) at the ward office or pension office.",
-                "ne": "लगभग सबैजना पेन्सन प्रणाली (नेन्किन) मा जोडिनुपर्छ। कर्मचारीले कम्पनीमार्फत तिर्छन्; अरूले वार्ड कार्यालय वा सुविधा पसलमा तिर्छन्। विद्यार्थीले विद्यार्थी भुक्तानी स्थगन (学生納付特例) का लागि वार्ड कार्यालय वा पेन्सन कार्यालयमा आवेदन दिन सक्छन्।",
-                "vi": "Hầu như ai cũng phải tham gia bảo hiểm hưu trí (nenkin). Người đi làm đóng qua công ty; các trường hợp khác đóng ở văn phòng quận hoặc cửa hàng tiện lợi. Sinh viên có thể xin hoãn đóng theo diện sinh viên (学生納付特例) tại văn phòng quận hoặc văn phòng hưu trí.",
-                "my": "လူတိုင်းနီးပါး ပင်စင်စနစ် (နန်ကင်း) တွင် ပါဝင်ရပါတယ်။ ဝန်ထမ်းများ ကုမ္ပဏီမှတစ်ဆင့် ပေးပြီး ကျန်သူများ ရပ်ကွက်ရုံး သို့မဟုတ် ကွန်ဘိနိတွင် ပေးပါတယ်။ ကျောင်းသားများက ကျောင်းသားပေးချေမှုရွှေ့ဆိုင်းရေး (学生納付特例) ကို ရပ်ကွက်ရုံး သို့မဟုတ် ပင်စင်ရုံးတွင် လျှောက်ထားနိုင်ပါတယ်။"
+                "en": "Almost everyone must join the pension system (nenkin). Employees pay through their company; others pay at banks and other financial institutions, post offices, or convenience stores with the payment slip, or by bank transfer / Pay-easy — never at the city/ward office counter. Students can apply for the student payment deferral (学生納付特例) at the ward office or pension office.",
+                "ne": "लगभग सबैजना पेन्सन प्रणाली (नेन्किन) मा जोडिनुपर्छ। कर्मचारीले कम्पनीमार्फत तिर्छन्; अरूले भुक्तानी पर्चीले बैंक तथा वित्तीय संस्था, हुलाक वा सुविधा पसलमा तिर्छन्, वा बैंक ट्रान्सफर / Pay-easy बाट तिर्छन् — सहर/वार्ड कार्यालयको काउन्टरमा कहिल्यै तिर्न पाइँदैन। विद्यार्थीले विद्यार्थी भुक्तानी स्थगन (学生納付特例) का लागि वार्ड कार्यालय वा पेन्सन कार्यालयमा आवेदन दिन सक्छन्।",
+                "vi": "Hầu như ai cũng phải tham gia bảo hiểm hưu trí (nenkin). Người đi làm đóng qua công ty; các trường hợp khác đóng tại ngân hàng và các tổ chức tài chính khác, bưu điện hoặc cửa hàng tiện lợi bằng phiếu nộp tiền, hoặc bằng chuyển khoản ngân hàng / Pay-easy — không bao giờ đóng tại quầy văn phòng thành phố/quận. Sinh viên có thể xin hoãn đóng theo diện sinh viên (学生納付特例) tại văn phòng quận hoặc văn phòng hưu trí.",
+                "my": "လူတိုင်းနီးပါး ပင်စင်စနစ် (နန်ကင်း) တွင် ပါဝင်ရပါတယ်။ ဝန်ထမ်းများ ကုမ္ပဏီမှတစ်ဆင့် ပေးပြီး ကျန်သူများ ငွေပေးစာရွက်ဖြင့် ဘဏ်နှင့် အခြားဘဏ္ဍာရေးအဖွဲ့အစည်းများ၊ စာတိုက် သို့မဟုတ် ကွန်ဘိနိတွင် ပေးပြီး၊ သို့မဟုတ် ဘဏ်လွှဲ / Pay-easy ဖြင့် ပေးပါတယ် — မြို့/ရပ်ကွက်ရုံး ကောင်တာတွင် မပေးရပါ။ ကျောင်းသားများက ကျောင်းသားပေးချေမှုရွှေ့ဆိုင်းရေး (学生納付特例) ကို ရပ်ကွက်ရုံး သို့မဟုတ် ပင်စင်ရုံးတွင် လျှောက်ထားနိုင်ပါတယ်။"
             }
         },
         {

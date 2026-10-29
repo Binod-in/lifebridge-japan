@@ -118,6 +118,30 @@ class ChatbotIntentTest(unittest.TestCase):
         self.assertNotEqual(self._intent_id("Where do I get a residence card"),
                             "lost-residence")
 
+    def test_neutral_residence_card_nepali_is_address(self):
+        self.assertEqual(self._intent_id("निवास कार्ड भनेको के हो?"),
+                         "address")
+
+    def test_neutral_residence_card_vietnamese_is_address(self):
+        self.assertEqual(self._intent_id("thẻ cư trú là gì?"),
+                         "address")
+
+    def test_neutral_residence_card_burmese_is_address(self):
+        self.assertEqual(self._intent_id("နေထိုင်ခွင့်ကတ် ဆိုတာ ဘာလဲ?"),
+                         "address")
+
+    def test_lost_residence_card_nepali(self):
+        self.assertEqual(self._intent_id("मेरो निवास कार्ड हरायो"),
+                         "lost-residence")
+
+    def test_lost_residence_card_vietnamese(self):
+        self.assertEqual(self._intent_id("tôi bị mất thẻ cư trú"),
+                         "lost-residence")
+
+    def test_lost_residence_card_burmese(self):
+        self.assertEqual(self._intent_id("ကျွန်တော့် နေထိုင်ခွင့်ကတ် ပျောက်သွားတယ်"),
+                         "lost-residence")
+
     def test_apartment_rent_is_housing(self):
         self.assertEqual(self._intent_id("apartment rent"), "housing")
 

@@ -116,9 +116,26 @@ class ExplainPageScriptTest(unittest.TestCase):
         self.assertIn("application/json", self.page)
         self.assertIn("lbServerError", self.page)
         self.assertIn('"explain.serverError"', self.page)
-        self.assertEqual(self.page.count("await readApiJson(res)"), 2)
+        # One call site: the fetch helper reads the body before its timer stops.
+        self.assertEqual(self.page.count("await readApiJson(res)"), 1)
         # Exactly one res.json() call site, inside the guarded helper.
         self.assertEqual(self.page.count("res.json()"), 1)
+
+    def test_timeout_covers_body_read(self):
+        start = self.page.index("async function fetchWithTimeout")
+        parse_at = self.page.index("await readApiJson(res)")
+        end = self.page.index("async function readApiJson")
+        self.assertLess(start, parse_at)
+        self.assertLess(parse_at, end)
+
+    def test_scan_epoch_guard(self):
+        self.assertIn("let scanEpoch = 0;", self.page)
+        self.assertIn("scanEpoch++;", self.page)
+        self.assertIn("const myEpoch = scanEpoch;", self.page)
+        self.assertIn("if (myEpoch !== scanEpoch) return;", self.page)
+        guard_at = self.page.index("if (myEpoch !== scanEpoch) return;")
+        self.assertLess(guard_at, self.page.index('addMsg("chat-a", answer);'))
+        self.assertLess(guard_at, self.page.index("chatHistory.push"))
 
     def test_photo_always_reencoded(self):
         self.assertIn("Math.min(1, 1600 / longest)", self.page)

@@ -273,8 +273,10 @@
                 delGoal.textContent = t("tracker.deleteGoal", "Delete goal");
                 delGoal.addEventListener("click", () => {
                     if (!confirm(t("tracker.deleteGoalConfirm", "Delete this goal? Your savings entries will stay."))) return;
+                    const prevGoals = goals;
                     goals = goals.filter(x => x.id !== g.id);
                     if (!save(GOALS_KEY, goals)) {
+                        goals = prevGoals; // Storage failed, so undo the in-memory delete too.
                         document.getElementById("goal-status").textContent = t("tracker.saveFailed", "Could not save. Your browser storage may be full or blocked.");
                     }
                     render();
@@ -302,8 +304,9 @@
                 del.className = "del-btn";
                 del.textContent = t("tracker.delete", "Delete");
                 del.addEventListener("click", () => {
-                    if (!confirm(t("tracker.deleteConfirm", "Delete this entry?"))) return; entries = entries.filter(x => x.id !== e.id);
+                    if (!confirm(t("tracker.deleteConfirm", "Delete this entry?"))) return; const prevEntries = entries; entries = entries.filter(x => x.id !== e.id);
                     if (!save(ENTRIES_KEY, entries)) {
+                        entries = prevEntries; // Storage failed, so undo the in-memory delete too.
                         document.getElementById("form-status").textContent = t("tracker.saveFailed", "Could not save. Your browser storage may be full or blocked.");
                     }
                     render();
